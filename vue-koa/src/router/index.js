@@ -18,7 +18,7 @@ const routes = [
       {path: 'index', name: 'index', component: resolve => require(['views/index/index'], resolve)},
       {path: 'demo', name: 'demo', component: resolve => require(['views/demo/index'], resolve)},
       {path: 'login', name: 'login', component: resolve => require(['views/login/index'], resolve)},
-      {path: 'users', name: 'users', component: resolve => require(['views/user/index'], resolve)}
+      {path: 'users', name: 'users', component: resolve => require(['views/user/index'], resolve), meta: {auth: true}}
     ]
   }
 ];

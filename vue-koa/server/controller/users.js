@@ -7,13 +7,29 @@ const getUser = async (ctx, next) => {
     for (let row of res) {
       let user = {
         id: row.id,
-        name: row.user_name
+        name: row.user_name,
+        password: row.password
       }
       userList.push(user);
     }
     ctx.type = 'json';
     ctx.body = ctx.params.id ? userList.find(v => v.id == ctx.params.id) : userList;
   })
+}
+
+const getUserInfo = async (ctx, next) => {
+  console.log(ctx);
+  const user = ctx.user
+  if (user) {
+    ctx.body = {
+      message: '成功',
+      user
+    }
+  } else {
+    ctx.body = {
+      message: '获取用户信息失败'
+    }
+  }
 }
 
 const getDetailUser = async (ctx, next) => {
@@ -30,12 +46,10 @@ const putUser = async (ctx, next) => {
   ctx.type = 'json';
   await handleUser.putUser([user_name, password, id]).then(() => {
     ctx.body = {
-      code: 200,
       msg: '修改成功'
     }
   }).catch((error) => {
     ctx.body = {
-      code: 300,
       msg: '修改失败'
     }
   })
@@ -47,12 +61,10 @@ const addUser = async (ctx, next) => {
   ctx.type = 'json';
   await handleUser.addUser([name, password]).then(() => {
     ctx.body = {
-      code: 200,
       msg: '添加成功'
     }
   }).catch((error) => {
     ctx.body = {
-      code: 300,
       msg: '添加失败'
     }
   })
@@ -63,12 +75,10 @@ const delUser = async (ctx, next) => {
   let delId = ctx.params.id;
   await handleUser.delUser([delId]).then(() => {
     ctx.body = {
-      code: 200,
       msg: '删除成功'
     }
   }).catch((error) => {
     ctx.body = {
-      code: 300,
       msg: '删除失败'
     }
   })
@@ -76,6 +86,7 @@ const delUser = async (ctx, next) => {
 
 module.exports = {
   getUser,
+  getUserInfo,
   getDetailUser,
   addUser,
   putUser,

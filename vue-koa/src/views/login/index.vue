@@ -15,7 +15,7 @@
         <el-input type="password" v-model="formData.password" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item size="mini">
-        <el-button type="primary" @click="login('formData')">登录</el-button>
+        <el-button type="primary" @click="saveLogin('formData')">登录</el-button>
         <el-button @click="createForm('formData')">注册</el-button>
       </el-form-item>
     </el-form>
@@ -26,9 +26,18 @@
     data: () => ({
       formData: {}
     }),
-    methdos: {
-      login() {
-        this.$axios.post('/api/login', this.fromData);
+    methods: {
+      saveLogin() {
+        this.$axios.post('/api/login', this.formData).then((res) => {
+          if (res.data.success) {
+            localStorage.setItem('token', res.data.token);
+            this.$store.dispatch('getToken').then(() => {
+              this.$router.push('/users');
+            })
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
       },
       createForm() {
 

@@ -1,13 +1,16 @@
-const fs = require('fs');
-const router = require('koa-router')();
+const Router = require('koa-router');
 const loginCtrl = require('./../controller/login');
 const userCtrl = require('./../controller/users');
+const router = new Router({
+  prefix: '/api'
+});
 
-router.post('/api/login', loginCtrl.login);
-router.get('/api/user', userCtrl.getUser);
-router.get('/api/user/detail/:id', userCtrl.getDetailUser);
-router.post('/api/user/add', userCtrl.addUser);
-router.put('/api/user/put', userCtrl.putUser);
-router.delete('/api/user/del/:id', userCtrl.delUser);
+router.post('/login', loginCtrl.login);
+router.get('/userInfo', userCtrl.getUserInfo);
+router.get('/user', userCtrl.getUser);
+router.get('/user/detail/:id', userCtrl.getDetailUser);
+router.post('/user/add', userCtrl.addUser);
+router.put('/user/put', userCtrl.putUser);
+router.delete('/user/del/:id', userCtrl.delUser);
 
 module.exports = router;

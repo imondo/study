@@ -65,11 +65,14 @@
     }),
     created() {
       this.getUser();
+      this.$axios.get('/api/userInfo').then(res => {
+        console.log(res);
+      })
     },
     methods: {
       getUser() {
         this.$axios.get('/api/user').then(res => {
-          this.tableData = res.map(v => {
+          this.tableData = res.data.map(v => {
             v.isEdit = false;
             return v;
           });
@@ -84,10 +87,10 @@
       addUser() {
         this.$axios.post('/api/user/add', this.add).then(res => {
           if (res.code === 200) {
-            this.$message.success(res.msg);
+            this.$message.success(res.data.msg);
             this.getUser();
           } else {
-            this.$message.error(res.msg);
+            this.$message.error(res.data.msg);
           }
         })
       },
@@ -96,20 +99,20 @@
         let id = row.id;
         this.$axios.put('/api/user/put',{user_name, id}).then(res => {
           if (res.code === 200) {
-            this.$message.success(res.msg);
+            this.$message.success(res.data.msg);
             this.getUser();
           } else {
-            this.$message.error(res.msg);
+            this.$message.error(res.data.msg);
           }
         })
       },
       delUser(id) {
         this.$axios.delete('/api/user/del/' + id).then(res => {
           if (res.code === 200) {
-            this.$message.success(res.msg);
+            this.$message.success(res.data.msg);
             this.getUser();
           } else {
-            this.$message.error(res.msg);
+            this.$message.error(res.data.msg);
           }
         })
       }

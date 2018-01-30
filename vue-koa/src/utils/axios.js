@@ -1,5 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
+import handleToken from './token';
+import { Message } from 'element-ui';
 
 axios.default.timeout = 20000; // 响应时间
 axios.defaults.withCredentials = true; // 传递cookie
@@ -7,9 +9,12 @@ axios.defaults.withCredentials = true; // 传递cookie
 
 // 参数序列化
 axios.interceptors.request.use(config => {
-  console.log(config.url);
-  return config;
+  return handleToken.getToken().then(token => {
+    config.headers.common['Authorization'] = 'Bearer ' + token;
+    return config;
+  })
 }, error => {
+  console.log(error);
   return Promise.reject(error);
 })
 
@@ -21,6 +26,11 @@ axios.interceptors.response.use(response => {
   return response;
 }, error => {
   // 错误消息提示
+  let { status, data: { message }, config: { url } } = error.response;
+  Message({
+    type: 'error',
+    message,
+  })
   return Promise.reject(error);
 })
 
