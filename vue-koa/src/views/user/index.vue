@@ -1,6 +1,7 @@
 <template>
   <div class="index-wrapper">
     <div class="add">
+      <div>当前用户:{{name}}</div>
       <div>
         <h3>添加用户</h3>
         <el-form :inline="true" :model="add" class="demo-form-inline">
@@ -59,14 +60,14 @@
   export default {
     data: () => ({
       tableData: [],
-      name: {},
+      name: '',
       add: {},
       update: {}
     }),
     created() {
       this.getUser();
-      this.$axios.get('/api/userInfo').then(res => {
-        console.log(res);
+      this.$store.dispatch('getUser').then(res => {
+        ({name: this.name} = res);
       })
     },
     methods: {

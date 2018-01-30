@@ -17,21 +17,6 @@ const getUser = async (ctx, next) => {
   })
 }
 
-const getUserInfo = async (ctx, next) => {
-  console.log(ctx);
-  const user = ctx.user
-  if (user) {
-    ctx.body = {
-      message: '成功',
-      user
-    }
-  } else {
-    ctx.body = {
-      message: '获取用户信息失败'
-    }
-  }
-}
-
 const getDetailUser = async (ctx, next) => {
   await next();
   await handleUser.getUser().then((res) => {
@@ -86,7 +71,6 @@ const delUser = async (ctx, next) => {
 
 module.exports = {
   getUser,
-  getUserInfo,
   getDetailUser,
   addUser,
   putUser,
