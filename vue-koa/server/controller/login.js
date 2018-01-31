@@ -1,23 +1,24 @@
 const jwt = require('jsonwebtoken');
 const secret = require('./../config/secret.json');
+const bcrypt = require('bcryptjs');
 const handleUser = require('./../models/user');
 
 const login = async (ctx, next) => {
   await next();
   let data = ctx.request.body;
   await handleUser.getUser().then(res => {
-    let userInfo = res.find(v => { return v.user_name == data.name});;
+    let userInfo = res.find(v => { return v.name == data.name});
+    console.log(bcrypt);
     ctx.type = 'json';
     if (userInfo != undefined) {
-      console.log(22);
-      if (userInfo.password !== data.password) {
+      if (!bcrypt.compareSync(data.pass, userInfo.pass)) {
         ctx.body = {
           success: false,
           msg: '密码不正确'
         }
       } else {
         const userToken = {
-          name: userInfo.user_name,
+          name: userInfo.name,
           id: userInfo.id
         }
         const token = jwt.sign(userToken, secret.sign, {expiresIn: '1h'})  // 签发token

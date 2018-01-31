@@ -1,4 +1,6 @@
 const handleUser = require('./../models/user');
+const bcrypt = require('bcryptjs');
+const salt = bcrypt.genSaltSync(10);
 
 const getUser = async (ctx, next) => {
   await next();
@@ -7,8 +9,8 @@ const getUser = async (ctx, next) => {
     for (let row of res) {
       let user = {
         id: row.id,
-        name: row.user_name,
-        password: row.password
+        name: row.name,
+        moment: row.moment
       }
       userList.push(user);
     }
@@ -27,9 +29,9 @@ const getDetailUser = async (ctx, next) => {
 
 const putUser = async (ctx, next) => {
   await next();
-  let {user_name, password, id} = ctx.request.body;
+  let {name, moment, id} = ctx.request.body;
   ctx.type = 'json';
-  await handleUser.putUser([user_name, password, id]).then(() => {
+  await handleUser.putUser([name, moment, id]).then(() => {
     ctx.body = {
       msg: '修改成功'
     }
@@ -42,8 +44,9 @@ const putUser = async (ctx, next) => {
 
 const addUser = async (ctx, next) => {
   await next();
-  let {name, password} = ctx.request.body;
+  let {name, pass} = ctx.request.body;
   ctx.type = 'json';
+  const password = bcrypt.hashSync(pass, salt);
   await handleUser.addUser([name, password]).then(() => {
     ctx.body = {
       msg: '添加成功'

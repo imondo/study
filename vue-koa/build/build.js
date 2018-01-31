@@ -1,6 +1,6 @@
 'use strict';
 module.exports = {
   NODE_ENV: '"production"',
-  PUBLICPATH: '"demo"',
+  PUBLICPATH: '"vue-koa"',
   VERSION: '"1.0.0"'
 };

@@ -7,7 +7,6 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from './utils/axios';
 import store from './store/index';
-import handleToken from './utils/token';
 import { utils } from './utils/index'; // 导入公用方法
 import './styles/font-awesome.less';
 import './styles/common';
@@ -26,7 +25,7 @@ Vue.prototype.$utils = utils;
 router.beforeEach(({ meta }, from, next) => {
   store.dispatch('getToken').then(token => {
     if (meta.auth) {
-      token ? next() : next({name: 'login'})
+      token ? next() : next({name: 'login'});
     } else {
       next();
     }

@@ -9,7 +9,7 @@
             <el-input v-model="add.name" placeholder="用户名"></el-input>
           </el-form-item>
           <el-form-item label="密码" size="mini">
-            <el-input v-model="add.password" placeholder="密码"></el-input>
+            <el-input v-model="add.pass" placeholder="密码"></el-input>
           </el-form-item>
           <el-form-item size="mini">
             <el-button type="primary" @click="addUser">添加用户</el-button>
@@ -23,7 +23,7 @@
         <el-table
                 :data="tableData"
                 border
-                style="width: 362px">
+                style="width: 543px">
           <el-table-column
                   prop="name"
                   label="用户"
@@ -31,6 +31,15 @@
             <template slot-scope="scope">
               <el-input v-show="scope.row.isEdit" v-model="scope.row.name"></el-input>
               <span v-show="!scope.row.isEdit" >{{scope.row.name}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+                  prop="moment"
+                  label="时间"
+                  width="180">
+            <template slot-scope="scope">
+              <el-input v-show="scope.row.isEdit" v-model="scope.row.moment"></el-input>
+              <span v-show="!scope.row.isEdit" >{{scope.row.moment}}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -96,9 +105,7 @@
         })
       },
       updateUser(row) {
-        let user_name = row.name;
-        let id = row.id;
-        this.$axios.put('/api/user/put',{user_name, id}).then(res => {
+        this.$axios.put('/api/user/put',row).then(res => {
           if (res.code === 200) {
             this.$message.success(res.data.msg);
             this.getUser();

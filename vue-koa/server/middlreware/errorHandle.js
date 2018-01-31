@@ -3,7 +3,7 @@ module.exports = (ctx, next) => {
     if (err.status === 401) {
       ctx.status = 401;
       ctx.body = {
-        message: err.originalError ? err.originalError.message : err.message,
+        message: '权限验证失败',
       };
     } else {
       throw err;

@@ -12,11 +12,11 @@
         <el-input size="mini" v-model="formData.name"></el-input>
       </el-form-item>
       <el-form-item label="密码" size="mini">
-        <el-input type="password" v-model="formData.password" auto-complete="off"></el-input>
+        <el-input type="pass" v-model="formData.pass" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item size="mini">
         <el-button type="primary" @click="saveLogin('formData')">登录</el-button>
-        <el-button @click="createForm('formData')">注册</el-button>
+        <el-button @click="addUser('formData')">注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -39,9 +39,16 @@
           }
         })
       },
-      createForm() {
-
-      }
+      addUser() {
+        this.$axios.post('/api/user/add', this.formData).then(res => {
+          if (res.code === 200) {
+            this.$message.success(res.data.msg);
+            this.getUser();
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+      },
     }
   }
 </script>
