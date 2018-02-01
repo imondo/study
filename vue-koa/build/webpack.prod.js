@@ -28,6 +28,27 @@ module.exports = {
         ignore: ['.*']
       }
     ]),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../server'),
+        to: 'server',
+        ignore: ['.*']
+      }
+    ]),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../pm2.json'),
+        to: 'pm2.json',
+        ignore: ['.*']
+      }
+    ]),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../package.json'),
+        to: 'package.json',
+        ignore: ['.*']
+      }
+    ]),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {

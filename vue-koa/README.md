@@ -5,7 +5,13 @@
 ```
 .
 |-- build                            // webpack配置
-|-- server                           // express目录
+|-- server                           // koa目录
+|   |-- config                       // 数据库配置
+|   |-- controller                   // 控制器
+|   |-- middlreware                  // 中间件
+|   |-- models                       // 应用模型
+|   |-- routes                       // 应用接口层
+|   |-- app.js                       // 后端入口文件
 |-- src                              // 源码目录
 |   |-- assets                       // 静态文件
 |   |-- components                   // 公共组件

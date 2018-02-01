@@ -7,7 +7,7 @@ const historyApiFallback = require('koa2-history-api-fallback');
 const jwt = require('koa-jwt');
 const secret = require('./config/secret.json');
 const errorHandle = require('./middlreware/errorHandle');
-const responseFormatter = require('./middlreware/responseFormatter');
+const responseFormatter = require('./server/middlreware/responseFormatter');
 const router = require('./routes/index');
 
 const port = process.env.PORT || 3000;
