@@ -86,16 +86,7 @@ function exportsEXCL() {
       );
     var outputPos = Object.keys(tmpdata); //设置区域,比如表格从A1到D10
     this.setExlStyle(tmpdata);
-    tmpdata['!merges'] = [
-      {
-        s: { c: 1, r: 0 },
-        e: { c: 2, r: 0 }
-      },
-      {
-        s: { c: 3, r: 0 },
-        e: { c: 4, r: 0 }
-      }
-    ]; //<====合并单元格
+    this.setExlMerges(header, tmpdata);
     var tmpWB = {
       SheetNames: ['mySheet'], //保存的表标题
       Sheets: {
@@ -140,9 +131,9 @@ function exportsEXCL() {
       for (let key in header) {
         if (v[key]) {
           o[header[key]] = v[key];
-          arr.push(o);
         }
       }
+      arr.push(o);
       return arr;
     }, []);
     return filterData;
@@ -157,6 +148,28 @@ function exportsEXCL() {
       }
       data['!cols'].push({wpx: 100});
     }
+    return data;
+  }
+
+  // 合并单元格
+  this.setExlMerges = (header, data, merges= {}) => {
+    let o = {};
+    data['!merges'] = [];
+    let keys = Object.keys(header);
+    keys.forEach((key, i) => {
+      o = {
+        s: {
+          c: i,
+          r: 0
+        },
+        e: {
+          c: i,
+          r: 0
+        }
+      };
+    })
+
+    data['!merges'].push(o);
     return data;
   }
 
@@ -199,4 +212,8 @@ function exportsEXCL() {
 
 let down = new exportsEXCL();
 
-const header = { id: 'ID', name: '名称', school: '学校' };
+const header = { id: 'ID',code: '单位代码', name: '名称', school: '学校', schoolCode: '学校代码' };
+
+function downLoad() {
+  down.downloadExl({ data: jsono, header: header });
+}
