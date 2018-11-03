@@ -1,35 +1,3 @@
-var jsono = [
-  {
-    //测试数据
-    id: 1, //A
-    name: '岳麓区', //B
-    code: '43012210', //C
-    school: '岳麓区一小', //D
-    schoolCode: '4301210001' //E
-  },
-  {
-    id: 2, //A
-    name: '岳麓区', //B
-    code: '43012220', //C
-    school: '岳麓区二小', //D
-    schoolCode: '4301210002' //E
-  },
-  {
-    id: 3, //A
-    name: '岳麓区', //B
-    code: '43012230', //C
-    school: '岳麓区三小', //D
-    schoolCode: '4301210003' //E
-  },
-  {
-    id: 4, //A
-    name: '岳麓区', //B
-    code: '43012240', //C
-    school: '岳麓区四小', //D
-    schoolCode: '4301210004' //E
-  }
-];
-
 function exportsEXCL() {
   this.wopts = {
     bookType: 'xlsx',
@@ -53,14 +21,19 @@ function exportsEXCL() {
     }
   };
 
-  this.downloadExl = ({ header = {}, data = [], title = '导出数据', type }) => {
-    let _json = this.filerHeader(header, data);
-    let _tmpdata = _json[0];
+  this.downloadExl = ({ header = {}, data = [], title = '导出数据', merges = undefined, hasTotal = true, toFixed = {}, type }) => {
+    let _json = this.filerHeader(header, data, hasTotal, merges, toFixed);
+    console.log(_json);
+    let _tmpdata = merges ? _json[1] : _json[0];
     _json.unshift({});
     let keyMap = []; //获取keys
     for (let k in _tmpdata) {
       keyMap.push(k);
-      _json[0][k] = k;
+      if (merges) {
+        _json[1][k] = k;
+      } else {
+        _json[0][k] = k;
+      }
     }
     let tmpdata = []; //用来保存转换好的json
     _json
@@ -85,8 +58,9 @@ function exportsEXCL() {
           })
       );
     let outputPos = Object.keys(tmpdata); //设置区域,比如表格从A1到D10
+    this.setExlMerges(header, tmpdata, merges);
+    this.setHeaderStr(tmpdata);
     this.setExlStyle(tmpdata);
-    this.setExlMerges(header, tmpdata);
     let tmpWB = {
       SheetNames: ['mySheet'], //保存的表标题
       Sheets: {
@@ -98,8 +72,9 @@ function exportsEXCL() {
           }
         )
       }
-    };
-    tmpDown = new Blob(
+    };   
+console.log(tmpWB);
+    let tmpDown = new Blob(
       [
         this.s2ab(
           XLSX.write(
@@ -125,54 +100,158 @@ function exportsEXCL() {
   };
 
   // 转换表头数据
-  this.filerHeader = (header, data) => {
-    let filterData = data.reduce((arr, v) => {
+  this.filerHeader = (header, data, hasTotal, merges, toFixed) => {
+    if (hasTotal && data.total) {
+      data.list.unshift(data.total);
+    }
+    let _data = data.list;
+    let filterData = _data.reduce((arr, v) => {
       let o = {};
       for (let key in header) {
-        if (v[key]) {
-          o[header[key]] = v[key];
+        let keys = Object.keys(v);
+        if (keys.includes(key)) {
+          o[`${header[key]}\&${key}`] = v[key];
         }
       }
       arr.push(o);
       return arr;
     }, []);
+    if (merges) {
+      filterData.unshift(header)
+    }
     return filterData;
   };
+
+  // 去除表头空字符
+  this.setHeaderStr = (data) => {
+    let totalText = [];
+    for (let key in data) {
+      if (data[key] instanceof Object) {
+        if (data[key].v === undefined) {
+          data[key].v = '';
+        } else {
+          let isStr = typeof (data[key].v) === 'string';
+          if (isStr) {
+            let hasIndex = (data[key].v).indexOf('&');
+            if (hasIndex > -1) {
+              data[key].v = (data[key].v).substr(0, hasIndex);
+            }
+            data[key].v = (data[key].v).replace('<br>', '').replace('<br/>', '').replace(/\s+/g,'');;
+          }
+        }
+        
+        if (!data[key].t && data[key].v === '合计') {
+          totalText.push(key);
+        }
+      }
+    } 
+
+    let _mes = [];
+    for (let val of data['!merges']) {
+      if (val.s.key) {
+        delete val.s.key;
+      }
+
+      if (val.s.c !== val.e.c) {
+        _mes.push(val.e.c);
+      }
+
+    }
+
+    for (let val of data['!merges']) {
+      if (_mes.includes(val.s.c)) {
+        let index = data['!merges'].findIndex(v => val.s.c === v.s.c);
+        data['!merges'].splice(index, 1);
+      }
+    }
+
+    if (totalText.length > 1) {
+      for (let i = 1; i < totalText.length; i++) {
+        data[totalText[i]].v = '';
+      }
+    }
+
+    return data;
+  }
 
   // 设置样式
   this.setExlStyle = (data) => {   
     data['!cols'] = [];
     for (let key in data) {
       data[key].s = {
-        border: this.borderAll
+        border: this.borderAll,
+        alignment: {
+          horizontal: 'center'   //水平居中对其
+        }
       }
-      data['!cols'].push({wpx: 100});
+      data['!cols'].push({wpx: 120});
     }
     return data;
   }
 
   // 合并单元格
-  this.setExlMerges = (header, data, merges= {}) => {
+  this.setExlMerges = (header, data, merges) => {
     let o = {};
-    data['!merges'] = [];
+    let _data = [];
     let keys = Object.keys(header);
+    
     keys.forEach((key, i) => {
       o = {
         s: {
           c: i,
-          r: 0
+          r: 0,
+          key: key
         },
         e: {
           c: i,
           r: 0
         }
       };
+      _data.push(o);
     })
 
-    data['!merges'].push(o);
+    data['!merges'] = _data.map(v => {
+      if (merges) {
+        for (let val of merges) {
+          if (v.s.key === val.startColumnName) {
+            let n = v.e.c;
+            v.e.c = (n + val.numberOfColumns - 1);
+            let codeD = this.changeNum((v.s.c + 1));
+            data[`${codeD}1`] = {
+              t: "s",
+              v: val.titleText
+            }
+          }
+        }
+      }
+      return v;
+    })    
     return data;
   }
 
+  this.changeNum = (num) => {
+    var stringName = "";
+    if(num > 0) {
+      if(num >= 1 && num <= 26) {
+        stringName = String.fromCharCode(64 + parseInt(num));
+      } else {
+        while(num > 26) {
+          var count = parseInt(num/26);
+          var remainder = num%26;
+          if(remainder == 0) {
+            remainder = 26;
+            count--;
+            stringName = String.fromCharCode(64 + parseInt(remainder)) + stringName;
+          } else {
+            stringName = String.fromCharCode(64 + parseInt(remainder)) + stringName;
+          }
+          num = count;
+        }
+        stringName = String.fromCharCode(64 + parseInt(num)) + stringName;
+      }
+      return stringName;
+    }
+  }
   // 保存文件
   this.saveAs = (obj, fileName) => {
     let tmpa = document.createElement('a');
@@ -208,13 +287,23 @@ function exportsEXCL() {
       return buf;
     }
   };
+
+  // 获取表格表头
+  this.getTableList = (elm) => {
+    let colModelList = elm.jqGrid('getGridParam','colModel');
+    let _arr = colModelList.reduce((arr, v) => {
+      if (!v.hidden && v.label) {
+        let key = v.name;
+        let val = v.label;
+        let o = {key, val};
+        arr.push(o);
+      }
+      return arr;
+    }, []);
+    let _obj = {};
+    for (let val of _arr) {
+      _obj[val.key] = val.val;
+    }
+    return _obj;
+  }
 }
-
-let down = new exportsEXCL();
-
-const header = { id: 'ID',code: '单位代码', name: '名称', school: '学校', schoolCode: '学校代码' };
-
-function downLoad() {
-  down.downloadExl({ data: jsono, header: header });
-}
-
