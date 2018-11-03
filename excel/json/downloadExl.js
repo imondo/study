@@ -54,16 +54,16 @@ function exportsEXCL() {
   };
 
   this.downloadExl = ({ header = {}, data = [], title = '导出数据', type }) => {
-    var json = this.filerHeader(header, data);
-    var tmpdata = json[0];
-    json.unshift({});
-    var keyMap = []; //获取keys
-    for (var k in tmpdata) {
+    let _json = this.filerHeader(header, data);
+    let _tmpdata = _json[0];
+    _json.unshift({});
+    let keyMap = []; //获取keys
+    for (let k in _tmpdata) {
       keyMap.push(k);
-      json[0][k] = k;
+      _json[0][k] = k;
     }
-    var tmpdata = []; //用来保存转换好的json
-    json
+    let tmpdata = []; //用来保存转换好的json
+    _json
       .map((v, i) =>
         keyMap.map((k, j) =>
           Object.assign(
@@ -84,10 +84,10 @@ function exportsEXCL() {
             v: v.v
           })
       );
-    var outputPos = Object.keys(tmpdata); //设置区域,比如表格从A1到D10
+    let outputPos = Object.keys(tmpdata); //设置区域,比如表格从A1到D10
     this.setExlStyle(tmpdata);
     this.setExlMerges(header, tmpdata);
-    var tmpWB = {
+    let tmpWB = {
       SheetNames: ['mySheet'], //保存的表标题
       Sheets: {
         mySheet: Object.assign(
@@ -217,3 +217,4 @@ const header = { id: 'ID',code: '单位代码', name: '名称', school: '学校'
 function downLoad() {
   down.downloadExl({ data: jsono, header: header });
 }
+
