@@ -19,7 +19,7 @@ const data = [
  * @param {String} title 表格导出名称
  * @param {Boolean} hasTitle 是否需要表格标题
  */
-function exportsEXCL() {
+function ExportsEXCL() {
   this.downLoad = ({
     header = [],
     body = [],
@@ -58,8 +58,7 @@ function exportsEXCL() {
             {},
             {
               v: v[key[0]],
-              position:
-                String.fromCharCode(65 + j) + (i + (hasTitle ? 2 : 1))
+              position: String.fromCharCode(65 + j) + (i + (hasTitle ? 2 : 1))
             }
           );
         })
@@ -92,8 +91,6 @@ function exportsEXCL() {
       }
     };
 
-    this.setCustStyle(wb, style);
-    console.log(wb);
     this.save(wb, `${title}.xlsx`);
   };
 
@@ -105,7 +102,7 @@ function exportsEXCL() {
       }
     }
     return wb;
-  }
+  };
 
   // 设置合并表头
   this.setTableMerges = (header, wb, merge, hasTitle) => {
@@ -116,13 +113,13 @@ function exportsEXCL() {
       let o = {
         s: {
           c: 0,
-          r: 0,
+          r: 0
         },
         e: {
           c: len,
           r: 0
         }
-      }
+      };
       _merges.push(o);
     }
     return [..._merges, ...merge.header];
@@ -161,8 +158,6 @@ function exportsEXCL() {
     }
     return wb;
   };
-
-  this.setCustStyle = (wb, style) => {};
 
   this.setBorderStyle = () => {
     const borderAll = {
@@ -220,7 +215,7 @@ function exportsEXCL() {
   };
 }
 
-const doit = new exportsEXCL();
+const doit = new ExportsEXCL();
 
 function downLoad() {
   doit.downLoad({
