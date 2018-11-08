@@ -121,7 +121,7 @@ function ExportsEXCL() {
   };
 
   // 设置表头
-  this.setMergeThead = (wb, merge, hasTitle, title) => {
+  this.setMergeThead = (wb, hasTitle, title) => {
     const borderAll = {
       top: {
         style: 'thin'
