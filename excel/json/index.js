@@ -25,11 +25,7 @@ function ExportsEXCL() {
     body = [],
     title = 'excel',
     hasTitle = false,
-    style = {},
-    merge = {}
   }) => {
-    const _merge = Object.assign({ depth: 1, group: [], header: [] }, merge);
-
     const styleCell = this.setBorderStyle();
 
     const _headers = header
@@ -72,9 +68,9 @@ function ExportsEXCL() {
         {}
       );
 
-    const mergeThead = this.setMergeThead(_headers, _merge, hasTitle, title);
+    const mergeThead = this.setMergeThead(_headers, hasTitle, title);
 
-    const _merges = this.setTableMerges(header, _headers, _merge, hasTitle);
+    const _merges = this.setTableMerges(header, _headers, hasTitle);
 
     const _thead = this.setTableThead(mergeThead);
 
@@ -105,9 +101,8 @@ function ExportsEXCL() {
   };
 
   // 设置合并表头
-  this.setTableMerges = (header, wb, merge, hasTitle) => {
+  this.setTableMerges = (header, wb, hasTitle) => {
     let _merges = [];
-    console.log(wb);
     let len = header.length - 1;
     if (hasTitle) {
       let o = {
@@ -122,7 +117,7 @@ function ExportsEXCL() {
       };
       _merges.push(o);
     }
-    return [..._merges, ...merge.header];
+    return [..._merges];
   };
 
   // 设置表头
