@@ -39,6 +39,7 @@ function exportExl(dom, name = '导出数据', type) {
 			type: ''
 		}
 	);
+	console.log(tmpDown)
 	saveAs(
 		tmpDown,
 		`${name}` +
@@ -50,7 +51,11 @@ function exportExl(dom, name = '导出数据', type) {
 function saveAs(obj, fileName) {
 	let tmpa = document.createElement('a');
 	tmpa.download = fileName || '下载';
+	console.log(URL.createObjectURL)
 	tmpa.href = URL.createObjectURL(obj);
+	// 兼容火狐
+	document.body.appendChild(tmpa);
+	tmpa.style.display='none';
 	tmpa.click();
 	setTimeout(function() {
 		URL.revokeObjectURL(obj);
