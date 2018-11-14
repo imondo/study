@@ -6,7 +6,7 @@ ws.onopen = function () {
   ws.send('from client: hello');
 };
 
-ws.onhello = function (e) {
-  console.log('ws onhello');
+ws.onmessage = function (e) {
+  console.log('ws onmessage');
   console.log('from server: ' + e.data);
 };

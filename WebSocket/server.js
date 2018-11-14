@@ -7,7 +7,7 @@ const wss = new WebSocket.Server({ port: 8080 });
 wss.on('connection', function connection(ws) {
     console.log('连接建立');
 
-    ws.on('hello', (msg) => {
+    ws.on('message', (msg) => {
       console.log(`客户端: ${msg}`);
     })
 
