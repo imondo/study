@@ -14,5 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "word-text-parser": "^1.0.1"
+  },
+  "devDependencies": {
+    "node-file-oper": "^1.0.2"
   }
 }

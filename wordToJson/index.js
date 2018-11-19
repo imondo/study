@@ -1,7 +1,7 @@
 const path = require('path');
 const parser = require('word-text-parser');
 
-const write = require('./writer');
+const fileOper = require('node-file-oper');
 
 const absPath = path.join(__dirname, './api.docx');
 
@@ -14,5 +14,5 @@ parser(absPath, function(resultList){
     return arr;
   }, []);
   console.log(arrs.length);
-  write('api', arrs);
+  fileOper.write('./', 'docAPI.json', JSON.stringify({data: arrs}));
 })

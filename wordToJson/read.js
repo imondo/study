@@ -1,19 +1,18 @@
 const fs = require('fs');
 
-const readFloder = require('./readFloder');
-
-const write = require('./writer');
+const fileOper = require('node-file-oper');
 
 
 getList();
 
+const allAPI = [];
+
 function getList() {
-  var num = 0;
-  readFloder('./files', function(file) {
+  fileOper.readFloder('./files', function(file) {
     let fileData = getFilesJson(file);
     if (fileData) {
-      num++;
-      write(`${num}`, fileData);
+      allAPI.push(...fileData);
+      fileOper.write(`./JSON`, `allAPI.json`, JSON.stringify({data: allAPI}));
     }
   });
 }
@@ -25,7 +24,7 @@ function getFilesJson(file) {
   if (_arr) {
     let arr = _arr.reduce((a, v) => {
       if (v.includes('ajaxURL+"/')) {
-        let i = v.replace(/ajaxURL\+"/, '');
+        let i = v.replace(/ajaxURL\+"/, '').replace(/"(\+\S*)?/, '');
         a.push(i);
       }
       console.log(a);
