@@ -1,9 +1,12 @@
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
 import { AtList, AtListItem, AtForm, AtInput, AtButton, AtIcon } from 'taro-ui';
+import { connect } from '@tarojs/redux';
 import './index.scss';
 
-export default class Index extends Component {
+import { add, del } from './../../actions';
+
+class Index extends Component {
   /**
    * 指定config的类型声明为: Taro.Config
    *
@@ -20,33 +23,25 @@ export default class Index extends Component {
     inputVal: ''
   };
 
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
-  componentDidHide() {}
-
   addItem() {
-    let { list } = this.state; 
+    let { list } = this.state;
     const inputVal: string = this.state.inputVal;
     if (inputVal === '') return;
     list.push(inputVal);
+    add(inputVal);
     this.setState({
       list,
       inputVal: ''
-    })
+    });
   }
 
   delItem(index) {
     let { list } = this.state;
     list.splice(index, 1);
+    del(index);
     this.setState({
       list
-    })
+    });
   }
 
   inputHandler(val) {
@@ -60,10 +55,17 @@ export default class Index extends Component {
         <Text>Todo list</Text>
         <AtList>
           {list.map((v, i) => {
-            return (<View>
-              <AtListItem title={v} />
-              <AtIcon value='close' size='30' color='#F00' onClick={this.delItem.bind(this, i)}></AtIcon>
-            </View>);
+            return (
+              <View>
+                <AtListItem title={v} />
+                <AtIcon
+                  value="close"
+                  size="30"
+                  color="#F00"
+                  onClick={this.delItem.bind(this, i)}
+                />
+              </View>
+            );
           })}
         </AtList>
         <AtForm>
@@ -77,7 +79,9 @@ export default class Index extends Component {
               />
             </View>
             <View className="at-col at-col-3">
-              <AtButton type="primary" onClick={this.addItem.bind(this)}>添加</AtButton>
+              <AtButton type="primary" onClick={this.addItem.bind(this)}>
+                添加
+              </AtButton>
             </View>
           </View>
         </AtForm>
@@ -85,3 +89,17 @@ export default class Index extends Component {
     );
   }
 }
+
+export default connect(
+  ({ todos }) => ({
+    todos: todos.todos
+  }),
+  dispatch => ({
+    add(data: string) {
+      dispatch(add(data));
+    },
+    del(id: number) {
+      dispatch(del(id));
+    }
+  })
+)(Index as any);
