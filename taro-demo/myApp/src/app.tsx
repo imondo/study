@@ -35,6 +35,7 @@ class App extends Component {
       navigationBarTextStyle: 'black'
     },
     tabBar: {
+      position: 'top',
       list: [{
         pagePath: "pages/index/index",
         text: "首页"

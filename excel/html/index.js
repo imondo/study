@@ -60,7 +60,9 @@ const ExportExl = function() {
         data[key].s = {
           border: borderAll,
           alignment: {
-            horizontal: 'center' //水平居中对其
+            vertical: 'center', // 垂直居中
+            horizontal: 'center', //水平居中对其
+            wrapText: true // 自动换行
           },
           numFmt: 0
         };

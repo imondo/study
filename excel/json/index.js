@@ -146,7 +146,9 @@ function ExportsEXCL() {
             bold: true
           },
           alignment: {
-            horizontal: 'center'
+            vertical: 'center', // 垂直居中
+            horizontal: 'center', //水平居中对其
+            wrapText: true // 自动换行
           }
         }
       };
