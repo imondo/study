@@ -25,14 +25,24 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/redux/index'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
-    }
+    },
+    tabBar: {
+      list: [{
+        pagePath: "pages/index/index",
+        text: "首页"
+      }, {
+        pagePath: "pages/redux/index",
+        text: "redux"
+      }]
+    },
   }
 
   componentDidMount () {}
