@@ -1,30 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>HTML导出</title>
-</head>
-<body>
-  <div class="content-body" id="tableBox">
-    <table>
-      <thead>
-        <tr><th>测试测试测试测试测试测试测试测试测试测试</th><th>测试</th><th>测试</th><th>测试</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>12</td><td>12</td><td>12</td><td>12</td></tr>
-      </tbody>
-    </table>
-  </div> 
-  <button onclick="doit('xlsx')">导出</button>
-  <script src="//unpkg.com/xlsx/dist/shim.min.js"></script>
-  <script src="//unpkg.com/blob.js@1.0.1/Blob.js"></script>
-  <script src="//unpkg.com/file-saver@1.3.3/FileSaver.js"></script>
-  <script src="./STYLEXLSX.full.min.js"></script>
-  <script src="./xlsx.full.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML导出</title>
+  </head>
+  <body>
+    <div class="content-body" id="tableBox">
+      <table border="1">
+        <thead>
+          <tr>
+            <th rowspan="2">测试测试测试测试测试测试测试测试测试测试</th>
+            <th>测试</th>
+            <th>测试</th>
+            <th>测试</th>
+          </tr>
+          <tr>
+            <th>测试</th>
+            <th>测试</th>
+            <th>测试</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>12</td>
+            <td>12</td>
+            <td>12</td>
+            <td>12</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button onclick="doit('xlsx')">导出</button>
+    <script src="//unpkg.com/xlsx/dist/shim.min.js"></script>
+    <script src="//unpkg.com/blob.js@1.0.1/Blob.js"></script>
+    <script src="//unpkg.com/file-saver@1.3.3/FileSaver.js"></script>
+    <script src="./STYLEXLSX.full.min.js"></script>
+    <script src="./xlsx.full.min.js"></script>
 
-  <script src="./index.js"></script>
-</body>
-
+    <script src="./index.js"></script>
+  </body>
 </html>

@@ -195,13 +195,13 @@ function ExportsEXCL() {
 
   this.s2ab = s => {
     if (typeof ArrayBuffer !== 'undefined') {
-      var buf = new ArrayBuffer(s.length);
-      var view = new Uint8Array(buf);
-      for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
+      let buf = new ArrayBuffer(s.length);
+      let view = new Uint8Array(buf);
+      for (let i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
       return buf;
     } else {
-      var buf = new Array(s.length);
-      for (var i = 0; i != s.length; ++i) buf[i] = s.charCodeAt(i) & 0xff;
+      let buf = new Array(s.length);
+      for (let i = 0; i != s.length; ++i) buf[i] = s.charCodeAt(i) & 0xff;
       return buf;
     }
   };
