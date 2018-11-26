@@ -35,8 +35,8 @@ class Index extends Component<Props, object> {
   }
 
   addItem() {
-    let { add } = this.props;
-    let { newTodo } = this.state;
+    let { add }:{add: any} = this.props;
+    let { newTodo }:{newTodo: string} = this.state;
     if (!newTodo) return;
     add(newTodo);
     this.setState({
