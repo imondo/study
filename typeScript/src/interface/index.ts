@@ -22,6 +22,17 @@ interface returnVal {
   father: string;
 }
 
+// 定义数组对象
+interface Org {
+  name: string;
+  val: number;
+}
+
+let myList:Org[] = [
+  {name: 'arr org', val: 1}
+]
+console.log(`定义数组对象`, myList);
+
 // 只读属性 赋值后不可更改
 interface readVal {
   readonly onlyRead: boolean;
