@@ -36,3 +36,7 @@ const clock = new ClassType.Clock(1, 2);
 clock.setTime(new Date());
 
 const clock2 = new ClassType.Clock2();
+
+import './funcType/index';
+import './genericity/index';
+import './enumType/index';

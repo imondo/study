@@ -118,10 +118,10 @@ const employee = new Employee();
 employee.passcode = 'c';
 employee.fullName = 'Bob Smith';
 
-// 静态属性
+// 静态属性存在于类本身上面而不是类的实例上
 class Grid {
-  static origin = {x: 1, y: 5};
-  org = {a: 1};
+  static origin = { x: 1, y: 5 };
+  org = { a: 1 };
   getOrigin() {
     console.log(`static访问需要加上类名`, Grid.origin, this.org);
   }
@@ -130,21 +130,57 @@ class Grid {
 new Grid().getOrigin();
 
 // 抽象类
-abstract class AnimalDog {
-
+abstract class Car {
+  abstract start(): void;
+  abstract stop(): void;
+  move(): void {
+    console.log(`this is abstract`);
+  }
 }
+
+class Stagecoach extends Car {
+  constructor() {
+    super();
+  }
+  start(): void {
+    console.log(`马车启动`);
+  }
+  stop(): void {
+    console.log(`拉紧绳子停车`);
+  }
+}
+
+class Bus extends Car {
+  constructor() {
+    super();
+  }
+  start(): void {
+    console.log(`加油启动`);
+  }
+  stop(): void {
+    console.log(`刹车`);
+  }
+}
+
+const car1 = new Bus();
+const car2 = new Stagecoach();
+
+let cars = [car1, car2];
+cars.forEach(element => {
+  element.move();
+});
 
 // 把类当做接口使用
 class Point {
-  x:number;
-  y:number;
+  x: number;
+  y: number;
 }
 interface Point3d extends Point {
   z?: number;
 }
-const point3d:Point3d = {
+const point3d: Point3d = {
   x: 1,
-  y : 2,
+  y: 2
   // z: 3
-}
+};
 console.log(`把类当做接口使用${point3d}`);
