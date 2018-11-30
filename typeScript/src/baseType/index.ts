@@ -77,6 +77,27 @@ export class baseType {
     };
     const { x, ...o }: { x: number; y: string } = obj;
     console.log(x, o);
+
+    // 处理json和字符串
+    interface JsonModule {
+      name: string,
+      Age: number
+    }
+    let person = '{"name":"Sam","Age":"20","sex": "man"}';
+
+    let jsonConverted:JsonModule = JSON.parse(person);
+
+    const jsonParse: ((key: string, value: any) => any) | undefined = undefined;
+    let objectConverted = JSON.parse(person, jsonParse);
+    console.log(objectConverted, jsonConverted, `json处理`);
+
+    let aS:any = {
+      b: '1'
+    }
+    let bs:any = aS;
+    bs.a = '2';
+    console.log(aS, `指针问题`); 
+
   }
 }
 

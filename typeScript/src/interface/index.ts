@@ -4,7 +4,7 @@ interface obj {
   b: number;
 }
 
-let objs:obj = {
+let objs: obj = {
   a: 'ss',
   b: 11
 };
@@ -54,13 +54,15 @@ square.size = 322;
 
 // 混合类型
 interface Counter {
-  (start:number):string;
+  (start: number): string;
   names: string;
-  reset():void
+  reset(): void;
 }
 
-function getCounter():Counter {
-  let counter = <Counter>function (s:number) {console.log(`混合类型${s}`)};
+function getCounter(): Counter {
+  let counter = <Counter>function(s: number) {
+    console.log(`混合类型${s}`);
+  };
   counter.names = '混合类型';
   counter.reset = function() {};
   return counter;
@@ -73,16 +75,16 @@ console.log(counter.names);
 // 接口继承类
 class Control {
   private color: string;
-  state: number
+  state: number;
 }
 
 interface SelectControl extends Control {
-  select():void;
+  select(): void;
 }
 
 class Button extends Control implements SelectControl {
   select() {}
-  constructor(s:number) {
+  constructor(s: number) {
     super();
     this.state = s;
     console.log(`访问私有${this.state}`);
@@ -95,6 +97,13 @@ class TextBox extends Control {
 
 new Button(111);
 new TextBox();
+
+// 类型别名
+type Numbers = number;
+const num:Numbers = 11;
+type Methods = 'GET' | 'POST';
+const types:Methods = 'POST';
+console.log(num, types);
 
 export default class Person {
   getPerson(type: PersonType): returnVal {
