@@ -13,3 +13,5 @@
 * [taro学习](/taro-demo)
 
 * [typeScript学习](/typeScript)
+
+* [vue-cli 3.0多页面配置](/vue-cli3)
