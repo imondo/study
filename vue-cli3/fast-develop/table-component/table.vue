@@ -1,26 +1,47 @@
 <template>
   <div class="table">
-    <el-table row-key="date" ref="table" border :data="colModel" style="width: 100%">
-      <el-table-column type="index" label="序号" width="50"></el-table-column>
-      <el-table-column prop="date" label="日期" width="180"></el-table-column>
-      <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-      <el-table-column prop="address" label="地址"></el-table-column>
+    <el-table row-key="date" ref="table" v-bind="headerConfig" style="width: 100%">
+      <template v-for="(item) in colModel">
+        <slot v-if="item.solt" :name="item.solt" v-bind="item"></slot>
+        <component v-else-if="item.isEadit" :is="CusInput" :cell="setEditCell(item)"></component>
+        <el-table-column v-else v-bind="item"></el-table-column>
+      </template>
     </el-table>
   </div>
 </template>
 
 <script>
+import CusInput from "./input.vue";
+
 export default {
+  /* eslint-disable */
   props: {
+    headerConfig: {
+      type: Object,
+      default: () => {
+        return { data: [] };
+      }
+    },
     colModel: {
       require: true,
       type: Array,
-      default: []
+      default: () => {
+        return [];
+      }
     }
   },
   data() {
     return {
+      CusInput
     };
+  },
+  computed: {
+
+  },
+  methods: {
+    setEditCell(item) {
+      return {...item, isErrInput: false}
+    }
   }
 };
 </script>
