@@ -35,12 +35,8 @@ export default {
       CusInput
     };
   },
-  computed: {
-
-  },
-  methods: {
-
-  }
+  computed: {},
+  methods: {}
 };
 </script>
 

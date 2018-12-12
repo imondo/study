@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  /* eslint-disable */
+/* eslint-disable */
 import CusTable from "./table.vue";
 export default {
   components: {
@@ -31,7 +31,7 @@ export default {
         { label: "日期", prop: "date", formatter: timeRanges },
         { label: "地址", prop: "address", isEadit: true, regx: /^\d+$/ },
         { label: "门牌号", prop: "num", isEadit: true, regx: /^\d+$/ },
-        { label: "操作", solt: 'opt'}
+        { label: "操作", solt: "opt" }
       ],
       headerConfig: {
         data: [

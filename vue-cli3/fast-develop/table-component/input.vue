@@ -1,11 +1,11 @@
 <template>
   <el-table-column class-name="cus-table__input" v-bind="cusCell">
-    <template slot-scope="scope">
+    <template slot-scope="{row}">
       <el-input
-        v-model="scope.row[cusCell.prop]"
+        v-model="row[cusCell.prop]"
         size="mini"
-        :class="{'error-input': isErrInputVal(scope, cusCell)}"
-        @input.native="handleChange($event, cell, scope)"
+        :class="{ 'error-input': isErrInputVal(row, cusCell) }"
+        @input.native="handleChange($event, cusCell);"
         :placeholder="cusCell.placeholder || '请输入内容'"
       />
     </template>
@@ -28,20 +28,22 @@ export default {
     }
   },
   methods: {
-    isErrInputVal(scope, cell) {
-      if (!cell.regx.test(scope.row[cell.prop])) {
+    isErrInputVal(row, cell) {
+      if (!cell.regx.test(row[cell.prop])) {
         return true;
       } else {
         return false;
       }
     },
-    handleChange(e, cell, row) {
-      const { target: { value } } = e;
+    handleChange(e, cell) {
+      const {
+        target: { value }
+      } = e;
       const $offsetParent = e.target.offsetParent;
       if (!cell.regx.test(value)) {
-        this.addErrClass($offsetParent.className, 'error-input');
+        this.addErrClass($offsetParent.className, "error-input");
       } else {
-        this.removeErrClass($offsetParent.className, 'error-input');
+        this.removeErrClass($offsetParent.className, "error-input");
       }
     },
     addErrClass(e, className) {
@@ -52,7 +54,7 @@ export default {
     removeErrClass(e, className) {
       const hasClass = e.includes(className);
       if (hasClass) {
-        e = e.replace(`${className}`, '');
+        e = e.replace(`${className}`, "");
       }
     }
   }
