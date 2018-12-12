@@ -3,7 +3,7 @@
     <el-table row-key="date" ref="table" v-bind="headerConfig" style="width: 100%">
       <template v-for="(item) in colModel">
         <slot v-if="item.solt" :name="item.solt" v-bind="item"></slot>
-        <component v-else-if="item.isEadit" :is="CusInput" :cell="setEditCell(item)"></component>
+        <component v-else-if="item.isEadit" :is="CusInput" :cell="item"></component>
         <el-table-column v-else v-bind="item"></el-table-column>
       </template>
     </el-table>
@@ -39,9 +39,7 @@ export default {
 
   },
   methods: {
-    setEditCell(item) {
-      return {...item, isErrInput: false}
-    }
+
   }
 };
 </script>
