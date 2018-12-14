@@ -1,13 +1,14 @@
 <template>
   <el-table-column :header-align="`${cusCell.headerAlign || 'center'}`" class-name="cus-table__input" v-bind="cusCell">
     <template slot-scope="{row}">
-      <el-input
-        v-model="row[cusCell.prop]"
-        size="mini"
-        :class="[ hasError(row, cusCell) ? errClassName: '' ]"
-        @input.native="inputChage($event, cusCell, row);"
-        :placeholder="cusCell.placeholder || '请输入内容'"
-      />
+      <el-select size="mini" v-model="row[cusCell.prop]" :class="[ hasError(row, cusCell) ? errClassName: '' ]" :placeholder="cusCell.placeholder || '请选择'">
+        <el-option
+          v-for="item in cusCell.options"
+          :key="item[valueKey.value]"
+          :label="item[valueKey.label]"
+          :value="item[valueKey.value]">
+        </el-option>
+      </el-select>
     </template>
   </el-table-column>
 </template>
@@ -15,7 +16,7 @@
 <script>
 /* eslint-disable */
 export default {
-  name: "CusInput",
+  name: "CusSelect",
   props: {
     cell: {
       type: Object,
@@ -30,12 +31,15 @@ export default {
   },
   data() {
     return {
-      
     };
   },
   computed: {
     cusCell() {
       return this.cell;
+    },
+    valueKey() {
+      const { value = 'value', label = 'label' } = this.cell.valKey || {};
+      return { value, label };
     },
     errClassName() {
       const className = this.cell.errClassName || 'cus-table__input-error';

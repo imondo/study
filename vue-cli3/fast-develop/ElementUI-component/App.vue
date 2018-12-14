@@ -6,10 +6,11 @@
       :selectable="selectable"
       @selection-change="handleSelectionChange"
       @paging="getPaging"
+      :inputChage="inputChage"
     >
       <el-table-column slot="multi" label="区域">
-         <el-table-column label="省份" prop="province"></el-table-column>
-         <el-table-column label="城市" prop="city"></el-table-column>
+        <el-table-column label="省份" prop="province"></el-table-column>
+        <el-table-column label="城市" prop="city"></el-table-column>
       </el-table-column>
       <el-table-column slot="opt" label="操作">
         <el-button size="mini" slot-scope="{ row }" @click="getRow(row)">查看</el-button>
@@ -60,13 +61,42 @@ export default {
           headerAlign: "left"
         },
         { label: "组件", component: TextComponent },
-        { label: "操作", solt: "multi" },
+        { label: "合并", solt: "multi" },
         { label: "日期", prop: "date", formatter: timeRanges, sortable: true },
-        { label: "地址", prop: "address", isEadit: true, regx: /^\d+$/ },
+        {
+          label: "地址",
+          prop: "address",
+          isEdit: true,
+          regx: /^\d+$/,
+          editType: "select",
+          valKey: {label: 'name', value: 'val'},
+          options: [
+            {
+              val: "999",
+              name: "黄金糕"
+            },
+            {
+              val: "选项2",
+              name: "双皮奶"
+            },
+            {
+              val: "666",
+              name: "蚵仔煎"
+            },
+            {
+              val: "选项4",
+              name: "龙须面"
+            },
+            {
+              val: "选项5",
+              name: "北京烤鸭"
+            }
+          ]
+        },
         {
           label: "门牌号",
           prop: "num",
-          isEadit: true,
+          isEdit: true,
           regx: /^\d+$/,
           errClassName: "input-error"
         },
@@ -77,32 +107,32 @@ export default {
           {
             date: "2016-05-02",
             name: "张三",
-            address: "上海市普陀区金沙江路弄",
+            address: "999",
             num: 155555,
-            province: '上海',
-            city: '普陀区'            
+            province: "上海",
+            city: "普陀区"
           },
           {
             date: "2016-05-04",
             name: "李四",
-            address: "1519",
+            address: "选项4",
             num: "错误的regx",
-            province: '上海',
-            city: '普陀区'
+            province: "上海",
+            city: "普陀区"
           },
           {
             date: "2016-05-01",
             name: "王五",
             address: "上海市普陀区金沙江路 1519 弄",
-            province: '上海',
-            city: '普陀区'
+            province: "上海",
+            city: "普陀区"
           },
           {
             date: "2016-05-03",
             name: "赵六",
-            address: "1516",
-            province: '上海',
-            city: '普陀区'            
+            address: "666",
+            province: "上海",
+            city: "普陀区"
           }
         ],
         border: true,
@@ -126,8 +156,10 @@ export default {
       return row.address === "1519";
     },
     getPaging(paging) {
-      console.log(paging);
-      this.currentPage = {...paging};
+      this.currentPage = { ...paging };
+    },
+    inputChage(e, cell, row) {
+      console.log(e, cell, row);
     }
   }
 };

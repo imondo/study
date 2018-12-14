@@ -11,7 +11,7 @@
       <el-table-column v-if="hasRownum" :label="rownumName" type="index" align="center" width="50"></el-table-column>
       <template v-for="(item, index) in colModel">
         <slot v-if="item.solt" :name="item.solt" v-bind="item"></slot>
-        <component v-else-if="item.isEadit" :is="CusInput" :cell="item" :key="index"></component>
+        <component v-else-if="item.isEdit" :is="isComponent(item.editType)" :cell="item" :key="index" :inputChage="inputChage"></component>
         <component v-else-if="item.component" :is="item.component" :cell="item" :key="index"></component>      
         <el-table-column v-else v-bind="item" :header-align="`${item.headerAlign || 'center'}`" :key="index"></el-table-column>
       </template>
@@ -21,7 +21,9 @@
 </template>
 
 <script>
+/* eslint-disable */
 import CusInput from "./input.vue";
+import CusSelect from "./select.vue";
 import PagesPagination from "../pagination/index.vue";
 
 export default {
@@ -47,6 +49,10 @@ export default {
       default: () => {
         return true;
       }
+    },
+    inputChage: {
+      type: Function,
+      defalut: () => {}
     },
     paginatonConfig: {
       type: Object,
@@ -78,11 +84,16 @@ export default {
   data() {
     return {
       CusInput,
+      CusSelect,
       pageSize: this.paginatonConfig.pageSize,
       currentPage: this.paginatonConfig.currentPage,
     };
   },
   methods: {
+    isComponent(key='input') {
+      const cp = {input: this.CusInput, select: this.CusSelect};
+      return cp[key];
+    },
     handleSelectionChange(val) {
       if (this.hasSelection) {
         this.$emit("selection-change", val);
