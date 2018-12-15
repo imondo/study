@@ -5,7 +5,7 @@
         v-model="row[cusCell.prop]"
         size="mini"
         :class="[ hasError(row, cusCell) ? errClassName: '' ]"
-        @input.native="inputChage($event, cusCell, row);"
+        @input.native="editChage(row[cusCell.prop], cusCell, row, $event);"
         :placeholder="cusCell.placeholder || '请输入内容'"
       />
     </template>
@@ -23,7 +23,7 @@ export default {
         return {}
       }
     },
-    inputChage: {
+    editChage: {
       type: Function,
       defalut: () => {}
     }

@@ -1,12 +1,14 @@
 <template>
   <el-row class="app">
+    <el-button type="primmary" @click="exportExcel">导出</el-button>
     <CusTable
       :headerConfig="headerConfig"
       :colModel="colModel"
       :selectable="selectable"
       @selection-change="handleSelectionChange"
       @paging="getPaging"
-      :inputChage="inputChage"
+      :editChage="editChage"
+      ref="custable"
     >
       <el-table-column slot="multi" label="区域">
         <el-table-column label="省份" prop="province"></el-table-column>
@@ -39,13 +41,18 @@
 /* eslint-disable */
 import CusTable from "./components/table/index.vue";
 import TextComponent from "./components/component";
+import ExportExcel from './utils/exportExcel.js';
+
+const exportExcel = new ExportExcel();
+
 export default {
   components: {
     CusTable
   },
   data() {
     const timeRanges = (row, col, cell, index) => {
-      return cell;
+      console.log(row, cell, col, index)
+      return cell.val;
     };
 
     const checkSelect = row => {
@@ -105,7 +112,7 @@ export default {
       headerConfig: {
         data: [
           {
-            date: "2016-05-02",
+            date: {val: "2016-05-04"},
             name: "张三",
             address: "999",
             num: 155555,
@@ -113,7 +120,7 @@ export default {
             city: "普陀区"
           },
           {
-            date: "2016-05-04",
+            date: {val: "2016-05-01"},
             name: "李四",
             address: "选项4",
             num: "错误的regx",
@@ -121,14 +128,14 @@ export default {
             city: "普陀区"
           },
           {
-            date: "2016-05-01",
+            date: {val: "2016-05-02"},
             name: "王五",
             address: "上海市普陀区金沙江路 1519 弄",
             province: "上海",
             city: "普陀区"
           },
           {
-            date: "2016-05-03",
+            date: {val: "2016-05-03"},
             name: "赵六",
             address: "666",
             province: "上海",
@@ -158,8 +165,13 @@ export default {
     getPaging(paging) {
       this.currentPage = { ...paging };
     },
-    inputChage(e, cell, row) {
-      console.log(e, cell, row);
+    editChage(val, cell, row, e) {
+      console.log(val, cell, row, e);
+    },
+    exportExcel() {
+      const $dom = this.$refs.custable.$refs.table.$el;
+      console.log();
+      exportExcel.init({dom: $dom})
     }
   }
 };
