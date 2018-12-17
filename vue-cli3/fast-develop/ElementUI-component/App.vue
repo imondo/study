@@ -41,9 +41,9 @@
 /* eslint-disable */
 import CusTable from "./components/table/index.vue";
 import TextComponent from "./components/component";
-import ExportExcel from './utils/exportExcel.js';
+import { ExportExcelDom,  ExportExcelJson} from './utils/exportExcel.js';
 
-const exportExcel = new ExportExcel();
+const exportExcel = new ExportExcelDom();
 
 export default {
   components: {
@@ -107,6 +107,12 @@ export default {
           regx: /^\d+$/,
           errClassName: "input-error"
         },
+        {
+          label: "隐藏",
+          prop: "hide",
+          hidden: true,
+          headerAlign: 'left'
+        },
         { label: "操作", solt: "opt" }
       ],
       headerConfig: {
@@ -117,7 +123,8 @@ export default {
             address: "999",
             num: 155555,
             province: "上海",
-            city: "普陀区"
+            city: "普陀区",
+            hide: '呵呵'
           },
           {
             date: {val: "2016-05-01"},
@@ -125,21 +132,24 @@ export default {
             address: "选项4",
             num: "错误的regx",
             province: "上海",
-            city: "普陀区"
+            city: "普陀区",
+            hide: '哒哒'
           },
           {
             date: {val: "2016-05-02"},
             name: "王五",
             address: "上海市普陀区金沙江路 1519 弄",
             province: "上海",
-            city: "普陀区"
+            city: "普陀区",
+            hide: '呵呵'
           },
           {
             date: {val: "2016-05-03"},
             name: "赵六",
             address: "666",
             province: "上海",
-            city: "普陀区"
+            city: "普陀区",
+            hide: '哒哒'
           }
         ],
         border: true,
@@ -170,7 +180,6 @@ export default {
     },
     exportExcel() {
       const $dom = this.$refs.custable.$refs.table.$el;
-      console.log();
       exportExcel.init({dom: $dom})
     }
   }

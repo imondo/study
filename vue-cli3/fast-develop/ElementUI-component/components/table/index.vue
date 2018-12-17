@@ -12,8 +12,10 @@
       <template v-for="(item, index) in colModel">
         <slot v-if="item.solt" :name="item.solt" v-bind="item"></slot>
         <component v-else-if="item.isEdit" :is="isComponent(item.editType)" :cell="item" :key="index" :editChage="editChage"></component>
-        <component v-else-if="item.component" :is="item.component" :cell="item" :key="index"></component>      
-        <el-table-column v-else v-bind="item" :header-align="`${item.headerAlign || 'center'}`" :key="index"></el-table-column>
+        <component v-else-if="item.component" :is="item.component" :cell="item" :key="index"></component> 
+        <template v-else>
+          <el-table-column v-bind="item" v-if="isHidden(item)" :header-align="`${item.headerAlign || 'center'}`" :key="index"></el-table-column>          
+        </template>
       </template>
     </el-table>
     <PagesPagination v-if="isPaginaton" :paginatonConfig="paginatonConfig" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"/>
@@ -100,6 +102,11 @@ export default {
     isComponent(key='input') {
       const cp = {input: this.CusInput, select: this.CusSelect};
       return cp[key];
+    },
+    isHidden(item) {
+      const isTrue = item.hidden ? false : true;
+      console.log(isTrue);
+      return isTrue;
     },
     handleSelectionChange(val) {
       if (this.hasSelection) {
