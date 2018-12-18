@@ -1,23 +1,22 @@
 <template>
   <el-table-column
     :header-align="`${cusCell.headerAlign || 'center'}`"
-    class-name="cus-table__input"
     v-bind="cusCell"
+    class-name="cus-table__input"
   >
     <template slot-scope="{row}">
       <el-select
-        size="mini"
         v-model="row[cusCell.prop]"
         :class="[ hasError(row, cusCell) ? errClassName: '' ]"
         :placeholder="cusCell.placeholder || '请选择'"
+        size="mini"
         @change="editChage($event, cusCell, row)"
       >
         <el-option
           v-for="item in cusCell.options"
           :key="item[valueKey.value]"
           :label="item[valueKey.label]"
-          :value="item[valueKey.value]"
-        ></el-option>
+          :value="item[valueKey.value]" />
       </el-select>
     </template>
   </el-table-column>

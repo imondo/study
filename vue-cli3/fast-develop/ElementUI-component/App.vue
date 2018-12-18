@@ -1,6 +1,7 @@
 <template>
   <el-row class="app">
-    <el-button type="primmary" @click="exportExcel">导出</el-button>
+    <el-button type="primary" @click="exportExcel">导出</el-button>
+    <el-button type="primary" @click="printExcel">打印</el-button>
     <CusTable
       :headerConfig="headerConfig"
       :colModel="colModel"
@@ -39,9 +40,10 @@
 
 <script>
 /* eslint-disable */
-import CusTable from "./components/table/index.vue";
-import TextComponent from "./components/component";
-import { ExportExcelDom,  ExportExcelJson} from './utils/exportExcel.js';
+import CusTable from './components/table/index.vue';
+import TextComponent from './components/component';
+import { ExportExcelDom, ExportExcelJson } from './utils/exportExcel.js';
+import { getLodop } from './lib/LodopFuncs.js';
 
 const exportExcel = new ExportExcelDom();
 
@@ -51,7 +53,7 @@ export default {
   },
   data() {
     const timeRanges = (row, col, cell, index) => {
-      console.log(row, cell, col, index)
+      console.log(row, cell, col, index);
       return cell.val;
     };
 
@@ -62,100 +64,100 @@ export default {
     return {
       colModel: [
         {
-          label: "姓名",
-          prop: "name",
-          align: "center",
-          headerAlign: "left"
+          label: '姓名',
+          prop: 'name',
+          align: 'center',
+          headerAlign: 'left'
         },
-        { label: "组件", component: TextComponent },
-        { label: "合并", solt: "multi" },
-        { label: "日期", prop: "date", formatter: timeRanges, sortable: true },
+        { label: '组件', component: TextComponent },
+        { label: '合并', solt: 'multi' },
+        { label: '日期', prop: 'date', formatter: timeRanges, sortable: true },
         {
-          label: "地址",
-          prop: "address",
+          label: '地址',
+          prop: 'address',
           isEdit: true,
           regx: /^\d+$/,
-          editType: "select",
-          valKey: {label: 'name', value: 'val'},
+          editType: 'select',
+          valKey: { label: 'name', value: 'val' },
           options: [
             {
-              val: "999",
-              name: "黄金糕"
+              val: '999',
+              name: '黄金糕'
             },
             {
-              val: "选项2",
-              name: "双皮奶"
+              val: '选项2',
+              name: '双皮奶'
             },
             {
-              val: "666",
-              name: "蚵仔煎"
+              val: '666',
+              name: '蚵仔煎'
             },
             {
-              val: "选项4",
-              name: "龙须面"
+              val: '选项4',
+              name: '龙须面'
             },
             {
-              val: "选项5",
-              name: "北京烤鸭"
+              val: '选项5',
+              name: '北京烤鸭'
             }
           ]
         },
         {
-          label: "门牌号",
-          prop: "num",
+          label: '门牌号',
+          prop: 'num',
           isEdit: true,
           regx: /^\d+$/,
-          errClassName: "input-error"
+          errClassName: 'input-error'
         },
         {
-          label: "隐藏",
-          prop: "hide",
+          label: '隐藏',
+          prop: 'hide',
           hidden: true,
           headerAlign: 'left'
         },
-        { label: "操作", solt: "opt" }
+        { label: '操作', solt: 'opt' }
       ],
       headerConfig: {
         data: [
           {
-            date: {val: "2016-05-04"},
-            name: "张三",
-            address: "999",
+            date: { val: '2016-05-04' },
+            name: '张三',
+            address: '999',
             num: 155555,
-            province: "上海",
-            city: "普陀区",
+            province: '上海',
+            city: '普陀区',
             hide: '呵呵'
           },
           {
-            date: {val: "2016-05-01"},
-            name: "李四",
-            address: "选项4",
-            num: "错误的regx",
-            province: "上海",
-            city: "普陀区",
+            date: { val: '2016-05-01' },
+            name: '李四',
+            address: '选项4',
+            num: '错误的regx',
+            province: '上海',
+            city: '普陀区',
             hide: '哒哒'
           },
           {
-            date: {val: "2016-05-02"},
-            name: "王五",
-            address: "上海市普陀区金沙江路 1519 弄",
-            province: "上海",
-            city: "普陀区",
+            date: { val: '2016-05-02' },
+            name: '王五',
+            address: '上海市普陀区金沙江路 1519 弄',
+            province: '上海',
+            city: '普陀区',
             hide: '呵呵'
           },
           {
-            date: {val: "2016-05-03"},
-            name: "赵六",
-            address: "666",
-            province: "上海",
-            city: "普陀区",
+            date: { val: '2016-05-03' },
+            name: '赵六',
+            address: '666',
+            province: '上海',
+            city: '普陀区',
             hide: '哒哒'
           }
         ],
         border: true,
         selection: true,
         rownum: true,
-        rownumName: "行号"
+        rownumName: '行号'
       },
       seeData: {},
       multipleSelection: [],
@@ -170,7 +172,7 @@ export default {
       this.multipleSelection = [...val];
     },
     selectable(row, index) {
-      return row.address === "1519";
+      return row.address === '1519';
     },
     getPaging(paging) {
       this.currentPage = { ...paging };
@@ -180,7 +182,28 @@ export default {
     },
     exportExcel() {
       const $dom = this.$refs.custable.$refs.table.$el;
-      exportExcel.init({dom: $dom})
+      exportExcel.init({ dom: $dom });
+    },
+    printExcel() {
+      const $dom = this.$refs.custable.$refs.table.$el;
+      const LODOP = getLodop();
+      console.log($dom);
+
+      // 打印页面设置
+      LODOP.PRINT_INIT('打印');
+      LODOP.SET_PRINT_PAGESIZE(1, 0, 0, 'A4');
+
+      // 打印的表格
+      LODOP.ADD_PRINT_TABLE(170, '5%', '90%', 290, $dom.innerHTML);
+      LODOP.SET_PRINT_STYLEA(0, 'Vorient', 3);
+
+      // 打印页面
+      LODOP.ADD_PRINT_HTM(18, '5%', '90%', 400, $dom.innerHTML);
+      LODOP.SET_PRINT_STYLEA(0, 'ItemType', 1);
+      LODOP.SET_PRINT_STYLEA(0, 'LinkedItem', 1);
+
+      LODOP.NewPageA();
+      LODOP.PREVIEW();
     }
   }
 };

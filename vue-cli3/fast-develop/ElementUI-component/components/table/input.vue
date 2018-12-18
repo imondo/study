@@ -1,12 +1,16 @@
 <template>
-  <el-table-column :header-align="`${cusCell.headerAlign || 'center'}`" class-name="cus-table__input" v-bind="cusCell">
+  <el-table-column
+    :header-align="`${cusCell.headerAlign || 'center'}`"
+    v-bind="cusCell"
+    class-name="cus-table__input"
+  >
     <template slot-scope="{row}">
       <el-input
         v-model="row[cusCell.prop]"
-        size="mini"
         :class="[ hasError(row, cusCell) ? errClassName: '' ]"
-        @input.native="editChage(row[cusCell.prop], cusCell, row, $event);"
         :placeholder="cusCell.placeholder || '请输入内容'"
+        size="mini"
+        @input.native="editChage(row[cusCell.prop], cusCell, row, $event);"
       />
     </template>
   </el-table-column>
@@ -20,7 +24,7 @@ export default {
     cell: {
       type: Object,
       default: () => {
-        return {}
+        return {};
       }
     },
     editChage: {
@@ -29,16 +33,14 @@ export default {
     }
   },
   data() {
-    return {
-      
-    };
+    return {};
   },
   computed: {
     cusCell() {
       return this.cell;
     },
     errClassName() {
-      const className = this.cell.errClassName || 'cus-table__input-error';
+      const className = this.cell.errClassName || "cus-table__input-error";
       return className;
     },
     isVerify() {

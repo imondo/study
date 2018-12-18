@@ -1,34 +1,57 @@
 <template>
   <div class="pages-table">
     <el-table
-      row-key="name"
       ref="table"
       v-bind="headerConfig"
-      @selection-change="handleSelectionChange"
+      row-key="name"
       style="width: 100%"
+      @selection-change="handleSelectionChange"
     >
-      <el-table-column v-if="hasSelection" type="selection" align="center" width="50" :selectable="selectable"></el-table-column>
-      <el-table-column v-if="hasRownum" :label="rownumName" type="index" align="center" width="50"></el-table-column>
+      <el-table-column
+        v-if="hasSelection"
+        :selectable="selectable"
+        type="selection"
+        align="center"
+        width="50"
+      />
+      <el-table-column v-if="hasRownum" :label="rownumName" type="index" align="center" width="50"/>
       <template v-for="(item, index) in colModel">
-        <slot v-if="item.solt" :name="item.solt" v-bind="item"></slot>
-        <component v-else-if="item.isEdit" :is="isComponent(item.editType)" :cell="item" :key="index" :editChage="editChage"></component>
-        <component v-else-if="item.component" :is="item.component" :cell="item" :key="index"></component> 
+        <slot v-if="item.solt" :name="item.solt" v-bind="item"/>
+        <component
+          v-else-if="item.isEdit"
+          :is="isComponent(item.editType)"
+          :cell="item"
+          :key="index"
+          :edit-chage="editChage"
+        />
+        <component v-else-if="item.component" :is="item.component" :cell="item" :key="index"/>
         <template v-else>
-          <el-table-column v-bind="item" v-if="isHidden(item)" :header-align="`${item.headerAlign || 'center'}`" :key="index"></el-table-column>          
+          <el-table-column
+            v-if="isHidden(item)"
+            v-bind="item"
+            :header-align="`${item.headerAlign || 'center'}`"
+            :key="index"
+          />
         </template>
       </template>
     </el-table>
-    <PagesPagination v-if="isPaginaton" :paginatonConfig="paginatonConfig" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange"/>
+    <PagesPagination
+      v-if="isPaginaton"
+      :paginaton-config="paginatonConfig"
+      @sizeChange="handleSizeChange"
+      @currentChange="handleCurrentChange"
+    />
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import CusInput from "./input.vue";
-import CusSelect from "./select.vue";
-import PagesPagination from "../pagination/index.vue";
+import CusInput from './input.vue';
+import CusSelect from './select.vue';
+import PagesPagination from './../page-pagination/index.vue';
 
 export default {
+  name: 'PageTable',
   components: {
     PagesPagination
   },
@@ -68,8 +91,8 @@ export default {
           pageSize: 10,
           currentPage: 1,
           total: 100
-        }
-        return {...congfig};
+        };
+        return { ...congfig };
       }
     }
   },
@@ -83,7 +106,7 @@ export default {
       return isTrue;
     },
     rownumName() {
-      const name = this.headerConfig.rownumName || "序号";
+      const name = this.headerConfig.rownumName || '序号';
       return name;
     },
     isPaginaton() {
@@ -95,31 +118,36 @@ export default {
       CusInput,
       CusSelect,
       pageSize: this.paginatonConfig.pageSize,
-      currentPage: this.paginatonConfig.currentPage,
+      currentPage: this.paginatonConfig.currentPage
     };
   },
   methods: {
-    isComponent(key='input') {
-      const cp = {input: this.CusInput, select: this.CusSelect};
+    isComponent(key = 'input') {
+      const cp = { input: this.CusInput, select: this.CusSelect };
       return cp[key];
     },
     isHidden(item) {
       const isTrue = item.hidden ? false : true;
-      console.log(isTrue);
       return isTrue;
     },
     handleSelectionChange(val) {
       if (this.hasSelection) {
-        this.$emit("selection-change", val);
+        this.$emit('selection-change', val);
       }
     },
     handleSizeChange(val) {
       this.pageSize = val;
-      this.$emit('paging', {pageSize: this.pageSize, pageNo: this.currentPage});
+      this.$emit('paging', {
+        pageSize: this.pageSize,
+        pageNo: this.currentPage
+      });
     },
     handleCurrentChange(val) {
       this.currentPage = val;
-      this.$emit('paging', {pageSize: this.pageSize, pageNo: this.currentPage});
+      this.$emit('paging', {
+        pageSize: this.pageSize,
+        pageNo: this.currentPage
+      });
     }
   }
 };

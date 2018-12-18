@@ -15,3 +15,7 @@
 * [typeScript学习](/typeScript)
 
 * [vue-cli 3.0多页面配置](/vue-cli3)
+
+* [vue-component组件封装](/vue-cli3/fast-develop/ElementUI-component)
+
+* [web打印](/vue-cli3/fast-develop/ElementUI-component/utils/webPrint.js)
