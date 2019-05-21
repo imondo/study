@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: '/demo/',
+  publicPath: '/demo/',
   pages: {
     admin: {
       entry: 'src/views/admin/main.js'
@@ -9,6 +9,13 @@ module.exports = {
     }
   },
   devServer: {
-    open: true
+    open: true,
+    openPage: 'admin/',
+    historyApiFallback: {
+      rewrites: [
+        { from: /\/admin/, to: '/admin.html' },
+        { from: /\/tourist/, to: '/tourist.html' }
+      ]
+    }
   }
 };

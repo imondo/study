@@ -1,36 +1,36 @@
-import AdminLayout from './../components/layout-admin'
-import TouristLayout from './../components/layout-tourist'
-
-const loadViews = view => {
-  return () => import(`./../${view}`);
-};
-
+import AdminLayout from './../components/layout-admin/index.vue'
+import TouristLayout from './../components/layout-tourist/index.vue'
+import AdminIndex from './../views/admin/index.vue'
+import TouristIndex from '../views/tourist/index.vue'
+console.log(TouristIndex);
 const routes = [
   {
     path: '/admin',
+    name: 'admin',
     component: AdminLayout,
     redirect: {
-      name: 'index'
+      name: 'home'
     },
     children: [
       {
-        name: 'index',
-        path: 'index',
-        component: loadViews('views/admin/index.vue')
+        name: 'home',
+        path: '/index',
+        component: AdminIndex
       }
     ]
   },
   {
     path: '/tourist',
+    name: 'tourist',
     component: TouristLayout,
     redirect: {
-      name: 'index'
+      name: 'page'
     },
     children: [
       {
-        name: 'index',
-        path: 'index',
-        component: loadViews('views/tourist/index.vue')
+        name: 'page',
+        path: '/index',
+        component: TouristIndex
       }
     ]
   }

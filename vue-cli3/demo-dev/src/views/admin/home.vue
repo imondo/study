@@ -1,9 +1,6 @@
 <template>
   <div class="admin">
     admin
-    <div>
-
-    </div>
   </div>
 </template>
 
