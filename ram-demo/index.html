@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>闭包</title>
+</head>
+<body>
+  <script>
+    // 由内而外，外面可以 变量提升
+    var a = 1;
+    function fn1() {
+      console.log(a); // undefined
+      var a = 2;
+      console.log(a); // 2
+    }  
+    fn1();
+
+    // function fn2() {
+    //   var b = 1;
+    // }
+    // fn2();
+    // console.log(b);
+
+    // 闭包 保存变量
+    function fn3() {
+      var c = 3;
+      return function fn4() {
+        c++;
+        console.log(c);
+      }
+    }
+    var x = fn3();
+    x();
+    x();
+    x();
+    x();
+    function fn4() {
+      console.log(this);
+    }
+    fn4();
+    var obj = {
+      a: 1,
+      b: function() {
+        console.log(this);
+      }
+    }
+    obj.b(); // obj
+    var e = obj.b;
+    e(); // 谁运行指向谁 window
+    e.bind(obj); // 改变this指向 obj
+  </script>
+</body>
+</html>

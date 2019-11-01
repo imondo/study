@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas</title>
+  <style>
+    #canvas {
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    /**
+     * 尽量使用 HTML 的width 和 height 属性或者直接使用 JS 动态来设置宽高，不要使用 CSS 设置。
+     * 因为如果使用 CSS 来设置宽高的话，画布就会按照 300 * 150 的比例进行缩放，也就是将 300 * 150 的页面显示在 400 * 400 的容器中。
+    */
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var cx = canvas.width = 400;
+    var cy = canvas.height = 400;
+
+    console.log(context);
+
+    // context.beginPath();       // 起始一条路径，或重置当前路径
+    // context.arc(100, 100, 100, 0, Math.PI * 0.5, false);  // 创建弧/曲线
+    // context.closePath();       // 创建从当前点回到起始点的路径
+    // context.strokeStyle = 'rgb(255,255,255)'; // 设置或返回用于填充绘画的颜色、渐变或模式
+    // context.stroke();            // 填充当前绘图（路径）
+
+    context.beginPath();
+    // context.moveTo(50, 50);
+    context.lineTo(100, 100);
+    context.lineTo(111, 120);
+    context.lineTo(200, 450);
+    context.strokeStyle = '#fff';
+    context.stroke();
+  </script>
+</body>
+</html>

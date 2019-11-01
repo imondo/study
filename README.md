@@ -21,3 +21,7 @@
 * [web打印](/vue-cli3/fast-develop/ElementUI-component/utils/webPrint.js)
 
 * [node模块](/node)
+
+* [Canvas学习](/canvas)
+
+* [react学习](/react-demo)
