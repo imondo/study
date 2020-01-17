@@ -8,6 +8,7 @@ json/**
 api.json
 npm-debug.log
 yarn-error.log
+package-lock.json
 
 # Editor directories and files
 .idea
