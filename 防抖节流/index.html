@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖节流</title>
+</head>
+
+<body>
+    <button id="fd">防抖点击</button>
+    <button id="jl">节流点击</button>
+    <script>
+        /**
+         * 防抖
+         * 1. 在一段时间内函数事件只会执行一次，如果在这段时间内事件被触发执行，则从头开始计算时间
+         * 2. 每次触发事件时都取消之前的延时调用方法
+         * 3. 一次点击多次，只执行最后一次
+         * */
+        function debounce(fn, deplay = 2000) {
+            let time = null
+            return function () {
+                clearTimeout(time)
+                time = setTimeout(() => {
+                    fn.apply(this, arguments)
+                }, deplay)
+            }
+        }
+
+        document.getElementById('fd').onclick = debounce(() => {
+            console.log('防抖事件')
+        })
+
+        /**
+         * 节流
+         * 1. 事件多次执行触发，但是在一段时间只会执行一次，节流会稀释函数的执行频率
+         * 2. 每次触发事件时，判断当前是否有等待执行的延时函数 
+         * 3. 一次点击多次，只执行第一次点击
+         **/
+        function throttle(fn, deplay = 5000) {
+            let predeplay = 0
+            return function () {
+                let now = +new Date()
+                if (now - predeplay > deplay) {
+                    fn.apply(this, arguments)
+                    predeplay = now
+                }
+            }
+        }
+
+        document.getElementById('jl').onclick = throttle(e => {
+            console.log('节流事件', e)
+        })
+
+    </script>
+</body>
+
+</html>

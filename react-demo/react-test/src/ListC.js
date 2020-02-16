@@ -7,6 +7,7 @@ class ListC extends Component {
     this.state = {
       h1: "这是conponent标题"
     };
+    console.log(this.props)
   }
   
 
