@@ -1,6 +1,5 @@
 import React from 'react'
-import ReactDOM from "react-dom"
-import { HashRouter, Route, NavLink as Link, Switch, Redirect } from 'react-router-dom'
+import { Route, NavLink as Link, Switch, Redirect } from 'react-router-dom'
 
 import { Page, List, ListC, User, Hooks, ReduxPage } from './views'
 
@@ -80,7 +79,9 @@ class App extends React.Component {
             }}
           ></Route>
           <Route path="/user/reg" render={() => <div>reg</div>}></Route>
-          <Route path="/redux" component={ReduxPage}></Route>
+          <Route path="/redux" render={(routeProps) => {
+            return <ReduxPage {...routeProps} {...this.props.store} />;
+          }}></Route>
           <Redirect from="/" to="/home" exact></Redirect>
           {/* 没有写path表示匹配到所有的路径 */}
           <Route component={ErrorPage} />
@@ -90,9 +91,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <HashRouter>
-    <Route component={App} />
-  </HashRouter>,
-  document.getElementById("root")
-);
+export default App
