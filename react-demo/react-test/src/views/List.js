@@ -10,10 +10,15 @@ const List = (props) => {
   const { history } = props
 
   const goRoute = () => {
-    // history.push('/user')
-    if (history) {
-      history.go(-1)
-    }
+    history.push({
+      pathname: "/page",
+      state: {
+        id: 2
+      },
+      params: {
+        user: 'Mondo'
+      }
+    });
   }
 
   return (
@@ -21,7 +26,7 @@ const List = (props) => {
       { props.name }{ props.children }
       这是列表页
       { props.match ? JSON.stringify(props.match.params) : null }
-      <button onClick={goRoute}>跳转到用户</button>
+      <button onClick={goRoute}>跳转到Page</button>
     </h2>
   )
 }

@@ -9,8 +9,6 @@ const User = (props) => {
                 <Link to={`${match.path}/login`}>登录</Link>
                 <Link to="/user/reg">注册</Link>
             </div>
-            <Route path={`${match.path}/login`}>login</Route>
-            <Route path="/user/reg">reg</Route>
         </div>
     )
 }

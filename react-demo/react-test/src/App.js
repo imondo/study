@@ -1,15 +1,10 @@
 import React from 'react'
 import ReactDOM from "react-dom"
-import { HashRouter, Route, Link, Switch, Redirect } from 'react-router-dom'
+import { HashRouter, Route, NavLink as Link, Switch, Redirect } from 'react-router-dom'
 
-import Page from './Page'
+import { Page, List, ListC, User, Hooks } from './views'
 
-import List from './List'
-
-import ListC from './ListC'
-import User from './User'
 import ErrorPage from './components/ErrorPage'
-import Hooks from './Hooks'
 
 class App extends React.Component {
   constructor() {
@@ -31,7 +26,7 @@ class App extends React.Component {
       <div>
         <ul>
           <li>
-            <Link to="/" >首页</Link>
+            <Link to="/">首页</Link>
           </li>
           <li>
             <Link to="/page">Page</Link>
@@ -48,23 +43,41 @@ class App extends React.Component {
         </ul>
         {/* Switch表示如果匹配到了路由，就不再往下面匹配了，如果不写Switch，则一直会匹配到404页面 */}
         <Switch>
-          <Redirect from="/user" to="/page"></Redirect>
           {/* 配置路由规则  exact表示精确匹配，防止匹配其他页面的时候匹配到/，也就是首页*/}
-          <Route path="/" exact render={props => {
-            return (
-              <div>
-                <List name="这是函数组件">
-                  slot
-              </List>
-                <ListC ref={this.listF} myClick={this.myClick.bind(this)} />
-              </div>
-            )
-          }}></Route>
+          <Route
+            path="/home"
+            exact
+            render={routeProps => {
+              return (
+                <div>
+                  <List name="这是函数组件" {...routeProps}>
+                    slot
+                  </List>
+                  <ListC
+                    ref={this.listF}
+                    {...routeProps}
+                    myClick={this.myClick.bind(this)}
+                  />
+                </div>
+              );
+            }}
+          ></Route>
           <Route path="/page" component={Page}></Route>
-          <Route path="/user" component={User}></Route>
+          <Route path="/user" exact component={User}></Route>
           {/* 必须使用 component 来指定组件，不然访问不到match */}
           <Route path="/list/:id/:user" component={List}></Route>
           <Route path="/hooks" component={Hooks}></Route>
+          {/* 登录 */}
+          <Route
+            path={`/user/login`}
+            render={routeProps => {
+              return (
+                <List name="这是render渲染" user="mondo" {...routeProps} />
+              );
+            }}
+          ></Route>
+          <Route path="/user/reg" render={() => <div>reg</div>}></Route>
+          <Redirect from="/" to="/home"></Redirect>
           {/* 没有写path表示匹配到所有的路径 */}
           <Route component={ErrorPage} />
         </Switch>
@@ -75,7 +88,7 @@ class App extends React.Component {
 
 ReactDOM.render(
   <HashRouter>
-    <App />
+    <Route component={App} />
   </HashRouter>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);
