@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from "react-dom"
 import { HashRouter, Route, NavLink as Link, Switch, Redirect } from 'react-router-dom'
 
-import { Page, List, ListC, User, Hooks } from './views'
+import { Page, List, ListC, User, Hooks, ReduxPage } from './views'
 
 import ErrorPage from './components/ErrorPage'
 
@@ -39,6 +39,9 @@ class App extends React.Component {
           </li>
           <li>
             <Link to="/hooks">hooks</Link>
+          </li>
+          <li>
+            <Link to="/redux">redux</Link>
           </li>
         </ul>
         {/* Switch表示如果匹配到了路由，就不再往下面匹配了，如果不写Switch，则一直会匹配到404页面 */}
@@ -77,7 +80,8 @@ class App extends React.Component {
             }}
           ></Route>
           <Route path="/user/reg" render={() => <div>reg</div>}></Route>
-          <Redirect from="/" to="/home"></Redirect>
+          <Route path="/redux" component={ReduxPage}></Route>
+          <Redirect from="/" to="/home" exact></Redirect>
           {/* 没有写path表示匹配到所有的路径 */}
           <Route component={ErrorPage} />
         </Switch>
