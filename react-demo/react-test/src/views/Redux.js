@@ -12,7 +12,6 @@ const ReduxPage = props => {
     const add = (id) => {
         props.dispatch(insert(id))
         setBooks(props.getState().books)
-        // props.subscribe(() => {})
     }
     return (
       <div>
