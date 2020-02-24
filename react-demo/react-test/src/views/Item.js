@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
+
+import { AppContext } from './../store/common-context'
 
 const ItemShow = (props) => {
   if (props.isShow) {
@@ -7,10 +9,11 @@ const ItemShow = (props) => {
   return null
 }
 
-
 class Item extends Component {
+
   constructor() {
     super(...arguments);
+    console.log(this.context, 1)
   }
 
   // 生命周期
@@ -47,5 +50,7 @@ class Item extends Component {
     );
   }
 }
+
+Item.contextType = AppContext
 
 export default Item;

@@ -5,10 +5,17 @@ import { Page, List, ListC, User, Hooks, ReduxPage } from './views'
 
 import ErrorPage from './components/ErrorPage'
 
+import { AppContext, staticStore } from './store/common-context'
+
 class App extends React.Component {
+  static contextType = AppContext
   constructor() {
     super(...arguments);
     this.listF = React.createRef();
+    this.state = {
+      staticStore
+    }
+    console.log(this.context)
   }
 
   myClick(val) { // 可以通过子组件上函数访问子组件中的内容
@@ -22,7 +29,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <AppContext.Provider value={staticStore}>
         <ul>
           <li>
             <Link to="/">首页</Link>
@@ -35,6 +42,7 @@ class App extends React.Component {
           </li>
           <li>
             <Link to="/list/1/4">列表</Link>
+            <Link to="/lists">列表s</Link>
           </li>
           <li>
             <Link to="/hooks">hooks</Link>
@@ -68,6 +76,7 @@ class App extends React.Component {
           <Route path="/user" exact component={User}></Route>
           {/* 必须使用 component 来指定组件，不然访问不到match */}
           <Route path="/list/:id/:user" component={List}></Route>
+          <Route path="/lists" component={ListC}></Route>
           <Route path="/hooks" component={Hooks}></Route>
           {/* 登录 */}
           <Route
@@ -80,13 +89,13 @@ class App extends React.Component {
           ></Route>
           <Route path="/user/reg" render={() => <div>reg</div>}></Route>
           <Route path="/redux" render={(routeProps) => {
-            return <ReduxPage {...routeProps} {...this.props.store} />;
+            return <ReduxPage {...routeProps}/>;
           }}></Route>
           <Redirect from="/" to="/home" exact></Redirect>
           {/* 没有写path表示匹配到所有的路径 */}
           <Route component={ErrorPage} />
         </Switch>
-      </div>
+      </AppContext.Provider>
     );
   }
 }

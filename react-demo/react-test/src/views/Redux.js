@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { insert } from './../store/actions/books'
 
 /**
@@ -7,13 +8,8 @@ import { insert } from './../store/actions/books'
 
 const ReduxPage = props => {
     console.log(props)
-    const state = props.getState().books
-    const [books, setBooks] = useState(state)
-    const add = (id) => {
-        props.dispatch(insert(id))
-        setBooks(props.getState().books)
-    }
-    return (
+    const [books] = useState(props.books)
+     return (
       <div>
         <table border="1" cellSpacing="0">
           <thead>
@@ -33,7 +29,7 @@ const ReduxPage = props => {
                   <td>{book.author}</td>
                   <td>
                     {book.star}
-                    <button onClick={add.bind(this, book.id)}>+</button>
+                    <button onClick={props.add.bind(this, book.id)}>+</button>
                   </td>
                 </tr>
               );
@@ -44,4 +40,19 @@ const ReduxPage = props => {
     );
 };
 
-export default ReduxPage
+// 重新定义数据挂在到当前组件props上
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    books: state.books
+  }
+}
+
+// 重新定义方法注入到当前组件props上 
+const mapDispatchToProps = dispatch => {
+  return {
+    add: id => dispatch(insert(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReduxPage)

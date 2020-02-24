@@ -54,7 +54,7 @@ class ListC extends Component {
         <h2 onClick={e => this.handleClick("呵呵")}>
           {this.state.h1}
         </h2>
-        <Item />
+        <Item isShow/>
       </div>
     );
   }
