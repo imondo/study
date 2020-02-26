@@ -29,7 +29,7 @@ const ReduxPage = props => {
                   <td>{book.author}</td>
                   <td>
                     {book.star}
-                    <button onClick={props.add.bind(this, book.id)}>+</button>
+                    <button onClick={props.insert.bind(this, book.id)}>+</button>
                   </td>
                 </tr>
               );
@@ -55,4 +55,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReduxPage)
+export default connect(mapStateToProps, { insert })(ReduxPage)

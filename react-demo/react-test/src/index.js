@@ -1,7 +1,7 @@
-import React from "react"
+import React, { Suspense } from "react"
 import ReactDOM from "react-dom"
 import {
-  HashRouter,
+  HashRouter as Router,
   Route
 } from "react-router-dom"
 import { Provider } from 'react-redux'
@@ -11,9 +11,11 @@ import store from "./store";
 
 ReactDOM.render(
   <Provider store={store}>
-    <HashRouter>
-      <Route render={() => <App /> }/>
-    </HashRouter>
+    <Router>
+      <Suspense fallback={<div>Loading....</div>}>
+        <Route render={() => <App /> }/>
+      </Suspense>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );
