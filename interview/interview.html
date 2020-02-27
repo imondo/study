@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>interview 记录</title>
+    <style lang="less">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+            min-height: 100%;
+        }
+        .parent_bg {
+            background-color: bisque;
+        }
+        .child_bg {
+            background-color: red; 
+            text-align: center;
+            color: #fff;
+        }
+        /* 绝对定位与 margin */
+        .parent_0 {
+            position: relative;
+            height: 500px;
+        }
+        .child_0 {
+            position: absolute;   
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            margin-left: -100px;
+            margin-top: -100px;
+        }
+        /* 绝对定位与 transform */
+        .parent_1 {
+            position: relative;
+            height: 500px;
+        }
+        .child_1 {
+            position: absolute;   
+            top: 50%;
+            left: 50%;
+            width: 30%;
+            height: 50%;
+            transform: translate3d(-50%, -50%, 0);
+        }
+        /* 绝对定位的另类用法 弹出框，遮罩 */
+        .parent_2 {
+            position: relative;
+            min-height: 100%;
+        }
+        .child_2 {
+           position: absolute;
+           width: 50%;
+           height: 30%;
+           top: 0;
+           left: 0;
+           right: 0;
+           bottom: 0;
+           margin: auto;
+        }
+        /* flex */
+        .parent_3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+            background-color: bisque;
+        }
+        .child_3 {
+            width: 200px;
+            height: 330px;
+            background-color: red; 
+        }
+
+        /* inline-block */
+        .parent_4 {
+            height: 20px;
+            font-size:0; /* 避免inline-block之间产生间隔 */
+            text-align: center;
+        }
+        .parent_4::after {
+            content: "";
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .child_4 {
+            display: inline-block;
+            width: 200px;
+            height: 10px;
+            vertical-align: middle;
+        }
+
+        /* table 与 table-cell */
+        .parent_5 {
+            display: table;
+            width: 100%;
+            height: 500px;
+        }
+        .child_5 {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .child_5 .content {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="parent_bg parent_1">
+        <div class="child_bg child_1">垂直居中</div>
+    </div> -->
+    <div class="parent_bg parent_5">
+        <div class="child_5">
+            <div class="child_bg content">垂直居中</div>
+        </div>
+    </div>
+    <!-- <script src="./index.js"></script> -->
+    <script src="./prototype.js"></script>
+</body>
+</html>

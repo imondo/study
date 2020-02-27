@@ -79,3 +79,32 @@ Object.getPrototypeOf(cd)
 cd.show() // 'cd'
 
 parent.show() // 'parent'
+
+// 怎么使函数a 继承 b 的所有方法
+function a() {}
+function b() { 
+    this.show = function() {
+        console.log('b 的所有方法')
+    }
+}
+b.render = function() {
+    console.log('b view method')
+}
+a.prototype = new b()
+console.dir(a)
+const c = new a()
+c.show()
+
+const cc = function() {
+    console.log('函数表达式自调用')
+}()
+
+// 注意分号;的运用
+;(function(){
+    console.log('函数声明自调用')
+})()
+
+var bbb;
+bbb = 1
+function bbb() {}
+console.log(typeof bbb)
