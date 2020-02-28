@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原型</title>
+</head>
+<body>
+  <div class="btn btn-success"></div>
+  <div class="btn"></div>
+  <div class="btn"></div>
+  <div class="btn"></div>
+  <script>
+    console.log({})
+    // console.log({}.__proto__) // 对象原型 通过 __proto__ 访问
+    // protptype 用于实例对象使用，__proto__ 用于对象使用
+    function User() {}
+    // 直接在函数原型上新增的一个方法，所有的声明的函数都会存在 show 方法
+    User.__proto__.show = function() {
+      console.log('User show')
+    }
+    // User.__proto__ 指向函数构造函数的原型
+    // console.dir(User.__proto__ === Function.prototype)
+    User.show()
+    function aa() {}
+    aa.show()
+    User.prototype.view = function() {
+      console.log('User 原型方法')
+    }
+    const us = new User() // new 一个实例 他是一个对象
+    // console.log(us)    
+    // us.view()
+    // console.dir(us.__proto__.constructor.__proto__ === Function.prototype); // true
+    // 在 us 的原型链上并没有 show 方法 需要沿着 __proto__ 上查找的属性才能被访问
+    // us.show() // 在实例上并没有函数原型
+    // console.dir(Object.prototype)
+
+    // constructor 存在 prototype 原型中，用于指向构造函数的引用
+    const us2 = new us.constructor()
+    // us2.view()
+
+    // 使用 setPrototypeOf getPrototypeOf 操作原型
+    const o1 = { name: 'Mondo' }
+    const o2 = { value: 'test' }
+
+    Object.setPrototypeOf(o1, o2)
+    console.log(o1, o1.value)
+    console.log(Object.getPrototypeOf(o1))
+
+    // 通过引用类型的原型，继承另一个引用类型的属性和方法
+
+    // 属性遍历
+    const o3 = { name: 'mondo' }
+    const o4 = { val: 'imondo.cn' }
+    Object.setPrototypeOf(o3, o4)
+    console.log( 'val' in o3) // in 方法可以遍历对象原型上的属性
+    console.log(o3.hasOwnProperty('name')) // hasOwnProperty 判断对象是否存在属性
+
+    // 使用 call, apply 借用原型方法完成功能
+    const o5 = { lessons: { js: 100, php: 78, node: 78, linux: 125 } }
+    console.log(Math.max.apply(o5, Object.values(o5.lessons)))
+
+    const btns = document.querySelectorAll('.btn')
+    // 利用数组原型上的 filer 方法过滤
+    // Array.prototype.filter.call(btns, item => {
+    //   console.log(item);
+    // })
+
+    // this 不受原型影响，它指向调用属性时使用的对象
+
+    // Object.create 创建对象
+    let x1 = {
+      show() {
+        return this.name
+      }
+    }
+    const o6 = Object.create(x1, {
+      name: {
+        value: 'Mondo'
+      }
+    }) // 第一个参数 是设置 创建对象的原型指向, 第二个参数设置对象的属性
+    console.log(o6)
+    o6.name = 'test' // 优先级不如 Object.create 的属性
+    console.log(o6.show()) // Mondo
+
+    /**
+     * __proto__ 是一个非标准属性，内部使用 getter setter 控制值
+     * 建议使用 Object.setPrototypeOf Object.getPrototypeOf 替代 __proto__
+     **/
+
+    const o7 = { x: 1 }
+    o7.__proto__ = "imondo.cn" // 并不会改变属性值 内部被 get set 劫持
+    console.log(o7) // { x: 1 }
+
+    const o8 = Object.create(null);
+    console.log(o8) // {} 是没有 __proto__ 原型对象的
+    o8.__proto__ = "imondo.cn" // 由于没有原型对象 可以被修改
+
+    function Use() {}
+    const lili = new Use()
+    const hanlei = new Use()
+    lili.name = "next"
+
+    lili.__proto__.name = "nuxt"
+    console.dir(Use.prototype)
+    console.log(hanlei.name) // nuxt
+
+    /**
+     * 总结
+     * 1. prototype 是构造函数的原型属性
+     * 2. __proto__ 是对象的原型属性，通过它来访问对象原型
+     * 3. Object.create 创建对象指定原型
+     * 4. Object.setPrototypeOf 设置原型 Object.getPrototypeOf 获取对象原型
+    */
+
+    // 对象的原型
+    function Car() {}
+    Car.prototype.name = '汽车'
+    const bmw = new Car()
+    // console.log(bmw.name); // 汽车
+    // console.dir(Car.prototype)
+    Car.prototype = {
+      constructor: Car, // 需要指定构造函数原型属性
+      name: '修改汽车'
+    }
+    const qz = new Car()
+    // console.log(qz.name) // 修改汽车
+    // console.dir(Car.prototype)
+
+    /* 使用构造函数时，函数尽量不要在构造函数类定义，可以通过prototype原型定义 */
+    function Person() {}
+    Person.prototype.getName = function() {
+      console.log('Person ' + this.name);
+    }
+
+    function Son(name) {
+      this.name = name;
+    }
+    const lis = new Son('lis')
+    console.log(Son.prototype);
+    
+    /**
+     * 改变 Son 原型指向 Person实例对象 这样设置 Son 构造函数属性 constructor 缺失 
+     * 完全重写构建函数原型，只对后面应用对象有效, 对前面定义的实例对象是无效的
+     **/
+    // Son.prototype = new Person(); // constructor 缺失
+    // Son.prototype.constructor = Son
+
+    Son.prototype = Object.create(Person.prototype)
+    Son.prototype.constructor = Son;
+    console.dir(Son.prototype) // constructor 缺失
+
+    Son.prototype.setName = function(name) {
+      this.name = name
+      console.log('Son setName method ' + this.name)
+    }
+
+    Son.prototype.getName = function() {
+      Person.prototype.getName.call(this) // 可以调用 父级方法 重写
+      console.log('Son ' + this.name);
+    }
+
+    const lucy = new Son('lucy')
+    // lucy.getName() // lucy
+    // lucy.setName('lili') // lili
+
+    const lei = new Son('lei')
+    // lei.getName() // lei
+    // lei.setName('lucy') // lucy
+
+    // lis.setName('lis sli') // lis not function 由于 Son 原型被重写，constructor 缺失
+    
+    lei.getName(); // Son lei
+
+    // 继承就是为了复用代码，本质就是将原型指向另一个对象
+
+  </script>
+</body>
+</html>

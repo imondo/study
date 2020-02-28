@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>继承</title>
+</head>
+<body>
+  <script>
+    function User(name) {
+      this.name = name
+      console.log(this)
+    }
+    User.prototype.getName = function() {
+      console.log(this.name)
+    }
+
+    function Admin(...args) {
+      User.call(this, ...args)
+    }
+
+    Admin.prototype = Object.create(User.prototype)
+
+    const us = new Admin('imondo')
+  
+    us.getName()
+
+    // 原型工厂
+    // 使用 extend 工厂函数来继承父类
+    function extend(sub, sup) {
+      sub.prototype = Object.create(sup.prototype)
+      sub.prototype.construtor = sub
+    } 
+
+    function Aaa(){}
+    function Abb(){}
+    function Acc(){}
+
+    extend(Abb, Aaa) // b 继承 a
+    extend(Acc, Abb) // c 继承 b
+
+    Aaa.prototype.rules = function(){
+      console.log('a method')
+    }
+
+    const bbb = new Abb()
+    bbb.rules()
+
+    const ccc = new Acc()
+    ccc.rules()
+
+    console.log(ccc instanceof Aaa) // true
+    
+  </script>
+</body>
+</html>
