@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>闭包</title>
+</head>
+<body>
+  <script>
+    function a() {
+      let b = 0
+      return function() {
+        b++
+        console.log(b)
+      }
+    }
+    const f = a() // 在定义时产生闭包
+    f() // 1
+    f() // 2
+
+    var data = [];
+
+    for (var i = 0; i < 3; i++) {
+      data[i] = (function (num) {
+       return function() {
+        console.log(num);
+       }
+      })(i);
+    }
+    data[0]()
+    data[1]()
+    data[2]()
+  </script>
+</body>
+</html>
