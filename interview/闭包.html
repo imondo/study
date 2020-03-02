@@ -6,30 +6,109 @@
   <title>闭包</title>
 </head>
 <body>
+  <button>按钮1</button>
+  <button>按钮2</button>
   <script>
-    function a() {
-      let b = 0
-      return function() {
-        b++
-        console.log(b)
+    const btns = document.querySelectorAll('button')
+    for (let i = 0; i < btns.length; i++) {
+      btns[i].onclick = function() {
+        console.log(i);
       }
     }
-    const f = a() // 在定义时产生闭包
-    f() // 1
-    f() // 2
+    // function a() {
+    //   let b = 0
+    //   return function() {
+    //     b++
+    //     console.log(b)
+    //   }
+    // }
+    // const f = a() // 在定义时产生闭包
+    // f() // 1
+    // f() // 2
 
-    var data = [];
+    // var data = [];
 
-    for (var i = 0; i < 3; i++) {
-      data[i] = (function (num) {
-       return function() {
-        console.log(num);
-       }
-      })(i);
-    }
-    data[0]()
-    data[1]()
-    data[2]()
+    // for (var i = 0; i < 3; i++) {
+    //   (function (num) {
+    //     data[i] = function() {
+    //       console.log(num);
+    //     }
+    //   })(i);
+    // }
+    // data[0]()
+    // data[1]()
+    // data[2]()
+
+    // for (var i = 0; i < 5; i++) {
+    //   setTimeout(function(i) {
+    //       console.log(new Date, i);
+    //   }, 1000 * i, i);
+    // }
+
+    // setTimeout(() => {
+    //   console.log(new Date, i);
+    // }, i * 1000)
+
+    // const tasks = [];
+
+    // const payload = (i) =>(new Promise((resolve) => {
+    //   setTimeout(function() {
+    //     console.log(new Date, i);
+    //     resolve()
+    //   }, 1000);
+    // }))
+
+    // for (var i = 0; i < 5; i++) {
+    //   tasks.push(payload(i));
+    // }
+
+    // console.log(tasks)
+
+    // Promise.all(tasks).then(() => {
+    //   console.log(new Date, i);
+    // });
+
+    // const sleep = (delay = 1000) => (new Promise(resolve => setTimeout(() => {
+    //   resolve()
+    // }, delay)))
+
+    // ;(async () => {
+    //   for (var i = 0; i < 5; i++) {
+    //     await sleep()
+    //     console.log(new Date, i)
+    //   }
+    //   await sleep()
+    //   console.log(new Date, i)
+    // })()
+
+    // var a;
+    // function a() {}
+    // a = 1
+    // console.log(typeof a)
+    // var i = 4;
+    // function a() {
+    //   var i = 0
+    //   console.log(i) // 0
+    // }
+    // a() // 执行时 打印
+
+    // console.log(i) // 4
+
+    // var arr = [];
+    // for (var i = 0; i < 10; i++) {
+    //   arr.push((() => i));
+    // }
+    // console.log(arr[3]()) // 10
+
+    let hd = {
+      user: "后盾人",
+      get: function() {
+        return function() {
+          return this.user
+        }
+      }
+    };
+    console.log(hd.get()());
   </script>
 </body>
 </html>

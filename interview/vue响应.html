@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vue响应</title>
+</head>
+<body>
+  <input type="text" value>
+  <p></p>
+  <script>
+    // for (const key in obj) {
+    //   console.log(key)
+    // }
+    document.querySelector('input').onkeydown = function() {
+      const obj = {}
+      let value = this.value;
+      Object.defineProperty(obj, 'test', {
+        configurable: false, // 只有为 true 才能修改属性，包括删除
+        enumerable: false, // 只有为 true 时才能枚举属性
+        // writable: true, // 只有为 true 时才能改变属性值 在没有get set 时可以设置
+        // value: 'imondo.cn', // 属性值 在没有get set 时可以设置
+        get() {
+          console.log(value)
+          return value;
+        },
+        set(val) {
+          console.log('set ' + val)
+          value = val;
+        }
+      })
+      console.log(obj)
+      document.querySelector('p').innerHTML = obj.test
+    }
+
+    var proxy = new Proxy({}, {
+      get(target, propKey, receiver) {
+        if (propKey === 'test') {
+          return 15
+        }
+        return Reflect.get(target, propKey, receiver)
+      },
+      set(target, propKey, receiver) {
+        console.log(receiver);
+        return Reflect.set(target, propKey, receiver)
+      }
+    })
+  </script>
+</body>
+</html>
