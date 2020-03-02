@@ -27,9 +27,14 @@ class App extends React.Component {
 
   }
 
+  handleClick(e) {
+    console.log(e)
+  }
+
   render() {
     return (
       <AppContext.Provider value={staticStore}>
+        <button onClick={this.handleClick.bind(this, '事件')}>事件绑定</button>
         <ul>
           <li>
             <Link to="/">首页</Link>
