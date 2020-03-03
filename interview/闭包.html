@@ -100,15 +100,91 @@
     // }
     // console.log(arr[3]()) // 10
 
-    let hd = {
-      user: "后盾人",
-      get: function() {
-        return function() {
-          return this.user
-        }
-      }
-    };
-    console.log(hd.get()());
+    // let md = {
+    //   user: "imondo.cn",
+    //   get: function() {
+    //     return function() {
+    //       return this.user
+    //     }
+    //   }
+    // };
+    // console.log(md.get()());
+
+    // async function async1() {
+    //   await async2();
+    //   console.log('async1')
+    // }
+
+    // async function async2() {
+    //   console.log('async2 start')
+    //   await async3();
+    //   console.log('async2')
+    // }
+
+    // async function async3() {
+    //   console.log('async3')
+    // }
+
+    // setTimeout(() => {
+    //   console.log('setimeout')
+    // }, 0)
+
+    /**
+     * 1. 先执行 async1 后面接着 await async2 执行 async2 同步输出 async2 start
+     * 2. async2 内部接 await async3 执行 async3 输出 async3
+     * 3. async3 执行完成后 再回到 async2 执行 await 后面的代码
+     * 3. async2 执行完成后 回到 async1 执行 await 后面的代码
+     * 4. 微任务执行完成，执行宏任务 settimeout 
+    */
+
+    // async1(); // async2 start, async3, async2, async1, setimeout
+
+
+    async function async1() {
+      await async3();
+
+      await async2();
+      console.log('async1')
+    }
+
+    async function async2() {
+      console.log('async2')
+    }
+
+    async function async3() {
+      console.log('async3')
+    }
+
+    Promise.resolve().then((res) => {
+      console.log('Proimse1')
+    })
+    Promise.resolve().then((res) => {
+      console.log('Proimse2')
+    })
+    setTimeout(() => {
+      console.log('setimeout')
+    }, 0)
+
+    // async 当函数执行的时候，一旦遇到 await 就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
+    async1() // async3, Proimse1, Proimse2, async2, async1, setimeout
+
+    // async function async1() {
+    //   setTimeout(() => {
+    //     console.log('async1')
+    //   }, 3000)
+    // }
+    // async function async2() {
+    //   setTimeout(() => {
+    //     console.log('async2')
+    //   }, 2000)
+    // }
+    // async function async3() {
+    //   let p1 = async1();
+    //   let p2 = async2();
+    //   await p1;
+    //   await p2;
+    // }
+    // async3()
   </script>
 </body>
 </html>
