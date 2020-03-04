@@ -1,5 +1,7 @@
 # 小程序消息推送
 
+> 本文相关代码地址：[github](https://github.com/one-pupil/study/blob/master/min-app/config.js) 原文链接： [原文链接]()
+
 小程序消息推送种类
 
 * 订阅消息
@@ -146,16 +148,6 @@ function getAccessToken() {
 
 我们获取到 `openid` 和 `access_token` 后就可以推送消息给用户了
 
-这里我们需要注意：
-
-* 下发的消息模板需要注意订阅消息参数值内容限制，需要[参考](https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html)
-
-* 下发模板消息属性需要注意
-
-![](https://cdn.nlark.com/yuque/0/2020/png/124135/1583309132874-47a80bb3-10d7-4e5b-a6e7-f75ab7117747.png)
-
-* 开发模式下，授权一次下发一次消息
-
 ```js
 function sendMessage({ access_token, openid, msg }) {
 	const requestData = {
@@ -197,4 +189,21 @@ function sendMessage({ access_token, openid, msg }) {
 	});
 }
 ```
+
+这里我们需要**注意**：
+
+* 下发的消息模板需要注意订阅消息参数值内容限制，需要[参考](https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html)
+
+* 下发模板消息属性需要注意
+
+![](https://cdn.nlark.com/yuque/0/2020/png/124135/1583309132874-47a80bb3-10d7-4e5b-a6e7-f75ab7117747.png)
+
+* 开发模式下，授权一次下发一次消息
+
+![](https://cdn.nlark.com/yuque/0/2020/jpeg/124135/1583309760292-c59dccf3-f25e-4835-84da-5bce7716da1f.jpeg?x-oss-process=image/resize,w_300)
+
+
+实现效果
+
+![](https://cdn.nlark.com/yuque/0/2020/jpeg/124135/1583309798738-77a92f95-2754-454b-9280-c5ae1a203a4a.jpeg?x-oss-process=image/resize,w_300)
 
