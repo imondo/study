@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <a href="http://codehtml.cn/front-end-interview-js/" target="_bank"></a>
+  <script>
+    var i = 0;
+    function fun(){
+      // i++;
+      // console.log(i)
+      // if(i < 10){
+      //   fun();
+      // }else{
+      //   return i
+      // }
+      // setTimeout(() => {
+      //   return 1
+      // }, 0)
+    }
+    console.log(typeof fun()); // undefined
+
+    // ('b' + 'a' + (+ 'a') + 'a').toLowerCase() === 'banana'
+    // ('b' + 'a' + NaN + 'a').toLowerCase() === 'banana'
+    console.log(('b' + 'a' + + 'a' +'a').toLowerCase() === 'banana');
+    
+
+    function a(){
+      let arr = [1,2,3];
+      return arr;
+    }
+
+    let b = a();
+    b.push(4,5);
+    let c= a();
+    console.log(b,c); // [1,2,3,4,5] [1,2,3]
+
+    // 如何实现一个new
+    /**
+     * new 过程
+     * 1. 创建了一个 空对象
+     * 2. 对象的原型指向构造函数的原型 this.__proto__ = Fn.prototype
+     * 3. 如果
+    */
+    function Fn(name) {
+      this.name = name
+    }
+
+    const fn = new Fn('imondo.cn')
+    console.log(fn.name)
+    function _new(fn, ...args) {
+      const obj = Object.create(fn.prototype) // 创建一个新的原型对象
+      const ret = fn.call(obj, ...args) // 改变 构造函数 this 指向 使 obj 可以访问构造函数上的属性
+      return ret instanceof Object ? ret : obj; // 确保构造器总是返回一个对象
+    }
+    const fnc = _new(Fn, 'mondo');
+    console.log(fnc.name)
+     
+  </script>
+</body>
+</html>

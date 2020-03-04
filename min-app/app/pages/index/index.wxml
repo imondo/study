@@ -1,0 +1,57 @@
+<!-- index.wxml -->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      获取头像昵称
+    </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <text>第一步</text>
+  <button bindtap="bindSubscribeMessage">获取下发权限</button>
+  <text>第二步</text>
+  <view class="form">
+    <view class="page">
+      <view class="page__bd">
+        <view class="mb-10">
+          <view class="weui-cells__title">计划名</view>
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+              <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="请输入计划名" value="{{ task.taskName }}" data-key="taskName" bindinput="bindTask" />
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="mb-10">
+          <view class="weui-cells__title">备注</view>
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+              <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="请输入备注" value="{{ task.remarks }}" data-key="remarks" bindinput="bindTask" />
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="mb-10">
+          <view class="weui-cells__title">班级名称</view>
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+              <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="请输入班级名称" value="{{ task.className }}" data-key="className" bindinput="bindTask" />
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-btn-area">
+          <button class="weui-btn" type="primary" bindtap="bindLogin">下发消息</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>
