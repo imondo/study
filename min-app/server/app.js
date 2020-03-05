@@ -98,7 +98,7 @@ function getAccessToken() {
 	});
 }
 
-// 下发消息
+// 订阅消息
 function sendMessage({ access_token, openid, msg }) {
 	const requestData = {
 		touser: openid,
@@ -114,8 +114,8 @@ function sendMessage({ access_token, openid, msg }) {
 				value: msg.className
 			}
 		}
-  };
-  console.log(requestData);
+	};
+	console.log(requestData);
 	return new Promise((resolve, reject) => {
 		http(
 			{

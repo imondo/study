@@ -44,12 +44,12 @@ Page({
 						duration: 2000
 					});
 				} else {
-          wx.showToast({
+					wx.showToast({
 						title: res.data.msg,
 						icon: 'none',
 						duration: 2000
 					});
-        }
+				}
 			}
 		});
 	},
@@ -57,8 +57,13 @@ Page({
 	bindSubscribeMessage() {
 		wx.requestSubscribeMessage({
 			tmplIds: app.globalData.tempIds,
-			success(res) {
-				console.log(res);
+			complete(res) {
+				console.log(res); // { tempid: 'accept', errMsg: 'requestSubscribeMessage:ok' }
+				if (res.errMsg === 'requestSubscribeMessage:ok') {
+					// 当前模板消息ID
+					const currTmapId = app.globalData.tempIds.find(v => !!res[v]);
+					console.log(res[currTmapId]) // 是否授权：accept | reject | ban
+				}
 			}
 		});
 	},
