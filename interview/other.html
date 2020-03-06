@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text" id="input">
+  <script>
+    document.getElementById('input').onkeypress = (e) => {
+      console.log(this.value, e.target.value);
+    }
+
+    let arr = [1, 2, 3];
+    let fnArray = [];
+    for (let i = 0; i < arr.length; i++) {
+      // 函数只定义没执行 里面代码不会执行
+      fnArray[i] = function () {
+        return arr[i] * 2;
+      }
+    }
+    console.log(fnArray[0](), 'fn') // 2 当前 i 全局作用域 arr[3] -> undefined arr[3] * 2 -> NaN
+    console.log(fnArray[1](), 'fn') // 2 当前 i 全局作用域 arr[3] -> undefined arr[3] * 2 -> NaN
+    console.log(fnArray[2](), 'fn') // 2 当前 i 全局作用域 arr[3] -> undefined arr[3] * 2 -> NaN
+    console.log(fnArray[3], 'fn') // fnArray[3] is not a function 当前 i 全局作用域 arr[3] -> undefined arr[3] * 2 -> NaN
+    let result = fnArray.find((fn) => {
+      return fn() === 4;
+    })
+    console.log(result); // undefined
+
+    function Person() {}
+    const person = new Person()
+    // console.log(person instanceof Function) // false
+
+    // add(10).add(10).add(10)
+    // function add(x) {
+    //   console.log(x)
+    //   return this
+    // }
+    // add(10).add(10).add(10)
+
+    // (10).add(10).add(10)
+    const add = function(x) {
+      // console.log(x)
+      return x;
+    }
+    Number.prototype.add = add;
+    // （） 执行优先级最高
+    // (10).add(4).add(10)
+    // console.log((10).add(4).add(10)); // 10
+    
+
+  </script>
+</body>
+
+</html>
