@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>toString和valueOf</title>
+</head>
+
+<body>
+  <script>
+    /* 基本使用 */
+    // console.log([1, '2'].toString()) // '1, 2'
+    // console.log([1, '2'].valueOf()) // [1, '2']
+
+    // console.log(typeof '2'.valueOf()); // '2'
+    // console.log(typeof '2'.toString()); // '2'
+
+    var x = '10'
+
+    var a = +x; // 做数值转换 valueof
+    console.log(typeof a, a);
+
+    var b = a + x; // 做字符串转换 toString
+
+    console.log(typeof b, b);
+    
+
+    // add(2)(3) // 5
+    function add(x) {
+      return function (o) {
+        return x + o;
+      }
+    }    
+    console.log(add(2)(3));
+
+    console.log(add(3)(4));
+    
+  </script>
+</body>
+
+</html>
