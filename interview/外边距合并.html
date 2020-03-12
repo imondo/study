@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>外边距合并</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    div {
+      width: 200px;
+      height: 200px;
+      background-color: aqua;
+    }
+    .div1 {
+      background-color: red;
+
+      margin-bottom: 30px;
+      margin-top: 20px;
+      /* padding: 5px; */
+      /* border: 1px solid black; */
+
+    }
+    .div3 {
+      width: 50px;
+      height: 50px;
+      background-color: bisque;
+      margin-top: 10px;
+    }
+    .div2 {
+      margin-top: 10px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <!-- 
+    形成外边距原因
+    1. 相邻的兄弟元素
+    2. 父子元素（父级元素没有border或padding）
+
+    解决
+    兄弟元素：直接改一个值；其中一个元素改成BFC
+    父子元素：父级元素使用 BFC 模式（overflow: hidden）
+   -->
+  <article>
+    <div class="div1">
+      <div class="div3"></div>
+    </div>
+  </article>
+  <div class="div2"></div>
+</body>
+</html>
