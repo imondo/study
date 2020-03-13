@@ -87,3 +87,39 @@ class Watcher {
     console.log(sub, ' 视图更新');
   }
 }
+
+/* 实现 VNode 节点 */
+class VNode {
+  constructor(tag, data, children, text, elm) {
+    this.tag = tag; // 当前节点标签名
+    this.data = data; // 当前节点数据信息，props attrs
+    this.children = children; // 子节点 array
+    this.text = text; // 节点文本
+    this.elm = elm; // 对应的真实DOM节点
+  }
+}
+
+/* 创建一个空节点 */
+function createEmptyNode() {
+  const node = new VNode();
+  node.text = '';
+  return node;
+}
+
+/* 创建一个文本节点 */
+function createTextNode(val) {
+  return new VNode(undefined, undefined, undefined, String(val));
+}
+
+/* 克隆一个 VNode 节点 */
+function cloneVNode(node) {
+  const cloneVnode = new VNode(
+    node.tag,
+    node.data,
+    node.children,
+    node.text,
+    node.elm
+  )
+  return cloneVnode;
+}
+
