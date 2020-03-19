@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圣杯布局</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .s .header {
+      height: 30px;
+      background-color: red;
+    }
+    .s .content {
+      overflow: hidden;
+      padding: 0 100px;
+    }
+    .s .middle {
+      float: left;
+      width: 100%;
+      height: 80px;
+      background-color: aqua;
+    }
+    .s .left {
+      position: relative;
+      left: -100px;
+      float: left;
+      width: 100px;
+      height: 80px;
+      margin-left: -100%; /* 利用margin负值来改变布局 */
+      background-color: bisque;
+    }
+    .s .right {
+      position: relative;
+      float: left;
+      width: 100px;
+      right: -100px;
+      height: 80px;
+      margin-left: -100px;
+      background-color: cadetblue;
+    }
+    .s .footer {
+      height: 30px;
+      background-color: red;
+    }
+    .s {
+      margin-bottom: 50px;
+    }
+    /* 双飞翼 */
+    .l .header {
+      height: 30px;
+      background-color: red;
+    }
+    .l .content {
+      overflow: hidden;
+      /* padding: 0 100px; */
+    }
+    .l .middle {
+      float: left;
+      width: 100%;
+      background-color: aqua;
+    }
+    .l .inner-middle{
+			margin: 0 100px;
+			height: 80px;
+			background: green;			
+		}
+    .l .left {
+      float: left;
+      width: 100px;
+      height: 80px;
+      margin-left: -100%; /* 利用margin负值来改变布局 */
+      background-color: bisque;
+    }
+    .l .right {
+      float: left;
+      width: 100px;
+      height: 80px;
+      margin-left: -100px;
+      background-color: cadetblue;
+    }
+    .l .footer {
+      height: 30px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <!-- 圣杯布局 -->
+  <div class="s">
+    <div class="header"></div>
+    <div class="content">
+      <div class="middle">圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局圣杯布局</div>
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+    <div class="footer"></div>
+  </div>
+
+  <!-- 双飞翼 -->
+  <div class="l">
+    <div class="header"></div>
+    <div class="content">
+      <div class="middle">
+        <div class="inner-middle">双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼双飞翼</div>
+      </div>
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+    <div class="footer"></div>
+  </div>
+</body>
+</html>
