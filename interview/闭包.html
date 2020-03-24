@@ -5,9 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>闭包</title>
 </head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    height: 100%;
+  }
+  .nav {
+    height: 100%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: -30px;
+    margin-bottom: -30px;
+    min-height: 100%;
+  }
+  .footer {
+    width: 100%;
+    height: 30px;
+    background-color: chocolate;
+  }
+</style>
 <body>
-  <button>按钮1</button>
-  <button>按钮2</button>
+  <div class="nav">
+    <button>按钮1</button>
+    <button>按钮2</button>
+  </div>
+  <div class="footer">footer</div>
   <script>
     const btns = document.querySelectorAll('button')
     for (let i = 0; i < btns.length; i++) {
