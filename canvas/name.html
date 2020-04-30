@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>名字</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #canvas {
+      background-color: #44BC8C;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.querySelector("#canvas");
+    const context = canvas.getContext('2d');
+    const WIDTH = document.documentElement.clientWidth;
+    const HEIGTH = document.documentElement.clientHeight / 2;
+    canvas.width = WIDTH;
+    canvas.height = HEIGTH;
+
+    class Round {
+      constructor(options) {
+        this.options = Object.assign({
+          r: 5,
+          diff: 10
+        }, options);
+        this.dots = this.round();
+      }
+
+      init() {
+        const { r } = this.options;
+        for (const dot of this.dots) {
+          this.draw(dot.x, dot.y, r);
+        }
+      }
+
+      drawText() {
+        const { text } = this.options;
+        context.save();
+        context.font = "200px Arial bold";
+        context.fillStyle = `rgba(255, 255, 255, ${Math.random() * 10 / 10})`;
+        context.textAlign = 'left';
+        context.textBaseline = 'middle';
+        context.fillText(text, WIDTH / 4, HEIGTH / 2);
+        context.restore();
+      }
+
+      // 文字粒子化
+      round() {
+        const { diff } = this.options;
+        // 绘制文字
+        this.drawText();
+
+        const dots = [];
+        const imgData = context.getImageData(0, 0, WIDTH, HEIGTH);
+
+        context.clearRect(0, 0, WIDTH, HEIGTH);
+
+        // data 属性返回一个对象，是一个8位无符号整数的数组Uint8ClampedArray
+        const buffer = new Uint32Array(imgData.data.buffer);
+
+        const _W = WIDTH;
+        const _H = HEIGTH;
+
+        // 抽样获取图像数据使用particle对象记录下当前像素下数据的位置信息
+        for (let i = 0; i < _H; i += diff) {
+          for (let j = 0; j < _W; j += diff) {
+            if (buffer[i * _W + j]) {
+              let dot = {
+                x: j,
+                y: i
+              };
+              dots.push(dot);
+            }
+          }
+        }
+        return dots;
+      }
+
+      draw(x, y, r) {
+        context.fillStyle = `rgba(255, 255, 255, ${Math.floor(Math.random() * 10 + 1) / 10 / 2})`;
+        context.beginPath();
+        context.arc(x, y, r, 0, Math.PI * 2);
+        context.closePath();
+        context.fill();
+      }
+    }
+
+
+    const dots = new Round({ text: 'Mondo' });
+
+    // dots.init();
+
+    function animate() {
+      context.clearRect(0, 0, WIDTH, HEIGTH);
+
+      const round = dots.round();
+      for (const rd of round) {
+        dots.draw(rd.x, rd.y, dots.options.r);
+      }
+
+      window.requestAnimationFrame(animate);
+    }
+
+    animate();
+
+  </script>
+</body>
+
+</html>

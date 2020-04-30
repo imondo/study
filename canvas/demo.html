@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>粒子移动</title>
+  <style>
+    #canvas {
+      margin: 10px;
+      background-color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const ctx = document.querySelector('#canvas');
+    const context = ctx.getContext('2d');
+    const WIDTH = 500;
+    const HEIGHT = 800;
+    const round = [];
+    const initRoundPouplation = 80;
+
+    ctx.width = WIDTH;
+    ctx.height = HEIGHT;
+
+    class RoundItem {
+      constructor(index, x, y) {
+        this.index = index;
+        this.x = x;
+        this.y = y;
+        this.r = Math.random() * 2 + 1;
+        const alpha = (Math.floor(Math.random() * 10 + 1)) / 10 / 2;
+        this.color = `rgba(255, 255, 255, ${alpha})`;
+      }
+
+      draw() {
+        context.fillStyle = this.color;
+        context.shadowBlur = this.r * 2;
+        context.beginPath();
+        context.arc(this.x, this.y, this.r, 2 * Math.PI, false);
+        context.closePath();
+        context.fill();
+      }
+
+      move() {
+        this.y -= 0.35;
+        if (this.y <= -10) {
+          this.y = HEIGHT + 10;
+        }
+        this.draw();
+      }
+    }
+
+    /**
+     * 实际就是不断清除内容再重新绘制的过程，从而达到动画效果
+     * clearRect()
+     */
+    function animate() {
+      context.clearRect(0, 0, WIDTH, HEIGHT);
+      for (const r of round) {
+        r.move();
+      }
+      window.requestAnimationFrame(animate);
+    }
+
+    function init() {
+      for (let i = 0; i < initRoundPouplation; i++) {
+        round[i] = new RoundItem(i, Math.random() * WIDTH, Math.random() * HEIGHT);
+        round[i].draw();
+      }
+      animate();
+    }
+
+    init();
+
+  </script>
+</body>
+
+</html>

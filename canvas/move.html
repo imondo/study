@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>跟随鼠标动</title>
+  <style>
+    #canvas,
+    #canvas1 {
+      margin: 10px;
+      background-color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const ctx = document.querySelector("#canvas");
+    const context = ctx.getContext('2d');
+    const _WIDTH = 500;
+    const _HEIGHT = 800;
+
+    const para = {
+      num: 20,
+      color: false,
+      r: 0.9,
+      o: 0.09,
+      a: 1
+    }
+
+    var color, color2, round_arr = [];
+
+    ctx.width = _WIDTH;
+    ctx.height = _HEIGHT;
+
+    // 鼠标移动
+
+    ctx.onmousemove = function (e) {
+
+      x = e.clientX;
+      y = e.clientY;
+
+      round_arr.push({
+        x,
+        y,
+        r: para.r,
+        o: 1
+      });
+
+    }
+
+    if (para.color) {
+      color2 = para.color;
+    } else {
+      color = Math.random() * 360;
+    }
+
+    function animateMouse() {
+
+      if (!para.color) {
+        color += .1;
+        color2 = `hsl(${color}, 100%, 80%)`;
+      }
+
+      context.clearRect(0, 0, _WIDTH, _HEIGHT);
+
+      for (var i = 0; i < round_arr.length; i++) {
+        const _round = round_arr[i];
+        context.fillStyle = color2;
+        context.beginPath();
+        context.arc(_round.x, _round.y, _round.r, 0, Math.PI * 2);
+        context.closePath();
+        context.fill();
+
+        _round.r += para.r;
+        _round.o -= para.o;
+
+        if (_round.o <= 0) {
+          round_arr.splice(i, 1);
+          i--;
+        }
+
+      }
+
+      window.requestAnimationFrame(animateMouse);
+    }
+
+    animateMouse();
+
+  </script>
+</body>
+
+</html>
