@@ -2,5 +2,5 @@
 
 ## 微信分享
 
-[前端](server/share.html)
+[前端](app/share.html)
 [后端](server/share.js)
