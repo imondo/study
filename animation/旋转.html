@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=750, user-scalable=no">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <title>旋转</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body,
+    .app {
+      width: 100%;
+      height: 100%;
+    }
+
+    .app {
+      position: relative;
+    }
+
+    .container {
+      /*没有视距，就没有3d效果*/
+      perspective: 1000px;
+    }
+
+    .swiper {
+      position: absolute;
+      bottom: 0;
+      font-size: 32px;
+    }
+
+    .container,
+    .content,
+    .p {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 32px;
+      color: #fff;
+    }
+
+    .content {
+      transition: all 1s ease-in-out;
+      /* 保留元素的3d视图 */
+      transform-style: preserve-3d;
+    }
+
+    .p1 {
+      background-color: #00B4DB;
+    }
+
+    .p2 {
+      background-color: #F37335;
+    }
+
+    .p3 {
+      background-color: #0083B0;
+    }
+
+    .p4 {
+      background-color: #FDC830;
+    }
+
+    .p5 {
+      background-color: #C06C84;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="container">
+      <div class="content">
+        <div class="p p1">
+          <h3 class="animate__animated animate__bounce">第一页<br>打开手机调试模式滑动</h3>
+        </div>
+        <div class="p p2">
+          <h3 class="animate__animated">第二页</h3>
+        </div>
+        <div class="p p3">
+          <h3 class="animate__animated">第三页</h3>
+        </div>
+        <div class="p p4">
+          <h3 class="animate__animated">第四页</h3>
+        </div>
+        <div class="p p5">
+          <h3 class="animate__animated">第五页</h3>
+        </div>
+      </div>
+      <svg t="1589352873397" id="clickUp" class="icon swiper animate__animated animate__fadeInUp" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1377" width="200" height="200"><path d="M910.222222 796.444444c-17.066667 0-34.133333-5.688889-45.511111-17.066666L551.822222 409.6c-11.377778-5.688889-17.066667-11.377778-34.133333-11.377778-5.688889 0-22.755556 5.688889-28.444445 11.377778l-329.955555 364.088889c-22.755556 22.755556-56.888889 22.755556-79.644445 5.688889-22.755556-22.755556-22.755556-56.888889-5.688888-79.644445l329.955555-364.088889c28.444444-34.133333 73.955556-51.2 119.466667-51.2s85.333333 22.755556 119.466666 56.888889l312.888889 364.088889c22.755556 22.755556 17.066667 56.888889-5.688889 79.644445-11.377778 5.688889-28.444444 11.377778-39.822222 11.377777z" p-id="1378"></path></svg>
+    </div>
+  </div>
+</body>
+
+<script>
+  /* 
+        1. 判断滑动方向
+        2. 利用上下翻动移动距离
+        3. 翻动时需要：
+          1. 当前页 this.page
+          2. 当前滚动距离 this.rotateX
+          3. 利用视觉差 组成一个四方形盒子
+            1. 第一边 center, x轴 0
+            2. 第二边 bottom, x轴 90deg
+            3. 第三边 center, x轴 180deg
+            4. 第四边 top, x轴 90deg
+            5. 第五边 center, x轴 0deg
+            ...
+            后面依次从新循环一轮
+      */
+  function SlideInit(options = {}) {
+    this.options = {
+      up() { },
+      down() { },
+      ...options
+    }
+    const _this = this;
+    var startx, starty;
+    // 禁止微信下拉
+    document.body.addEventListener('touchmove', function (e) {
+      e.preventDefault()
+    }, { passive: false })
+    //获得角度
+    function getAngle(angx, angy) {
+      return Math.atan2(angy, angx) * 180 / Math.PI;
+    };
+    //根据起点终点返回方向 1向上 2向下 3向左 4向右 0未滑动
+    function getDirection(startx, starty, endx, endy) {
+      var angx = endx - startx;
+      var angy = endy - starty;
+      var result = 0;
+      //如果滑动距离太短
+      if (Math.abs(angx) < 2 && Math.abs(angy) < 2) {
+        return result;
+      }
+      var angle = getAngle(angx, angy);
+      if (angle >= -135 && angle <= -45) {
+        result = 1;
+      } else if (angle > 45 && angle < 135) {
+        result = 2;
+      } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
+        result = 3;
+      } else if (angle >= -45 && angle <= 45) {
+        result = 4;
+      }
+      return result;
+    }
+    //手指接触屏幕
+    document.addEventListener("touchstart", function (e) {
+      startx = e.touches[0].pageX;
+      starty = e.touches[0].pageY;
+    }, false);
+    //手指离开屏幕
+    document.addEventListener("touchend", function (e) {
+      var endx, endy;
+      endx = e.changedTouches[0].pageX;
+      endy = e.changedTouches[0].pageY;
+      var direction = getDirection(startx, starty, endx, endy);
+      switch (direction) {
+        case 0: // 0未滑动
+          break;
+        case 1: // 向上
+          _this.options.up();
+          break;
+        case 2: // 向下
+          _this.options.down();
+          break;
+        case 3: // 向左
+          break;
+        case 4: // 向右
+          break;
+        default:
+      }
+    }, false);
+  }
+
+  /**
+   * 卡片3d动画
+   * @param { DOM } el 卡片dom集合
+   * @param { DOM } boxEl 卡片盒子dom
+   */
+
+  class Card3d {
+    constructor({ el, boxEl }) {
+      this.el = el;
+      this.boxEl = boxEl;
+      this.page = 0;
+
+      this.configCss = [
+        { deg: 0, origin: "center" }, // 中
+        { deg: -90, origin: "bottom" }, // 下
+        { deg: 180, origin: "center" }, // 中
+        { deg: 90, origin: "top" } // 上
+      ]
+      this.group = [];
+
+      const boxH = this.boxEl.clientHeight;
+      this.translateZ = boxH / 2;
+      this.boxEl.style.transform = `translateZ(-${this.translateZ}px) rotateX(0deg)`;
+
+      const pageSize = el.length
+      this.pageSize = pageSize;
+      this.maxSize = pageSize - 1;
+      this.init();
+      this.initCss();
+    }
+
+    init() {
+      this.block({
+        index: 1,
+        hideNext: true
+      });
+    }
+
+    initCss() {
+      const { el: $els, configCss, translateZ } = this;
+      this.group = this.sliceGroup($els);
+      this.arrForch(this.group, function (item, index) {
+        this.arrForch(item, function (el, i) {
+          const config = configCss[i];
+          const sym = i === 0 ? "" : "-";
+          el.style.transform = `translateZ(${sym}${translateZ}px) rotateX(${config.deg}deg)`
+          el.style.transformOrigin = `${config.origin}`
+          // el.style.backfaceVisibility = 'hidden'
+        })
+      })
+    }
+
+    // 每4个分割数组
+    sliceGroup(arr = [], size = 4) {
+      const result = [];
+      for (let i = 0, len = arr.length; i < len; i += size) {
+        result.push(Array.prototype.slice.call(arr, i, i + size));
+      }
+      return result;
+    }
+
+    move(callback) {
+      this.rotateX = 90 * this.page;
+      const nextPage = this.page + 1;
+      this.block({
+        index: this.page
+      });
+      this.block({
+        index: nextPage,
+        hideNext: true
+      });
+      if (this.page === this.pageSize) return;
+      this.boxEl.style.transform = `translateZ(-${this.translateZ}px) rotateX(${this.rotateX}deg)`
+      callback && callback(this.el[this.page], this.page);
+    }
+
+    pageUp(callback) {
+      if (this.page >= this.maxSize) {
+        return;
+      };
+      this.page++
+      this.move(callback);
+    }
+
+    pageDown(callback) {
+      if (this.page <= 0) {
+        return;
+      }
+      this.page--
+      this.move(callback);
+    }
+
+    arrForch(arr, callback) {
+      const _this = this;
+      Array.prototype.forEach.call(arr, function () {
+        callback.call(_this, ...arguments);
+      })
+    }
+
+    block({ index, hideNext = false }) {
+      if (hideNext) {
+        this.arrForch(this.el, function (item, i) {
+          this.el[i].style.opacity = index === i ? 1 : i > index ? 0 : 1;
+        })
+      } else {
+        this.el[index].style.display = 1;
+      }
+
+    }
+  }
+
+  const card = new Card3d({
+    el: document.querySelectorAll(".p"),
+    boxEl: document.querySelector(".content")
+  });
+
+
+
+  new SlideInit({
+    up() {
+      card.pageUp(function (el, index) {
+        addClassAmate(el);
+      });
+    },
+    down() {
+      card.pageDown(function (el, index) {
+        addClassAmate(el);
+      });
+    }
+  });
+
+  document.querySelector("#clickUp").addEventListener("click", handleClick);
+  function handleClick() {
+    console.log(111)
+    card.pageUp(function (el, index) {
+      addClassAmate(el);
+    });
+  }
+
+  function addClassAmate(el) {
+    const animateConfig = ["animate__bounce", "animate__rubberBand", "animate__swing", "animate__jello"];
+    const animateName = animateConfig[Math.floor(Math.random() * animateConfig.length)]
+    el.querySelector("h3").classList.add(animateName, "animate__delay-1s");
+    setTimeout(function() {
+      el.querySelector("h3").classList.remove(animateName);
+    }, 2500)
+  }
+
+
+</script>
+
+</html>
