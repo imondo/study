@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自定义菜单</title>
+</head>
+
+<body>
+
+  <button id="button1">自定义菜单</button>
+  <script>
+
+    const ACCESS_TOKEN = `ACCESS_TOKEN`;
+    document.querySelector('#button1').addEventListener('click', function () {
+      setSelfMenu();
+    })
+
+    const api = `/wechat`
+    const data = {
+      "button": [
+        {
+          "type": "view",
+          "name": "Mondo",
+          "url": "https://imondo.cn"
+        }
+      ]
+    }
+
+    function setSelfMenu() {
+      fetch(api, {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(data), // data can be `string` or {object}!
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
+    }
+  </script>
+</body>
+
+</html>
