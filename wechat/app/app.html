@@ -12,6 +12,8 @@
   <button id="button1">自定义菜单</button>
   <script>
 
+    window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx085478e6bb636b0d&redirect_uri=${encodeURI("https://imondo.cn/files/app.html")}&response_type=code&scope=snsapi_userinfo#wechat_redirect`
+
     const ACCESS_TOKEN = `ACCESS_TOKEN`;
     document.querySelector('#button1').addEventListener('click', function () {
       setSelfMenu();
