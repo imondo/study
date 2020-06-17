@@ -1092,6 +1092,74 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@better-scroll/core@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@better-scroll/core/-/core-2.0.0-beta.10.tgz#d76eb4b11e599b4c5b91e64d496f630d74f1ad84"
+  integrity sha512-rVnw+VNit+o4rU5tn8NzasMGvuFSQOrZIKttzaCC1KY+RgCYNRw3mcaCWjW06rWRXXaBIcV+AsiviKGRteJF2g==
+  dependencies:
+    "@better-scroll/shared-utils" "^2.0.0-beta.10"
+
+"@better-scroll/mouse-wheel@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@better-scroll/mouse-wheel/-/mouse-wheel-2.0.0-beta.10.tgz#f690268b27b75b6fddcf1531a198977e8fd6bc31"
+  integrity sha512-6nJZdkPmccsgmcnyRiQavrIgTyAvHUyRNjGbTVsc02UI8MVanOlFZiFaAEOfLv/s6Td8CQvFE0wNaSuSGYo5dA==
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+
+"@better-scroll/observe-dom@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@better-scroll/observe-dom/-/observe-dom-2.0.0-beta.10.tgz#2291b12727dbd5ddabc1d45fa259898e47c00904"
+  integrity sha512-SXEx+n/080lfVzrKdPJ7gHuZNi72Mq1tql/HlSowFZvp50fauSyggZigezkHxUugCDVC/5bqxOJ55aBeJ0UF4A==
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+
+"@better-scroll/pull-down@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@better-scroll/pull-down/-/pull-down-2.0.0-beta.10.tgz#57a3b3b3784aa265ad26dfec48dccb658db36941"
+  integrity sha512-8HSqOOFaKf6B2+5c9NeD034ULE2ku4bqqtAFtPz+JgtdtGj8+XPQfJqPGUGxpeF8u/hfEBccJPKnFBymGMufGw==
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+
+"@better-scroll/pull-up@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@better-scroll/pull-up/-/pull-up-2.0.0-beta.10.tgz#09d88697693f96ea18b51f545124f3b4937c9a76"
+  integrity sha512-grKyDC3MCC+JYaTD7a7JFBYuoPODXfl44WzvkarENXPL35tslSDoY/ti2Dgmd4HRvazLUpnHZqfgNUJLTbMF1Q==
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+
+"@better-scroll/scroll-bar@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@better-scroll/scroll-bar/-/scroll-bar-2.0.0-beta.10.tgz#17c6ac41c8302cac38596f62a670b742401d9a91"
+  integrity sha512-I6cNNE+Q8Mg47syFDUibUlS5C0kUkCbDf+61+iCfIrh0k86wlSbAkKgpq4u2R+nTh4oa4dR+iyTDukti2K1gcQ==
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+
+"@better-scroll/shared-utils@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@better-scroll/shared-utils/-/shared-utils-2.0.0-beta.10.tgz#077a245926ddcdbf5493aeda6724e2bf3bebf42f"
+  integrity sha512-47JP+4Of++oD7V0oGhZ2adFRMydMAfcsz1Xp+gqeGpPwULWVpDUoFj5yZwz58MBoGmawZKw0diPyjPEvAGJ1cg==
+
+"@better-scroll/slide@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@better-scroll/slide/-/slide-2.0.0-beta.10.tgz#171e71c3b78421d58027e1c5b867dcf9e248abe4"
+  integrity sha512-403Dp2q73iEnSNcLJEuXZjSdzzBS50vTsdAW7iLd2v+OmJOXTz0EIJScngkQyTosfPvGUx5cKiWFoYlV5uIIfw==
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+
+"@better-scroll/wheel@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@better-scroll/wheel/-/wheel-2.0.0-beta.10.tgz#c671b2158ab5af11adda8ad188e5e9fd27096659"
+  integrity sha512-tOCtKTFpMsajqbvcwwcKtjkyrc1rs5h2XviE0NsJDAu/3bDlzW2poNVf09xXxnL84RVMGHZ4EPnMwj55u5xUxA==
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+
+"@better-scroll/zoom@^2.0.0-beta.10":
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@better-scroll/zoom/-/zoom-2.0.0-beta.10.tgz#4b05906db10eb694e350fd730ac241ef4f35707e"
+  integrity sha512-vdO0FncRZj6YyVHBc3+dRhP9zlQwa2aEd4gLeWKS9JcLmZA7lGyvRd2gM2x6eubsydaSB+CZMW7ncGosPAC5Dw==
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -2438,6 +2506,21 @@ bcrypt-pbkdf@^1.0.0:
   integrity sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=
   dependencies:
     tweetnacl "^0.14.3"
+
+better-scroll@^2.0.0-beta.10:
+  version "2.0.0-beta.10"
+  resolved "https://registry.yarnpkg.com/better-scroll/-/better-scroll-2.0.0-beta.10.tgz#4c7b9dbc3e690d98fd4d82a190cb74a65dc5c6df"
+  integrity sha512-oMiYG0nGA/xzwwdVpp1GZ2xxb1mvqey2p3Wj8Yn5zOlG1lfUt3tI2X1G/2ovDVP/oeyi3doIx3hPZxtRflUOQg==
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+    "@better-scroll/mouse-wheel" "^2.0.0-beta.10"
+    "@better-scroll/observe-dom" "^2.0.0-beta.10"
+    "@better-scroll/pull-down" "^2.0.0-beta.10"
+    "@better-scroll/pull-up" "^2.0.0-beta.10"
+    "@better-scroll/scroll-bar" "^2.0.0-beta.10"
+    "@better-scroll/slide" "^2.0.0-beta.10"
+    "@better-scroll/wheel" "^2.0.0-beta.10"
+    "@better-scroll/zoom" "^2.0.0-beta.10"
 
 big.js@^5.2.2:
   version "5.2.2"
@@ -3797,6 +3880,13 @@ dom-serializer@0:
   dependencies:
     domelementtype "^2.0.1"
     entities "^2.0.0"
+
+dom7@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/dom7/-/dom7-2.1.5.tgz#a79411017800b31d8400070cdaebbfc92c1f6377"
+  integrity sha512-xnhwVgyOh3eD++/XGtH+5qBwYTgCm0aW91GFgPJ3XG+jlsRLyJivnbP0QmUBFhI+Oaz9FV0s7cxgXHezwOEBYA==
+  dependencies:
+    ssr-window "^2.0.0"
 
 domain-browser@^1.1.1:
   version "1.2.0"
@@ -9739,6 +9829,11 @@ sshpk@^1.7.0:
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
 
+ssr-window@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-2.0.0.tgz#98c301aef99523317f8d69618f0010791096efc4"
+  integrity sha512-NXzN+/HPObKAx191H3zKlYomE5WrVIkoCB5IaSdvKokxTpjBdWfr0RaP+1Z5KOfDT0ZVz+2tdtiBkhsEQ9p+0A==
+
 ssri@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.1.tgz#2a3c41b28dd45b62b63676ecb74001265ae9edd8"
@@ -10061,6 +10156,14 @@ svgo@^1.0.0, svgo@^1.2.2:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+swiper@^5.4.3:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-5.4.3.tgz#f121c255c9aacd8cd723edbea11f44dd9cb2a404"
+  integrity sha512-Mj3nboCznDmD1CH1BHMsli/h+B9E2hZdCE8mdWize2ua97rWRb4nwWfMWzsG8CmYBCGZAGa6bLGAvL04Gq7RjQ==
+  dependencies:
+    dom7 "^2.1.5"
+    ssr-window "^2.0.0"
 
 symbol-observable@^1.2.0:
   version "1.2.0"

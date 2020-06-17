@@ -50,6 +50,25 @@
     ccc.rules()
 
     console.log(ccc instanceof Aaa) // true
+
+    function A() {}
+    function B() {}
+
+
+    A.prototype.getA = function() {
+      console.log('a')
+    }
+
+    B.prototype.getB = function() {
+      console.log('b')
+    }
+
+    Object.setPrototypeOf(A.prototype, new B()) // 构造函数function A() {}和 function B() {} 如何在不重写A的原型的情况下实现A继承B
+
+    const aa = new A()
+
+    aa.getB();
+
     
   </script>
 </body>
