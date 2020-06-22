@@ -3,7 +3,7 @@
     <div>
       <h1>{{ privateMsg }}</h1>
       <h1>computed：{{ sum }}</h1>
-      <button @click="count++">count is: {{ count }}</button>
+      <button @click="state.count++">count is: {{ state.count }}</button>
     </div>
     <div>
       <h1>
@@ -31,7 +31,8 @@ import {
   inject,
   toRef,
   toRefs,
-  unref
+  unref,
+  isRef
 } from "vue";
 
 import { cusTheme } from "../injects/theme.js"
@@ -42,7 +43,11 @@ export default {
     msg: String
   },
   setup(props, { attrs }) {
+    
     const count = ref(1);
+    const count1 = ref({
+      a: 1
+    });
     console.log(attrs.test); // 测试
 
     console.log(count.value);
@@ -91,8 +96,11 @@ export default {
       name.forwards = `imondo.cn`;
     }, 1500);
 
-    watch(count, (prevFoo, prevBar) => {
-      console.log(prevFoo, prevBar);
+    watch(state.count, (count, prevCount) => {
+      console.log(`watch: `, count, prevCount);
+    }, {
+      deep: true,
+      immediate: true
     });
 
     onMounted(() => {
@@ -129,7 +137,7 @@ export default {
     const cusThemes = cusTheme(1)
 
 
-    return { count, privateMsg: props.msg, name, sum, theme, color, ...toRefs(state), cusThemes };
+    return { state, count1, count, privateMsg: props.msg, name, sum, theme, color, ...toRefs(state), cusThemes };
   }
 };
 </script>
