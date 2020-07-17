@@ -9,3 +9,7 @@
 
 [前端](app/app.html)
 [后端](server/SelfMenu.js)
+
+## 个人号微信机器人
+
+[wechaty](wechaty)
