@@ -1,7 +1,8 @@
 module.exports = {
   mode: 'development',
   entry: {
-    main: './main.js'
+    main: './main.js',
+    'main.02': './main.02.js'
   },
   module: {
     rules: [
