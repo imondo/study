@@ -55,6 +55,7 @@ const ExportExl = function() {
       }
     };
     data['!cols'] = [];
+    console.log(data)
     for (let key in data) {
       if (data[key] instanceof Object) {
         data[key].s = {
@@ -66,6 +67,16 @@ const ExportExl = function() {
           },
           numFmt: 0
         };
+        if (key === 'B1') {
+          data[key].s.font = {
+            name: '宋体',
+            sz: 18,
+            color: {rgb: "ff0000"},
+            bold: true,
+            italic: false,
+            underline: false
+          }
+        }
         data['!cols'].push({ wpx: 170 });
       }
     }
