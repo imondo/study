@@ -31,14 +31,14 @@
       transform: perspective(900px) rotateX(45deg) rotateY(-5deg);
     }
     .card::before,
-    .card::after {
+    .card::after,
+    p {
       position: absolute;
       width: 50%;
       height: 100%;
       background: #e84118;
       transition: 1s;
       box-sizing: border-box;
-
     }
     .card::before {
       content: "中秋";
@@ -50,6 +50,8 @@
       justify-content: flex-end;
       transform-origin: left top;
       border-right: 3px solid #c23616;
+      backface-visibility: hidden;
+      z-index: 1;
     }
     .card::after {
       content: "快乐";
@@ -61,6 +63,7 @@
       justify-content: flex-start;
       transform-origin: right top;
       border-left: 3px solid #c23616;
+      backface-visibility: hidden;
     }
 
     .card:hover::before {
@@ -69,10 +72,30 @@
     .card:hover::after {
       transform: rotateY(145deg);
     }
+    .card:hover p:nth-of-type(1) {
+      transform: rotateY(-145deg);
+    }
+    .card:hover p:nth-of-type(2) {
+      transform: rotateY(145deg);
+    }
 
+    .card p:nth-of-type(1) {
+      left: 0;
+      top: 0;
+      transform-origin: left top;
+    }
+    .card p:nth-of-type(2) {
+      right: 0;
+      top: 0;
+      transform-origin: right top;
+    }
   </style>
 </head>
 <body>
-  <div class="card">imondo.cn</div>
+  <div class="card">
+    imondo.cn
+    <p></p>
+    <p></p>
+  </div>
 </body>
 </html>

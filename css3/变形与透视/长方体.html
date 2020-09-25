@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>长方体</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: #3c6382;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    main {
+      position: relative;
+      width: 400px;
+      height: 100px;
+      /* border: 1px solid #fff; */
+      transform-origin: 200px center 50px;
+      transform-style: preserve-3d;
+      transform: perspective(900px);
+      transition: 4s;
+    }
+    main>div {
+      position: absolute;
+      width: 400px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #e55039;
+      color: #fff;
+      font-size: 1.5em; 
+    }
+    main>div:nth-of-type(1) {
+      background: #fa983a;
+    }
+
+    main>div:nth-of-type(2) {
+      background: #e55039;
+      transform: translateZ(100px);
+    }
+
+    main>div:nth-of-type(3) {
+      width: 100px;
+      height: 100px;
+      background:#b71540;
+      transform-origin: left top;
+      transform: rotateY(-90deg);
+    }
+    main>div:nth-of-type(4) {
+      width: 100px;
+      height: 100px;
+      background:#b8e994;
+      transform-origin: left top;
+      transform: translateX(400px) rotateY(-90deg);
+    }
+    main>div:nth-of-type(5) {
+      background: #fa983a;
+      transform-origin: top;
+      transform: rotateX(90deg);
+    }
+    main>div:nth-of-type(6) {
+      background: #fa983a;
+      transform-origin: bottom;
+      transform: rotateX(-90deg);
+    }
+    .content:hover main {
+      transform: perspective(900px) rotateX(450deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <main>
+      <div>哈哈哈</div>
+      <div>呵呵</div>
+      <div>嘿嘿</div>
+      <div>叽叽</div>
+      <div>嘿嘿</div>
+      <div>叽叽</div>
+    </main>
+  </div>
+</body>
+</html>

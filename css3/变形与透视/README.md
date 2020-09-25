@@ -69,3 +69,15 @@ transform-style: preserve-3d;
 
 需要设置 `perspective` 规则才能看到效果
 
+## backface-visibility
+
+控制是否可以看到元素的背面
+
+- 一般设置在元素上而不是父级元素上
+- 需要父级元素设置 `transform-style: preserve-3d`
+
+可选属性：
+
+- `visible`	背面可见
+- `hidden`	背面隐藏
+

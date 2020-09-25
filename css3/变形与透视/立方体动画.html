@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>立方体动画</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #3c6382;
+    }
+    main {
+      width: 100px;
+      height: 100px;
+      /* border: 1px solid #fff; */
+      transform-origin: center center 50px;
+      transform-style: preserve-3d;
+      transform: perspective(900px) rotateX(-45deg);
+      transition: 2s;
+    }
+    .content:hover main {
+      transform: perspective(900px) rotateX(155deg) rotateY(450deg)
+    }
+    main>div {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5em;
+      background: #e55039;
+      opacity: .5;
+      transform-origin: center center 50px;
+    }
+    main>div:nth-of-type(1) {
+      background: #f8c291;
+      transform: rotateY(90deg);
+    }
+    main>div:nth-of-type(2) {
+      background:#b71540;
+      transform: rotateY(180deg);
+    }
+    main>div:nth-of-type(3) {
+      background:#60a3bc;
+      transform: rotateY(270deg);
+    }
+    main>div:nth-of-type(4) {
+      background:#eb2f06;
+      transform: rotateY(360deg);
+    }
+    main>div:nth-of-type(5) {
+      background: #f8c291;
+      transform-origin: top;
+      transform: rotateX(90deg);
+    }
+    main>div:nth-of-type(6) {
+      background: #f8c291;
+      transform-origin: bottom;
+      transform: rotateX(-90deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <main>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+      <div>5</div>
+      <div>6</div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>背面隐藏</title>
+  <style>
+    main {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -150px;
+      margin-top: -150px;
+      width: 300px;
+      height: 300px;
+      border: 1px solid #333;
+      transition: 2s;
+      transform-style: preserve-3d;
+    }
+    div {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -50px;
+      margin-top: -50px;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 1.5em;
+      transition: 2s;
+      backface-visibility: hidden;
+    }
+    div:nth-child(1) {
+      background-color: #e1b12c;
+    }
+    div:nth-child(2) {
+      background-color: #40739e;
+      transform: rotateY(180deg);
+    }
+    main:hover {
+      transform: rotateY(-180deg);
+    }
+    /* main:hover div:nth-child(1) {
+      transform: rotateY(-180deg);
+    }
+    main:hover div:nth-child(2) {
+      transform: rotateY(0deg);
+    } */
+  </style>
+</head>
+<body>
+  <main>
+    <div>1</div>
+    <div>2</div>
+  </main>
+</body>
+</html>

@@ -9,35 +9,30 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      /* margin-left: -100px;
-      margin-top: -100px; */
       transform: translate(-50%, -50%);
       width: 300px;
       height: 300px;
       border: 1px solid #333;
+      perspective: 600px;
+      transition: 1s;
+      transform-style: preserve-3d;
+    }
+    body:hover main {
+      perspective-origin: top center;
+      /* transform: translate(-50%, -50%) rotateY(45deg); */
     }
     div {
       position: absolute;
-      left: 50%;
-      top: 50%;
-      margin-left: -50px;
-      margin-top: -50px;
       width: 100px;
       height: 100px;
     }
     div:nth-child(1) {
       background-color: #e1b12c;
-      transform: perspective(900px) rotateY(45deg);
+      transform: rotateY(45deg);
     }
     div:nth-child(2) {
       background-color: #40739e;
-      transition: 1s;
-      transform: perspective(900px) rotateY(45deg) translateZ(0);
-    }
-    main:hover div:nth-child(2) {
-      /* transform: translateX(-50%) translateY(100px); */
-      /* transform: translate(-100%, 100px); */
-      transform: perspective(900px) rotateY(45deg) translate3d(100%, -100px, 200px);
+      transform: rotateY(45deg) translateZ(-200px);
     }
   </style>
 </head>
