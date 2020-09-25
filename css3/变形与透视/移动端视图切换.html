@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>移动端视图切换</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+    main > div {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      font-size: 2em;
+      opacity: .8;
+      text-transform: uppercase;
+      /* transform: translateY(-100%); */
+      transition: 1s;
+    }
+
+    main > div:nth-child(1) {
+      transform: translate(-100%, 0);
+    }
+    main > div:nth-child(2) {
+      transform: translate(0, -100%);
+    }
+    main > div:nth-child(3) {
+      transform: translate(0, 100%);
+    }
+
+    main > div:nth-child(1):target {
+      background-color:#0097e6;
+    }
+    main > div:nth-child(2):target {
+      background-color:#e84118;
+    }
+    main > div:nth-child(3):target {
+      background-color:#44bd32;
+    }
+
+    main > div:target {
+      transform: translate(0, 0);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      height: 8vh;
+      background-color: #2f3640;
+    }
+    nav a {
+      text-decoration: none;
+      font-size: 1.2em;
+      color: #f5f6fa;
+      opacity: .8;
+      text-transform: uppercase;
+      flex: 1;
+      text-align: center;
+    }
+
+    nav a:nth-child(2) {
+      border-right: solid 1px #dcdde1;
+      border-left: solid 1px #dcdde1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div id="home" class="content">home</div>
+    <div id="shop" class="content">shop</div>
+    <div id="me" class="content">me</div>
+  </main>
+  <nav>
+    <a href="#home">home</a>
+    <a href="#shop">shop</a>
+    <a href="#me">me</a>
+  </nav>
+</body>
+</html>

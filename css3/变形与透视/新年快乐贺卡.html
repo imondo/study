@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新年快乐贺卡</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      background: #353b48;
+    }
+    .card {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 300px;
+      height: 150px;
+      color: #fff;
+      background:#c23616;
+      transform-style: preserve-3d;
+      transform: perspective(900px) rotateX(45deg) rotateY(-5deg);
+    }
+    .card::before,
+    .card::after {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      background: #e84118;
+      transition: 1s;
+      box-sizing: border-box;
+
+    }
+    .card::before {
+      content: "中秋";
+      left: 0;
+      top: 0;
+      padding-right: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      transform-origin: left top;
+      border-right: 3px solid #c23616;
+    }
+    .card::after {
+      content: "快乐";
+      right: 0;
+      top: 0;
+      padding-left: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      transform-origin: right top;
+      border-left: 3px solid #c23616;
+    }
+
+    .card:hover::before {
+      transform: rotateY(-145deg);
+    }
+    .card:hover::after {
+      transform: rotateY(145deg);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="card">imondo.cn</div>
+</body>
+</html>

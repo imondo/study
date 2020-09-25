@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>perspective</title>
+  <style>
+    body {
+      widows: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #3c6382;
+    }
+    main {
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      /* perspective: 600px; */
+      transform-style: preserve-3d;
+      transform: perspective(600px) rotateY(45deg);
+    }
+    div {
+      margin-left: 20px;
+      width: 100px;
+      height: 100px;
+      transform: rotateY(45deg);
+    }
+    div:nth-child(1) {
+      background-color: #e1b12c;
+    }
+    div:nth-child(2) {
+      background-color: #40739e;
+      transition: 1s;
+    }
+
+  </style>
+</head>
+<body>
+  <main>
+    <div></div>
+    <div></div>
+  </main>
+</body>
+</html>

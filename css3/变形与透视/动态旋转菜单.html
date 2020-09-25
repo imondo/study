@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动态旋转菜单</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      background: #353b48;
+    }
+    nav {
+      /* position: fixed;
+      right: 50px;
+      bottom: 50px; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background:#e55039;
+    }
+    nav::before {
+      content: "Mondo";
+      display: flex;
+      font-size: 1.5em;
+      color: #fff;
+    }
+    ul {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      /* background: #333; */
+    }
+    ul>li {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e55039;
+      color: #fff;
+      font-size: 1.5em;
+      transform: scale(0);
+      transform-origin: 100px 100px;
+      transition: .6s;
+      cursor: pointer;
+    }
+    ul>li>a {
+      transition: .8s;
+      font-size: .65em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+    }
+    ul:hover li:nth-of-type(1) {
+      transform: scale(1) rotateZ(60deg);
+    }
+    ul:hover li:nth-of-type(2) {
+      transform: scale(1) rotateZ(120deg);
+    }
+    ul:hover li:nth-of-type(3) {
+      transform: scale(1) rotateZ(180deg);
+    }
+    ul:hover li:nth-of-type(4) {
+      transform: scale(1) rotateZ(240deg);
+    }
+    ul:hover li:nth-of-type(5) {
+      transform: scale(1) rotateZ(300deg);
+    }
+    ul:hover li:nth-of-type(6) {
+      transform: scale(1) rotateZ(360deg);
+    }
+    ul:hover li:nth-of-type(1) a {
+      transform: scale(1) rotateZ(300deg);
+    }
+    ul:hover li:nth-of-type(2) a{
+      transform: scale(1) rotateZ(600deg);
+    }
+    ul:hover li:nth-of-type(3) a{
+      transform: scale(1) rotateZ(900deg);
+    }
+    ul:hover li:nth-of-type(4) a{
+      transform: scale(1) rotateZ(1200deg);
+    }
+    ul:hover li:nth-of-type(5) a{
+      transform: scale(1) rotateZ(1500deg);
+    }
+    ul:hover li:nth-of-type(6) a{
+      transform: scale(1) rotateZ(1800deg);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="http://imondo.cn" target="_blank">
+          h
+        </a>
+      </li>
+      <li>
+        <a href="https://one-pupil.github.io/rqk-ui/" target="_blank">
+          squ
+        </a>
+      </li>
+      <li>
+        <a href="https://one-pupil.github.io/vue-template/" target="_blank">
+          vue
+        </a>
+      </li>
+      <li>
+        <a href="http://js.imondo.cn" target="_blank">
+          JS
+        </a>
+      </li>
+      <li>
+        <a href="http://css.imondo.cn" target="_blank">
+          CSS
+        </a>
+      </li>
+      <li>
+        <a href="http://imondo.cn" target="_blank">
+          cn
+        </a>
+      </li>
+    </ul>
+  </nav>
+</body>
+</html>

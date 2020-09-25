@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图集缩放</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    main {
+      width: 100vw;
+      height: 100vh;
+      background-color: #7f8fa6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    main div {
+      width: 200px;
+      height: 200px;
+      margin-left: 20px;
+      overflow: hidden;
+      border: 2px solid #353b48;
+    }
+
+    main div img {
+      height: 100%;
+      transition: .6s;
+      filter: blur(2px);
+      cursor: pointer;
+    }
+
+    main div>img:hover {
+      filter: none;
+      transform: scale(1.5);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600940685584&di=c9cc5eb862c1af94590ff9c60174ea4b&imgtype=0&src=http%3A%2F%2Ft9.baidu.com%2Fit%2Fu%3D583874135%2C70653437%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D3607%26h%3D2408" alt=""></div>
+    <div><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600940518641&di=6b13499f0ac9f4e7af8c9ea2995aaff8&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D1484500186%2C1503043093%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1280%26h%3D853" alt=""></div>
+    <div><img src="https://t9.baidu.com/it/u=1307125826,3433407105&fm=79&app=86&size=h300&n=0&g=4n&f=jpeg?sec=1601535421&t=a798d150523bd2bdb5af0a64687a0cf4" alt=""></div>
+  </main>
+</body>
+</html>

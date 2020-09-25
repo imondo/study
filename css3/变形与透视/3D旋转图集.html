@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D旋转图集</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #7f8fa6;
+      display: flex;
+      align-items: center;
+      justify-content: center;      
+    }
+    .content {
+      width: 200px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #fff;
+    }
+    main {
+      width: 100px;
+      height: 100px;
+      transform-origin: center center -100px;
+      transform-style: preserve-3d;
+      transform: perspective(900px);
+      transition: 1s;
+    }
+    main>div {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+    }
+    main>div>img {
+      height: 100%;
+    }
+    main>div:nth-of-type(1) {
+      transform-origin: center center -100px;
+      transform: rotateY(90deg);
+    }
+    main>div:nth-of-type(2) {
+      transform-origin: center center -100px;
+      transform: rotateY(180deg);
+    }
+    main>div:nth-of-type(3) {
+      transform-origin: center center -100px;
+      transform: rotateY(270deg);
+    }
+    main>div:nth-of-type(4) {
+      transform-origin: center center -100px;
+      transform: rotateY(360deg);
+    }
+
+    .content:hover main {
+      transform: perspective(900px) rotateY(90deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <main>
+      <div><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600940685584&di=c9cc5eb862c1af94590ff9c60174ea4b&imgtype=0&src=http%3A%2F%2Ft9.baidu.com%2Fit%2Fu%3D583874135%2C70653437%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D3607%26h%3D2408" alt=""></div>
+      <div><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600940518641&di=6b13499f0ac9f4e7af8c9ea2995aaff8&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D1484500186%2C1503043093%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1280%26h%3D853" alt=""></div>
+      <div><img src="https://t9.baidu.com/it/u=1307125826,3433407105&fm=79&app=86&size=h300&n=0&g=4n&f=jpeg?sec=1601535421&t=a798d150523bd2bdb5af0a64687a0cf4" alt=""></div>
+      <div><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600940518641&di=6b13499f0ac9f4e7af8c9ea2995aaff8&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D1484500186%2C1503043093%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1280%26h%3D853" alt=""></div>
+    </main>
+  </div>
+</body>
+</html>

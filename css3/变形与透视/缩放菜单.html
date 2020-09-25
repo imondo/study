@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>缩放菜单</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    main {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    ul {
+      display: flex;
+      list-style: none;
+    }
+    ul > li {
+      flex: 1;
+      margin-left: 20px;
+    }
+    ul li strong {
+      display: flex;
+      padding: 5px 10px;
+      background-color: #0097e6;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    ul li strong + div {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      text-align: center;
+      background-color:#40739e;
+      z-index: -1;
+      transform-origin: left top;
+      transform: scale(0);
+      transition: .6s;
+    }
+    ul li strong + div a {
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #fff;
+      font-size: 12px;
+    }
+    ul li:hover strong + div {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <ul>
+      <li>
+        <strong>home</strong>
+        <div>
+          <a href="">test1</a>
+          <a href="">test2</a>
+        </div>
+      </li>
+      <li>
+        <strong>me</strong>
+        <div>
+          <a href="">demo1</a>
+          <a href="">demo2</a>
+        </div>
+      </li>
+    </ul>
+  </main>
+</body>
+</html>

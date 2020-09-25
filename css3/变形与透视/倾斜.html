@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>倾斜</title>
+  <style>
+    main {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      /* margin-left: -100px;
+      margin-top: -100px; */
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      border: 1px solid #333;
+    }
+    div {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -50px;
+      margin-top: -50px;
+      width: 100px;
+      height: 100px;
+    }
+    div:nth-child(1) {
+      background-color: #e1b12c;
+    }
+    div:nth-child(2) {
+      background-color: #40739e;
+      transition: 1s;
+    }
+    main:hover div:nth-child(2) {
+      transform: skew(30deg, 50deg);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div></div>
+    <div></div>
+  </main>
+</body>
+</html>

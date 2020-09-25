@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旋转物体</title>
+  <style>
+    main {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      border: 1px solid #333;
+      transform-style: preserve-3d;
+      transform: perspective(900px) rotateY(45deg);
+    }
+    div {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -50px;
+      margin-top: -50px;
+      width: 100px;
+      height: 100px;
+    }
+    div:nth-child(1) {
+      background-color: #e1b12c;
+      transition: 1s;
+    }
+    main:hover div:nth-child(1) {
+      transform: perspective(900px) rotate3d(1, 1, 1, 360deg);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div></div>
+    <div></div>
+  </main>
+</body>
+</html>

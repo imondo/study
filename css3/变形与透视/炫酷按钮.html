@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>炫酷按钮</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    main {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #353b48;
+    }
+    a {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 200px;
+      height: 40px;
+      border: 2px solid #e84118;
+      color: #fff;
+      overflow: hidden;
+      text-decoration: none;
+      z-index: 1;
+    }
+    a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 100%;
+      background: #0097e6;
+      transform: skew(45deg);
+      transition: .5s;
+      z-index: -1;
+    }
+    a:hover::after {
+      width: 200%;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a href="http://imondo.cn" target="_blank">imondo.cn</a>
+  </main>
+</body>
+</html>
