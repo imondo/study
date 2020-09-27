@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>过度</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      background: #2c3e50;
+    }
+    div {
+      width: 100px;
+      height: 100px;
+      background: #2980b9;
+      border: 10px solid #fff;
+      transition: 2s;
+    }
+
+    div:first-child {
+      margin: 50px;
+      transition-property: all;
+    }
+
+    div:last-child {
+      transition-property: none;
+    }
+
+    body:hover div {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 30px dashed #fff;
+    }
+  </style>
+</head>
+<body>
+  <div></div>
+  <div></div>
+</body>
+</html>
