@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>steps 时钟</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;      
+      width: 100vw;
+      height: 100vh;
+      background: #34495e;
+    }
+    main {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center; 
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: #2ecc71;
+    }
+    main::before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #333;
+    }
+    main::after {
+      content: "";
+      display: inline-block;
+      width: 2px;
+      height: 30%;
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      background: #333;
+      transform: translate(-50%, -30%);
+      transform-origin: bottom;
+      transition: 60s;
+      transition-timing-function: steps(60, start);
+    }
+    main:hover::after {
+      transform: translate(-50%, -30%) rotate(360deg);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div></div>
+  </main>
+</body>
+</html>

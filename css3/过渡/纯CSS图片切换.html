@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>纯CSS图片切换</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;      
+      width: 100vw;
+      height: 100vh;
+      background: #34495e;
+    }
+    main {
+      display: flex;
+      width: 300px;
+      height: 200px;
+      overflow: hidden;
+    }
+    section {
+      display: flex;
+      width: 600px;
+      height: 200px;
+      transition: 1s;
+      transition-timing-function: step-start;
+    }
+    div {
+      width: 300px;
+      height: 200px;
+      overflow: hidden;
+    }
+    div>img {
+      width: 100%;
+    }
+    main:hover section {
+      transform: translateX(-300px);
+    }
+    p {
+      width: 150px;
+      height: 150px;
+      background: #2980b9;
+      border-radius: 50%;
+      transition-property: width, height, background, border-radius;
+      transition-delay: 0ms, 2s, 4s, 6s;
+      transition-duration: 2s;
+
+    }
+    p:hover {
+      width: 250px;
+      height: 250px;
+      border-radius: 0;
+      background: #16a085;
+    }
+  </style>
+</head>
+<body>
+  <!-- <main>
+    <section>
+      <div><img src="https://images.pexels.com/photos/6992/forest-trees-northwestisbest-exploress.jpg?cs=srgb&dl=pexels-snapwire-6992.jpg&fm=jpg" alt=""></div>
+      <div><img src="https://images.pexels.com/photos/1386989/pexels-photo-1386989.jpeg?cs=srgb&dl=pexels-eberhard-grossgasteiger-1386989.jpg&fm=jpg" alt=""></div>
+    </section>
+  </main> -->
+  <p></p>
+</body>
+</html>

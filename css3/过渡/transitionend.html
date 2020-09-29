@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>transitionend</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      background: #2c3e50;
+    }
+    main {
+      width: 100px;
+      height: 100px;
+    }
+    div {
+      position: relative;
+      width: 100px;
+      height: 100px;
+
+    }
+
+    div::before {
+      content: "Mondo";
+      color: #fff;
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #1abc9c;
+      border-radius: 10px;
+      transition-property: background, width, height, transform;
+      transition-duration: 200ms, 2s;
+    }
+    div::after {
+      content: "imondo.cn";
+      color: #fff;
+      position: absolute;
+      bottom: -40px;
+      transform: translateX(-1000px) skew(45deg);
+      transition: .5s;
+    }
+    div:hover::before {
+      border-radius: 0px;
+      transform: rotate(360deg);
+      width: 200px;
+      height: 150px;
+      background:#e74c3c;
+    }
+    div.move::after {
+      transform: translateX(0) skew(0);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div></div>
+  </main>
+  <script>
+    document.querySelector('div').addEventListener('transitionend', function(e) {
+      console.log(e)
+      this.classList.add('move')
+    })
+  </script>
+</body>
+</html>
