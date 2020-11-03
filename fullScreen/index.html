@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+  <title>大屏测试</title>
+  <link
+    rel="stylesheet"
+    href="./css/reset.css"
+  >
+  <link
+    rel="stylesheet"
+    href="./css/web.css"
+  >
+</head>
+
+<body>
+  <div
+    id="ScaleBox"
+    class="ScaleBox page-box"
+  >
+    <h1 class="page-title">大屏测试</h1>
+    <div class="con-box">
+      <div
+        id="countBox"
+        class="count-box"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <!--  左滚  -->
+    <div class="scroll-box scroll-l">
+      <div class="limit-box">
+        <ul
+          id="list"
+          class="list"
+        >
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+        </ul>
+      </div>
+    </div>
+    <!--  右滚  -->
+    <div class="scroll-box scroll-r">
+      <div class="limit-box">
+        <ul
+          id="list2"
+          class="list"
+        >
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+          <li>恭喜湖南 <span>城客户</span> 成功预约 <span>10万元</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./bigScreenResize.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  new BigScreenResize({
+    width: 1920,
+    height: 1040
+  });
+
+  // 倒计时
+  var endDate = new Date("2020/11/11 00:00:00");
+  var timer = null;
+  function formatStr(str, len) {
+    str += '';
+    while (str.length < len) {
+      str = '0' + str
+    }
+    return str
+  }
+  $counts = $('#countBox span');
+  function countTime() {
+    //获取当前时间
+    var date = new Date();
+    var now = date.getTime();
+    // 设置截止时间
+    var end = endDate.getTime();
+    // 时间差
+    var leftTime = end - now;
+    // 定义变量 d,h,m,s保存倒计时的时间
+    var d, h, m, s;
+    var time = '';
+    if (leftTime >= 0) {
+      d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+      h = Math.floor(leftTime / 1000 / 60 / 60 % 24);
+      m = Math.floor(leftTime / 1000 / 60 % 60);
+      s = Math.floor(leftTime / 1000 % 60);
+      time = formatStr(d, 2) + formatStr(h, 2) + formatStr(m, 2) + formatStr(s, 2)
+    } else {
+      time = '00000000'
+      clearInterval(timer)
+    }
+    var timeArr = time.split('');
+    timeArr.forEach(function (v, i) {
+      $counts.eq(i).attr('class', 'n' + v)
+    })
+  }
+
+  timer = setInterval(countTime,1000);
+    // 滚动l
+    function initScroll() {
+    var $list = $('#list');
+    var $li = $list.children('li');
+    var len = $li.length;
+    var h = $li[0].offsetHeight;
+    if (len < 11) {
+      return false;
+    }
+    $list.append($li.clone())
+    var top = 0;
+    setInterval(function () {
+      top += 2
+      if (top >= h * len) {
+        top = 0;
+      }
+      $list.css({
+        'transform': 'translateY(-'+ top +'px)',
+      })
+    }, 50);
+  }
+  initScroll()
+  // 滚动r
+  function initScroll2() {
+    var $list = $('#list2');
+    var $li = $list.children('li');
+    var len = $li.length;
+    var h = $li[0].offsetHeight;
+    if (len < 11) {
+      return false;
+    }
+    $list.append($li.clone())
+    var top = 0;
+    setInterval(function () {
+      top += 2
+      if (top >= h * len) {
+        top = 0;
+      }
+      $list.css({
+        'transform': 'translateY(-'+ top +'px)',
+      })
+    }, 50);
+  }
+  initScroll2()
+</script>
+
+</html>
