@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
+li {
+  list-style-type: none;
+}
+
+.task-add {
+  display: flex;
+  justify-content: space-between;
+}
+.el-input {
+  max-width: 300px;
+}
+.task-list {
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+}
+.task-list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.task-text {
+  flex: 1;
+  font-size: 16px;
+  padding-left: 20px;
+}
+.completed {
+  text-decoration:line-through
+}
+.task-del {
+  width: 50px;
+  cursor: pointer;
+  color: red;
+}
+
