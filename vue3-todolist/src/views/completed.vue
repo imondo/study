@@ -3,6 +3,7 @@
     <ul v-if="tasks.length">
       <li v-for="(item, index) in tasks" :key="index" class="task-list-item">
         <p class="task-text" :class="{completed: item.completed}">{{ item.content }}</p>
+        <i class="task-del el-icon-delete" @click="delTask(item.id)"></i>
       </li>
     </ul>
     <p v-else>
@@ -12,16 +13,19 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useStore } from 'vuex';
 import { useTaskList } from '../use-hook';
 
 export default defineComponent({
   name: 'Completed',
   setup() {
-    const { list } = useTaskList()
-    const tasks = list.value.filter(v => v.completed);
+    const { state: { list } } = useStore()
+    const tasks = computed(() => list.filter(v => v.completed))
+    const { delTask } = useTaskList()
     return {
-      tasks
+      tasks,
+      delTask
     }
   }
 })
