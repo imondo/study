@@ -2,7 +2,7 @@
   <div class="child">
     <p>我是子组件</p>
     <p>来自父组件的msg: {{ msg }}</p>
-    <input type="text" v-model="value">
+    <input type="text" v-model="value" />
   </div>
 </template>
 
@@ -11,8 +11,8 @@ export default {
   name: "ChildParent",
   data() {
     return {
-      value: ''
-    }
+      value: ""
+    };
   },
   computed: {
     msg() {
@@ -20,7 +20,7 @@ export default {
     }
   },
   created() {
-    console.log(this.$parent); 
+    console.log(this.$parent);
   }
 };
 </script>

@@ -22,7 +22,13 @@
     <ChildParent />
 
     <h3>$attrs和$listeners</h3>
-    <AttrListen placeholder="这是个attr" :test="value" v-bind="$attrs" v-on="$listeners" @click="handleListen"/>
+    <AttrListen
+      placeholder="这是个attr"
+      :test="value"
+      v-bind="$attrs"
+      v-on="$listeners"
+      @click="handleListen"
+    />
   </div>
 </template>
 
@@ -60,8 +66,8 @@ export default {
       });
     },
     handleListen() {
-      this.value = '监听了$listeners';
+      this.value = "监听了$listeners";
     }
-  },
+  }
 };
 </script>

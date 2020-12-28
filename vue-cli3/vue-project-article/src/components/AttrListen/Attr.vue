@@ -14,13 +14,13 @@ export default {
   props: {
     test: {
       type: String,
-      default: ''
+      default: ""
     }
   },
   data() {
     return {
       placeholder: this.$attrs.placeholder
-    }
+    };
   },
   mounted() {
     console.log(this.$attrs, this.$listeners);
