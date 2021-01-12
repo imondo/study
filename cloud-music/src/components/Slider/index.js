@@ -28,9 +28,9 @@ function Slider(props) {
       <div className="slider-container">
         <div className="swiper-wrapper">
           {
-            bannerList.map(slider => {
+            bannerList.map((slider, index) => {
               return (
-                <div className="swiper-slide" key={slider.id}>
+                <div className="swiper-slide" key={index}>
                   <div className="slider-nav">
                     <img src={slider.imageUrl} width="100%" height="100%" alt="推荐"/>
                   </div>

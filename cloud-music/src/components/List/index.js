@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListWrapper, ListItem, List } from "./style";
-import { getCount } from "../../api/utils";
+import { getCount } from "../../utils/utils";
 
 function RecommendList(props) {
   return (
@@ -13,7 +13,7 @@ function RecommendList(props) {
               <ListItem key={item.id}>
                 <div className="img_wrapper">
                   <div className="decorate"></div>
-                  <img src={item.picurl + "?param=300x300"} width="100%" height="100%" alt="music"/>
+                  <img src={item.picUrl + "?param=300x300"} width="100%" height="100%" alt="music"/>
                   <div className="play_conut">
                     <i className="iconfont play">&#xe885;</i>
                     <span className="count">{ getCount(item.playCount) }</span>
