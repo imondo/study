@@ -16,6 +16,10 @@ export const getSingerListRequest= (category, alpha, count) => {
   return request.get(`/artist/list?cat=${category}&initial=${alpha.toLowerCase()}&offset=${count}`);
 }
 
+export const getRankListRequest = () => {
+  return request.get (`/toplist/detail`);
+};
+
 export const getSingers = () => {
   const categoryTypes = [{
     name: "华语男",
