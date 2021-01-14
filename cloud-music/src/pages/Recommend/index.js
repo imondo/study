@@ -6,6 +6,7 @@ import Slider from "../../components/Slider";
 import RecommendList from "../../components/List";
 import Scroll from "../../baseUI/Scroll";
 import Loading from "../../baseUI/Loading/index";
+import { renderRoutes } from 'react-router-config';
 
 import { Content } from "./style";
 
@@ -30,6 +31,7 @@ const Recommend = props => {
   return (
     <Content>
       { enterLoading ? <Loading></Loading> : null }
+      { renderRoutes (props.route.routes) }
       <Scroll className="list" onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerListJS}></Slider>
