@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { connect } from 'react-redux';
 import {
   getSingerList,
@@ -17,6 +17,8 @@ import Loading from '../../baseUI/Loading/index';
 import { NavContainer, List, ListItem, ListContainer } from './style';
 import { getSingers } from '../../api/index';
 
+import { CategoryDataContext, CHANGE_ALPHA, CHANGE_CATEGORY } from './store.js';
+
 function Singers(props) {
   const {
     singerList,
@@ -29,24 +31,31 @@ function Singers(props) {
     pullDownRefreshDispatch,
     pullUpRefreshDispatch
   } = props;
-  console.log(props)
+  const {data, dispatch} = useContext(CategoryDataContext);
+  // 拿到 category 和 alpha 的值
+
+  const {category, alpha} = data.toJS ();
   const { categoryTypes, alphaTypes } = getSingers();
 
-  const [category, setCategory] = useState('');
-  const [alpha, setAlpha] = useState('');
+  // const [category, setCategory] = useState('');
+  // const [alpha, setAlpha] = useState('');
 
   useEffect(() => {
-    getHotSingerDispatch();
+    if (!singerList.size) {
+      getHotSingerDispatch ();
+    }
     // eslint-disable-next-line
   }, []);
 
   const onUpdateAlpha = val => {
-    setAlpha(val);
+    // setAlpha(val);
+    dispatch ({type: CHANGE_ALPHA, data: val});
     updateDispatch(category, val);
   };
 
   const onUpdateCategory = val => {
-    setCategory(val);
+    // setCategory(val);
+    dispatch ({type: CHANGE_CATEGORY, data: val});
     updateDispatch(val, alpha);
   };
 

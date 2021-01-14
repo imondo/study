@@ -7,13 +7,17 @@ import store from "./store/index.js";
 import routes from "./routes/index.js";
 import { HashRouter as Router } from "react-router-dom";
 
+import { Data } from './pages/Singers/store.js';
+
 function App() {
   return (
     <Provider store={store}>
       <Router className="App">
         <GlobalStyle></GlobalStyle>
         <IconStyle></IconStyle>
-        { renderRoutes(routes) }
+        <Data>
+          { renderRoutes(routes) }
+        </Data>
       </Router>
     </Provider>
   );
