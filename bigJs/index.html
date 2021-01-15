@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前端数值计算</title>
+</head>
+<body>
+  <script src='https://cdn.jsdelivr.net/npm/big.js@6.0.0/big.min.js'></script>
+  <script src="./algor.js"></script>
+  <script>
+    const $algor = new FedAlgor();
+    console.log('加法: ', $algor.plus(5, 4))
+    console.log('减法: ', $algor.minus('0.3', 0.1))
+    console.log('乘法: ', $algor.times(4, 2))
+    console.log('除法: ', $algor.div(1, 34, 7))
+    console.log('toFixed: ', $algor.toFixed(0.555, 2))
+
+    // 添加自定义方法
+    FedAlgor.prototype.mult = function(a, b) {
+      console.log(11);
+      return 'mult'
+    }
+  </script>
+</body>
+</html>
