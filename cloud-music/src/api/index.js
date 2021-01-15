@@ -20,6 +20,10 @@ export const getRankListRequest = () => {
   return request.get (`/toplist/detail`);
 };
 
+export const getAlbumDetailRequest = id => {
+  return request.get (`/playlist/detail?id=${id}`);
+};
+
 export const getSingers = () => {
   const categoryTypes = [{
     name: "华语男",
