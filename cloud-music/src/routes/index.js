@@ -1,10 +1,11 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import Home from './../pages/Home';
-import Rank from './../pages/Rank';
-import Recommend from './../pages/Recommend';
-import Singers from './../pages/Singers';
+import Home from '../pages/Home';
+import Rank from '../pages/Rank';
+import Recommend from '../pages/Recommend';
+import Singers from '../pages/Singers';
 import Album from '../pages/Album';
+import Singer from '../pages/Singer';
 
 export default [
   {
@@ -28,11 +29,23 @@ export default [
       },
       {
         path: '/singers',
-        component: Singers
+        component: Singers,
+        routes: [
+          {
+            path: '/singers/:id',
+            component: Singer
+          }
+        ]
       },
       {
         path: '/rank',
-        component: Rank
+        component: Rank,
+        routes: [
+          {
+            path: '/rank/:id',
+            component: Album
+          }
+        ]
       }
     ]
   }

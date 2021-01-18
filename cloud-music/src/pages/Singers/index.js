@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { connect } from 'react-redux';
 import {
   getSingerList,
@@ -16,6 +16,7 @@ import Scroll from '../../baseUI/Scroll/index';
 import Loading from '../../baseUI/Loading/index';
 import { NavContainer, List, ListItem, ListContainer } from './style';
 import { getSingers } from '../../api/index';
+import { renderRoutes } from 'react-router-config';
 
 import { CategoryDataContext, CHANGE_ALPHA, CHANGE_CATEGORY } from './store.js';
 
@@ -67,13 +68,17 @@ function Singers(props) {
     pullDownRefreshDispatch(category, alpha);
   };
 
+  const onEnterDetail = (detail) => {
+    props.history.push(`/singers/${detail.id}`)
+  }
+
   const renderSingerList = () => {
     const list = singerList ? singerList.toJS() : [];
     return (
       <List>
         {list.map((item, index) => {
           return (
-            <ListItem key={item.accountId + '' + index}>
+            <ListItem key={item.accountId + '' + index} onClick={() => onEnterDetail(item)}>
               <div className="img_wrapper">
                 <LazyLoad placeholder={<img width="100%" height="100%" src={require('./singer.png')} alt="music"/>}>
                   <img
@@ -120,6 +125,7 @@ function Singers(props) {
         </Scroll>
         <Loading show={enterLoading}></Loading>
       </ListContainer>
+      { renderRoutes(props.route.routes) }
     </div>
   );
 }

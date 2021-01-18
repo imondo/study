@@ -4,6 +4,8 @@ import style from '../../assets/global-style';
 import PropTypes from 'prop-types';
 import { Marquee } from './style';
 
+export const HEADER_HEIGHT = 45;
+
 const HeaderContainer = styled.div`
   position: fixed;
   padding: 5px 10px;

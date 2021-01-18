@@ -24,6 +24,10 @@ export const getAlbumDetailRequest = id => {
   return request.get (`/playlist/detail?id=${id}`);
 };
 
+export const getSingerInfoRequest = id => {
+  return request.get (`/artists?id=${id}`);
+};
+
 export const getSingers = () => {
   const categoryTypes = [{
     name: "华语男",
