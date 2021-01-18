@@ -37,18 +37,14 @@ const Singer = props => {
   const artist = immutableArtist.toJS();
   const songs = immutableSongs.toJS();
 
-  useEffect (() => {
+  useEffect(() => {
     const id = props.match.params.id;
     getSingerDataDispatch (id);
-    // 之前写的 UI 处理逻辑省略
-  }, []);
-
-  useEffect(() => {
     let h = imageWrapper.current.offsetHeight;
-    songScrollWrapper.current.style.top = `${h - OFFSET} px`;
+    songScrollWrapper.current.style.top = `${h - OFFSET}px`;
     initialHeight.current = h;
     // 把遮罩先放在下面，以裹住歌曲列表
-    layer.current.style.top = `${h - OFFSET} px`;
+    layer.current.style.top = `${h - OFFSET}px`;
     songScroll.current.refresh();
     //eslint-disable-next-line
   }, []);
