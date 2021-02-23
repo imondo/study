@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { CSSTransition } from 'react-transition-group';
-import animations from 'create-keyframe-animation'
+import animations from 'create-keyframe-animation';
+import ProgressBar from '../../../baseUI/ProgressBar/index';
 import { getName, prefixStyle } from "../../../utils/utils";
 import {
   NormalPlayerContainer,
@@ -9,7 +10,9 @@ import {
   Bottom,
   Operators,
   CDWrapper,
+  ProgressWrapper
 } from "./style";
+
 
 function NormalPlayer(props) {
   const { song, fullScreen } = props;
@@ -18,7 +21,7 @@ function NormalPlayer(props) {
   const normalPlayerRef = useRef();
   const cdWrapperRef = useRef();
 
-  const transform = prefixStyle ("transform");
+  const transform = prefixStyle("transform");
 
   const _getPosAndScale = () => {
     const targetWidth = 40;
@@ -72,10 +75,10 @@ function NormalPlayer(props) {
     if (!cdWrapperRef.current) return;
     const cdWrapperDom = cdWrapperRef.current;
     cdWrapperDom.style.transition = "all 0.4s";
-    const { x, y, scale } = _getPosAndScale ();
+    const { x, y, scale } = _getPosAndScale();
     cdWrapperDom.style[transform] = `translate3d (${x} px, ${y} px, 0) scale (${scale})`;
   };
-  
+
   const afterLeave = () => {
     if (!cdWrapperRef.current) return;
     const cdWrapperDom = cdWrapperRef.current;
@@ -126,6 +129,13 @@ function NormalPlayer(props) {
           </CDWrapper>
         </Middle>
         <Bottom className="bottom">
+          <ProgressWrapper>
+            <span className="time time-l">0:00</span>
+            <div className="progress-bar-wrapper">
+              <ProgressBar percent={0.2}></ProgressBar>
+            </div>
+            <div className="time time-r">4:17</div>
+          </ProgressWrapper>
           <Operators>
             <div className="icon i-left" >
               <i className="iconfont">&#xe625;</i>

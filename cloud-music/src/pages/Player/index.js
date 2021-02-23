@@ -20,18 +20,25 @@ function Player(props) {
   }
 
   const { fullScreen } = props;
-  const { toggleFullScreenDispatch } = props;
+  const { toggleFullScreenDispatch, togglePlayingDispatch } = props;
+
+  const clickPlaying = (e, state) => {
+    e.stopPropagation();
+    togglePlayingDispatch(state);
+  };
 
   return (
     <div>
       <MiniPlayer
         song={currentSong}
         fullScreen={fullScreen}
-        toggleFullScreen={toggleFullScreenDispatch} />
+        toggleFullScreen={toggleFullScreenDispatch}
+        clickPlaying={clickPlaying} />
       <NormalPlayer
         song={currentSong}
         fullScreen={fullScreen}
-        toggleFullScreen={toggleFullScreenDispatch} />
+        toggleFullScreen={toggleFullScreenDispatch}
+        clickPlaying={clickPlaying} />
     </div>
   )
 }
