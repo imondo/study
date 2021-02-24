@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import ProgressCircle from '../../../baseUI/ProgressCircle/index';
 import { getName } from '../../../utils/utils';
@@ -9,6 +9,7 @@ function MiniPlayer(props) {
   const miniPlayerRef = useRef();
   const { song, fullScreen, playing, percent } = props;
   const { toggleFullScreen, clickPlaying } = props;
+  console.log(props)
 
   return (
     <CSSTransition

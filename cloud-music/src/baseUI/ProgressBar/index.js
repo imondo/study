@@ -37,6 +37,7 @@ const ProgressBarWrapper = styled.div`
 `
 
 function ProgressBar(props) {
+  const transform = prefixStyle('transform');
   const progressBar = useRef();
   const progress = useRef();
   const progressBtn = useRef();
@@ -44,13 +45,15 @@ function ProgressBar(props) {
 
   const progressBtnWidth = 16;
 
+  const { percent } = props;
+
   // 取出回调函数
-  const {percentChange} = props;
+  const { percentChange } = props;
 
   const _changePercent = () => {
     const barWidth = progressBar.current.clientWidth - progressBtnWidth;
-    const curPercent = progress.current.clientWidth/barWidth;// 新的进度计算
-    percentChange(curPercent);// 把新的进度传给回调函数并执行
+    const curPercent = progress.current.clientWidth / barWidth;// 新的进度计算
+    percentChange && percentChange(curPercent);// 把新的进度传给回调函数并执行
   }
 
   // 进度条偏移
@@ -84,9 +87,20 @@ function ProgressBar(props) {
   const progressClick = (e) => {
     const rect = progressBar.current.getBoundingClientRect();
     const offsetWidth = e.pageX - rect.left;
-    _offset (offsetWidth);
+    _offset(offsetWidth);
     _changePercent();
   }
+
+  //监听percent
+  useEffect(() => {
+    if(percent >= 0 && percent <= 1 && !touch.initiated) {
+      const barWidth = progressBar.current.clientWidth - progressBtnWidth;
+      const offsetWidth = percent * barWidth;
+      progress.current.style.width = `${offsetWidth}px`;
+      progressBtn.current.style[transform] = `translate3d(${offsetWidth}px, 0, 0)`;
+    }
+    // eslint-disable-next-line
+  }, [percent]);
 
   return (
     <ProgressBarWrapper>
