@@ -9,7 +9,6 @@ function MiniPlayer(props) {
   const miniPlayerRef = useRef();
   const { song, fullScreen, playing, percent } = props;
   const { toggleFullScreen, clickPlaying } = props;
-  console.log(props)
 
   return (
     <CSSTransition
