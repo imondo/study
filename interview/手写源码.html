@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>手写源码</title>
+  </head>
+  <body>
+    <script>
+      var arry = [1, 2, 3];
+      console.log("===========重写forEach========");
+      Array.prototype.myForEach = function (cb) {
+        var _arr = this;
+        var _len = _arr.length;
+        var _arg1 = arguments[1] || window;
+        for (var i = 0; i < _len; i++) {
+          cb.apply(_arg1, [_arr[i], i, _arr]);
+        }
+      };
+      arry.myForEach((item, index, arr) => {
+        console.log(item, index, arr);
+      });
+      console.log("===========重写call========");
+      Function.prototype.myCall = function (ctx) {
+        ctx = ctx ? Object(ctx) : window;
+        ctx.func = this;
+
+        var _args = [];
+        for (var i = 1; i < arguments.length; i++) {
+          _args.push("arguments[" + i + "]");
+        }
+        // eval 执行字符串函数 数组字符串中 toString 平铺
+        var ret = eval("ctx.func(" + _args + ")");
+        delete ctx.func;
+        return ret;
+      };
+
+      function test() {
+        console.log(this);
+        console.log(arguments);
+      }
+      test.call({ a: "call" }, "a", "b");
+      test.myCall({ a: "my call" }, "a", "b");
+
+      console.log("===========重写apply========");
+      Function.prototype.myApply = function (ctx, args) {
+        ctx = ctx ? Object(ctx) : window;
+        ctx.func = this;
+
+        var ret = eval("ctx.func(" + args + ")");
+        delete ctx.func;
+        return ret;
+      };
+
+      function test1() {
+        console.log(this);
+        console.log(arguments);
+      }
+      test1.apply({ a: "apply" }, [1, 2]);
+      test1.myApply({ a: "my apply" }, [1, 2]);
+
+      console.log("===========重写bind========");
+
+      /**
+       * 1. test -> bind() -> test不执行 -> 返回一个新函数
+       * 2. bind -> 第1个参数 -> test -> this
+       * 3. bind 可以分离 test 的参数
+       *    bind 接收一部分参数 返回的新函数接收一部分参数
+       * 4. bind & call 的函数传递参数时一样的
+       * 5. 实例化返回的新函数 -> this 指向是 test 构造出的实例
+       * 6. 实例应该继承 test 构造函数上的原型属性
+       */
+      function test2() {
+        console.log(this);
+        console.log(arguments);
+      }
+
+      Function.prototype.myBind = function (ctx) {
+        var func = this;
+        // bind 传递的 test 参数
+        var args = [].slice.call(arguments, 1);
+
+        var _tempFn = function () {};
+
+        var newFn = function () {
+          // 返回新函数 t 的参数列表
+          var newArgs = [].slice.call(arguments);
+          return func.apply(
+            this instanceof newFn ? this : ctx,
+            args.concat(newArgs)
+          );
+        };
+
+        _tempFn.prototype = this.prototype;
+        newFn.prototype = new _tempFn();
+        return newFn;
+      };
+
+      test2.bind({ a: "bind" }, "bind", 'bins')();
+      test2.myBind({ a: "my bind" }, "bind", 'bins')();
+
+
+      console.log("===========重写 new========");
+      /**
+       * 1. 创建构造函数
+       * 2. 实例化构造函数
+       * 3. 接受构造函数的返回值
+       * 
+       * 实例化过程
+       * 1. 产生 this 指向 this -> {}
+       * 2. this 对象中增加属性
+       * {
+       *    a: 1,
+       *    b :b,
+       *    原型
+       *    __proto__: Test.prototype => {
+       *      constructor
+       *    }
+       *  }
+      */
+      function Test(a, b) {
+        this.a = a;
+        this.b = b;
+      }
+
+      Test.prototype.add = function () {
+        return this.a + this.b;
+      }
+
+      function myNew() {
+        var constructor = [].shift.call(arguments)
+        var _this = {};
+
+        _this.__proto__ = constructor.prototype;
+
+        var res = constructor.apply(_this, arguments);
+        return typeof res === 'object' ? res : _this;
+      }
+      const test3 = new Test(1, 2)
+      const test4 = myNew(Test, 1, 2)
+      console.log(test3, test4);
+
+      console.log("===========重写 instanceof========");
+      // A instanceof B B 在 A 的原型链上可以找到 为 true
+      console.log('instanceof: ', test3 instanceof Test)
+      console.log('myInstanceof: ', myInstanceof(test3, Test))
+      
+      function myInstanceof(target, type) {
+        type = type.prototype;
+        target = target.__proto__;
+
+        while(true) {
+          if (target === null) {
+            return false
+          }
+          if (target === type) {
+            return true
+          }
+          target = target.__proto__;
+        }
+      }
+    
+    </script>
+  </body>
+</html>
