@@ -14,7 +14,7 @@
 import { ref, getCurrentInstance } from "vue";
 export default {
   setup(props) {
-    const { ctx } = getCurrentInstance();
+    const { proxy } = getCurrentInstance();
 
     const isOk = ref(true);
 
@@ -27,7 +27,7 @@ export default {
           console.log("注册请求");
         },
       };
-      ctx.$loginer({
+      proxy.$loginer({
         type,
         ok: () => {
           return new Promise((resolve, reject) => {

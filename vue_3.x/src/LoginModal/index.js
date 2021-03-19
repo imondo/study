@@ -1,4 +1,4 @@
-import { createVNode, render } from "vue";
+import { render, h } from "vue";
 import ModalCops from "./index.vue";
 
 let instance;
@@ -29,7 +29,7 @@ const ModalBox = ({type, ok}) => {
     }
   };
 
-  instance = createVNode(ModalCops, _opt);
+  instance = h(ModalCops, _opt);
 
   const container = document.createElement('div');
 
