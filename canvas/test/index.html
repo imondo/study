@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      html, body {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #canvas {
+        border: 1px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      // 设置宽高
+      canvas.width = 500;
+      canvas.height = 500;
+
+      ctx.beginPath(); // 开始路径
+      ctx.rect(10, 10, 100, 100); // 绘制矩形
+
+      ctx.fillStyle = '#eee'; // 填充颜色
+      ctx.fill(); // 路径填充
+
+
+      ctx.beginPath()
+      ctx.fillStyle = '#333';
+      ctx.font = '18px SimSun, Songti SC';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('imondo.cn', 200, 100);
+
+      ctx.beginPath()
+      ctx.translate(200, 200);
+      ctx.scale(1.5, 1.5)
+      ctx.translate(-200, -200);
+      ctx.fillStyle = '#333';
+      ctx.font = '18px SimSun, Songti SC';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('imondo.cn', 200, 200);
+
+      canvas.addEventListener('click', function(e) {
+        console.log(convertPoint(e.x, e.y))
+      })
+
+      function convertPoint(x, y) {
+        var _info = canvas.getBoundingClientRect()
+        return {
+          x: x - _info.left,
+          y: y - _info.top
+        }
+      }
+    </script>
+  </body>
+</html>
