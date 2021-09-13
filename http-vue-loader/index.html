@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/http-vue-loader"></script>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <Hello></Hello>
+    <Modal></Modal>
+  </div>
+
+  <script type="text/javascript">
+    httpVueLoader.langProcessor.less = function (scssText) {
+      console.log(scssText)
+        return new Promise(function(resolve, reject) {
+          less.render(scssText, function (err, output) {
+              if (err) reject (err);
+              resolve(output.css)
+            });
+        });
+    }
+    new Vue({
+      el: '#app',
+      components: {
+        'Hello': httpVueLoader('Hello.vue'),
+        'Modal': httpVueLoader('Modal.vue')
+      }
+    });
+  </script>
+</body>
+
+</html>

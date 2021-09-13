@@ -47,3 +47,5 @@
 * [vue3 Todolist](/vue3-todolist/)
 
 * [react-native learn](/rn-project/)
+
+* [http-vue-loader](/http-vue-loader)
