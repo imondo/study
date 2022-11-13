@@ -1,0 +1,15 @@
+{
+	"name": "test-h5",
+	"version": "1.0.0",
+	"description": "",
+	"main": "main.js",
+	"scripts": {
+		"build": "cli publish --platform h5 --project test-h5",
+		"build:config:test": "node ./deploy/index --mode=test",
+		"build:config:prod": "node ./deploy/index --mode=prod",
+		"build:prod": "npm run build:config:prod && npm run build",
+		"deploy:test": "npm run build:config:test && npm run build && fd-cli"
+	},
+	"author": "",
+	"license": "ISC"
+}
