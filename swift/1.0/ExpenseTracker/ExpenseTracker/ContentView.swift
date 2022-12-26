@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let food = ["汉堡", "沙拉", "披萨", "义大利麵", "鸡腿便当", "刀削麵", "火锅", "牛肉麵", "关东煮"]
+    let food = ["汉堡", "沙拉", "披萨", "意大利面", "鸡腿便当", "刀削面", "火锅", "牛肉面", "关东煮"]
     
     @State private var selectedFood: String?
     
@@ -51,6 +51,8 @@ struct ContentView: View {
             
         }
         .padding()
+        .frame(maxHeight: .infinity)
+        .background(Color(.secondarySystemBackground))
         .buttonStyle(.borderedProminent)
         .buttonBorderShape(.capsule)
         .controlSize(.large)
