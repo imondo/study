@@ -28,6 +28,13 @@ struct ContentView: View {
                     .font(.largeTitle)
                     .bold()
                     .foregroundColor(.green)
+                    .id(selectedFood)
+                    .transition(.asymmetric(
+                        insertion: .opacity
+                                    .animation(.easeInOut(duration: 0.5).delay(0.2)),
+                        removal: .opacity
+                                .animation(.easeInOut(duration: 0.4))
+                    ))
             }
             
             Button(role: .none) {
@@ -35,23 +42,23 @@ struct ContentView: View {
                     $0 != selectedFood
                 }.first
             } label: {
-                Text("告诉我！")
-                    .font(.largeTitle)
-                    .frame(width: 200)
+                Text(selectedFood != .none ? "换一个" : "告诉我！").frame(width: 200)
+                    .animation(.none, value: selectedFood)
+                    .transformEffect(.identity)
             }
             .padding(.bottom, -15)
 
             Button(role: .none) {
                 selectedFood = .none
             } label: {
-                Text("重置")
-                    .font(.largeTitle)
-                    .frame(width: 200)
+                Text("重置").frame(width: 200)
+                    
             }.buttonStyle(.bordered)
             
         }
         .padding()
         .frame(maxHeight: .infinity)
+        .font(.largeTitle)
         .background(Color(.secondarySystemBackground))
         .buttonStyle(.borderedProminent)
         .buttonBorderShape(.capsule)
