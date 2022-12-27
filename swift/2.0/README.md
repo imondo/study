@@ -6,4 +6,8 @@
 
 - 知道怎么添加 View，text，button
 
+- 新增弹跳动画
+
+- VStack，HStack 使用
+
 ![dinner](dinner.png)
